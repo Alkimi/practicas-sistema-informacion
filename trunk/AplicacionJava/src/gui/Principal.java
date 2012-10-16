@@ -4,11 +4,20 @@
  */
 package gui;
 
+import Utilidades.ConexionBD;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author carranza
  */
 public class Principal extends javax.swing.JFrame {
+    ConexionBD cbd =null;
+    ResultSet consulta=null;
 
     /**
      * Creates new form Principal
@@ -18,6 +27,48 @@ public class Principal extends javax.swing.JFrame {
         
         //Para que se inicie la pantalla en el centro
         setLocationRelativeTo(null);
+        
+        //Establece conexión con BD
+        try {
+            cbd = new ConexionBD("root", "carranza", "consumoelectrico");
+        } catch (ClassNotFoundException ex) {
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se ha podido conectar con la Base de Datos");
+            System.exit(1);
+        }
+        
+        
+        //Lanzar consulta si hay cliente, sino hay clientes lanza pregunta.
+       /* try {
+            consulta = cbd.consulta("SELECT * FROM clientes LIMIT 1");
+
+            if (!consulta.next()){
+            int seleccion = JOptionPane.showOptionDialog(this,"Desea añadir los clientes a la Base de Datos?", 
+                                                        "Seleccione una opción", JOptionPane.YES_NO_CANCEL_OPTION,
+                                                         JOptionPane.QUESTION_MESSAGE,null,new Object[] { "Si", "No"},"Si");
+              
+                 if (seleccion != -1){
+                    if((seleccion + 1)==1)
+                    {
+                             // PRESIONO SI
+                                 //crear los cliente
+                                 //consulta=cbd.consulta("Select * from tnombre");
+                                  System.out.println(cbd.consultaYmostrar("SELECT * FROM tnombre LIMIT 1").toString());
+
+                    }
+                    else
+                    {
+                    //PRESIONO QUE NO
+                        System.out.println("Salida del programa");
+                        System.exit(2);
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+        
     }
 
     /**
@@ -49,10 +100,25 @@ public class Principal extends javax.swing.JFrame {
         });
 
         jButton2.setText("BAJAS");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("CONSULTAS");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("MODIFICACIONES");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,6 +161,21 @@ public class Principal extends javax.swing.JFrame {
         alt.Mostrar();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        BajaCliente bc = new BajaCliente();
+        bc.Mostrar();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        Modificaciones md = new Modificaciones();
+        md.Mostrar();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Consultas cn = new Consultas();
+        cn.Mostrar();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -124,6 +205,7 @@ public class Principal extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new Principal().setVisible(true);
             }

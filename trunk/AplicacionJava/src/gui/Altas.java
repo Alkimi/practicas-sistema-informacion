@@ -52,6 +52,11 @@ public class Altas extends javax.swing.JFrame {
 
         jButton4.setText("CLIENTES");
         jButton4.setToolTipText("");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("ALTAS");
@@ -102,6 +107,11 @@ public class Altas extends javax.swing.JFrame {
         NuevaCallePoblacion ncp = new NuevaCallePoblacion();
         ncp.Mostrar2();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        NuevoCliente nc = new NuevoCliente();
+        nc.Mostrar();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
