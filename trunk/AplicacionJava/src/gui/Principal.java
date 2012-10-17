@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  * @author carranza
  */
 public class Principal extends javax.swing.JFrame {
-    ConexionBD cbd =null;
+    static ConexionBD cbd =null;
     ResultSet consulta=null;
 
     /**
