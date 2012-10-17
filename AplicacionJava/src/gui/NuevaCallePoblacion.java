@@ -4,11 +4,13 @@
  */
 package gui;
 
+import clases.Provincia;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,7 +20,7 @@ import javax.swing.JOptionPane;
 public class NuevaCallePoblacion extends javax.swing.JFrame {
     //Declaración de variables
     ResultSet conjuntoResultados=null;
-    String [][] arrayProvincias;
+    List<Provincia> listaProvincias = new ArrayList<>();
     
 
     /**
@@ -199,7 +201,7 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
     
     public void rellenaProvincias(){
         //Borra el combobox
-        ComboProvincia.removeAll();
+        ComboProvincia.removeAllItems();
         
         //Hago una consulta que me devuelva todas la provincias con sus códigos y las almaceno en conjuntoResultados
         try {
@@ -217,16 +219,36 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
             metaDatos = conjuntoResultados.getMetaData();
             numeroDeColumnas = metaDatos.getColumnCount();
             
+            //creo el contador para ir pivotando entre las columnas de la tabla
+            int cont=0;
+            String cod=null;
+            String nom=null;
+            
             while (conjuntoResultados.next()) {
             for (int i = 1; i <= numeroDeColumnas; i++) {
-                arrayProvincias[i][0]=conjuntoResultados.getObject(i).toString();
-                //ComboProvincia.addItem(conjuntoResultados.getObject(i));
-            }
-            
-            for(int i=0;i<=arrayProvincias.length;i++){
-                System.out.println(arrayProvincias[i][0]);
+                
+                switch(cont){
+                    case 0: cod=conjuntoResultados.getObject(i).toString();
+                            cont=1;
+                            break;
+                    case 1: nom=conjuntoResultados.getObject(i).toString();
+                            //creo un objeto provincia, variable
+                            Provincia aux = new Provincia(cod,nom); 
+                            listaProvincias.add(aux);
+                            cont=0;
+                            break;
+                }
             }
           }
+            
+            Iterator iterador = listaProvincias.listIterator(); //Le solicito a la lista que me devuelva un iterador con todos los el elementos contenidos en ella
+ 
+            while( iterador.hasNext() ) {
+                Provincia pr=(Provincia) iterador.next();
+                
+                ComboProvincia.addItem(pr.getProvincia());
+                //System.out.println("Código de provincia: " + pr.getCodigoProvincia() + " Nombre: " + pr.getProvincia());
+                }
             
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
