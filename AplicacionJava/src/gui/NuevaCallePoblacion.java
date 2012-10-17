@@ -4,11 +4,22 @@
  */
 package gui;
 
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author carranza
  */
 public class NuevaCallePoblacion extends javax.swing.JFrame {
+    //Declaración de variables
+    ResultSet conjuntoResultados=null;
+    String [][] arrayProvincias;
+    
 
     /**
      * Creates new form NuevaCallePoblacion
@@ -17,6 +28,8 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
         initComponents();
         
         setLocationRelativeTo(null);
+        
+        rellenaProvincias();
     }
 
     /**
@@ -44,8 +57,6 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
         lbPob1.setText("Población");
 
         lbCalle.setText("Calle");
-
-        ComboProvincia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione" }));
 
         ComboPoblacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione" }));
 
@@ -184,5 +195,73 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
         
         txtPoblacion.setVisible(false);
         lbPob2.setVisible(false);
+    }
+    
+    public void rellenaProvincias(){
+        //Borra el combobox
+        ComboProvincia.removeAll();
+        
+        //Hago una consulta que me devuelva todas la provincias con sus códigos y las almaceno en conjuntoResultados
+        try {
+            conjuntoResultados=Principal.cbd.consulta("SELECT * FROM  `provincias` ");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
+        }
+        
+         int numeroDeColumnas=0;
+         ResultSetMetaData metaDatos = null;
+        
+         //TRABAJANDO EN ELLO
+         
+         try {
+            metaDatos = conjuntoResultados.getMetaData();
+            numeroDeColumnas = metaDatos.getColumnCount();
+            
+            while (conjuntoResultados.next()) {
+            for (int i = 1; i <= numeroDeColumnas; i++) {
+                arrayProvincias[i][0]=conjuntoResultados.getObject(i).toString();
+                //ComboProvincia.addItem(conjuntoResultados.getObject(i));
+            }
+            
+            for(int i=0;i<=arrayProvincias.length;i++){
+                System.out.println(arrayProvincias[i][0]);
+            }
+          }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
+        }
+        
+        
+         
+         
+        
+       /* 
+        StringBuilder resultados = new StringBuilder();
+       try{
+          conjuntoResultados = instruccion.executeQuery (Cadena);
+
+          ResultSetMetaData metaDatos = conjuntoResultados.getMetaData();
+          int numeroDeColumnas = metaDatos.getColumnCount();
+          for (int i = 1; i <= numeroDeColumnas; i++) {
+             resultados.append(metaDatos.getColumnName(i) + "\t");
+          }
+          resultados.append("\n");
+          while (conjuntoResultados.next()) {
+            for (int i = 1; i <= numeroDeColumnas; i++) {
+                resultados.append(conjuntoResultados.getObject(i) + "\t");
+            }
+            resultados.append("\n");
+          }
+       } catch (SQLException ex) {
+          throw ex;
+       }
+       return resultados;
+        
+        
+        */
+        
+        
+        ComboProvincia.addItem("Hola");
     }
 }
