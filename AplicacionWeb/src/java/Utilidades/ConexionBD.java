@@ -5,16 +5,13 @@ package Utilidades;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ConexionBD {
     private String userName;
@@ -22,7 +19,7 @@ public class ConexionBD {
     private String baseDatos;
     private String servidor;
     private Connection conexion=null;
-    private Statement instruccion=null;
+    public Statement instruccion=null;
     ResultSet conjuntoResultados=null; // resultado de la ultima consulta
 
     /**
@@ -77,7 +74,9 @@ public class ConexionBD {
    }
    
    /**
-    * Devuelve una consulta formateada  o una excepcion si la consulta es invalida
+    * Devuelve una consulta del tipo SELECT formateada  o una excepcion si la 
+    * consulta es invalida
+    * 
     * @param Cadena, cadena ha de contener el selec de la consulta SQL
     * 
     * @return la consulta formateada
@@ -87,6 +86,7 @@ public class ConexionBD {
        StringBuilder resultados = new StringBuilder();
        try{
           conjuntoResultados = instruccion.executeQuery (Cadena);
+
 
           ResultSetMetaData metaDatos = conjuntoResultados.getMetaData();
           int numeroDeColumnas = metaDatos.getColumnCount();
@@ -106,7 +106,16 @@ public class ConexionBD {
        return resultados;
    }
    
-   public ResultSet consulta (String Cadena) throws SQLException{
+   /**
+    * Realiza una consulta del tipo SELECT a la base de datos, lanza una expcepcion
+    * si la consulta es invalida
+    * 
+    * @param Cadena, la cadena que contiene la consulta en SQL
+    * 
+    * @return la consulta realizda en la base de datos en un resulSet
+    * @throws SQLException, se produce la excepcion si la consulta no es correcta
+    */
+   public ResultSet consultaSelect (String Cadena) throws SQLException{
         try {
             conjuntoResultados = instruccion.executeQuery (Cadena);
         } catch (SQLException ex) {
@@ -114,11 +123,59 @@ public class ConexionBD {
         }
         return conjuntoResultados;
    }
+
+   /**
+    * Realiza una consulta a la base de dato del tipo:
+    * DELETE, INSERT, CREATE TABLE, UPDATE, DROP, lanza un expcecion si
+    * la consulta es invalida
+    * 
+    * @param Cadena, la cadena que contiene la consulta en SQL
+    * 
+    * @return o bien el numero de filas  para declaraciones SQL Data Manipulation Language (DML) 
+    * y 0  para las sentencias de SQL que no devuelven nada
+    * 
+    * @throws SQLException, se produce la excepcion si la consulta no es correcta
+    */
+   public int consultaUpdate(String Cadena) throws SQLException{
+       int aux;
+        try {
+            aux= instruccion.executeUpdate(Cadena);
+        } catch (SQLException ex) {
+            throw ex;
+        }
+        return aux;
+     }
    
+   public void preparaUpdate(String Cadena) throws SQLException{
+        try {
+            instruccion.addBatch(Cadena);
+        } catch (SQLException ex) {
+           throw  ex;
+        }
+   }
+   
+   public void realizaUpdare() throws SQLException{
+        try {
+            instruccion.executeBatch();
+        } catch (SQLException ex) {
+            //throw ex;
+        }
+   }
+   
+   /**
+    * Devuelve el ResulSet de la ultima consulta realizad a la base de datos
+    * 
+    * @return El ultimo ResulSet de la consulta SQL  valida ejecutada
+    * 
+    */
    public ResultSet ultimaConsulta(){
        return conjuntoResultados;
    }
    
+   
+   /**
+    * Cierra la conexion a la base de datos
+    */
    public void cerrarBaseDatos(){
         try {
             conexion.close();
@@ -126,5 +183,24 @@ public class ConexionBD {
            
         }
    }
+   
+   /**
+    * Devuelve el numero total de filas de la ultima 
+    * consulta valida realizada en SQL
+    * 
+    * @return El numero de filas
+    */
+       public int totalFilas() {
+        int numFilas = 0;
+        try {
+
+            conjuntoResultados.last();
+            numFilas = conjuntoResultados.getRow();
+            conjuntoResultados.beforeFirst();
+
+        } catch (Exception e) {
+        }
+        return numFilas;
+    }
 
 }

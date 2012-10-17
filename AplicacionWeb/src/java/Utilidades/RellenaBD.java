@@ -1,14 +1,5 @@
 package Utilidades;
 
-/**
- * Fichero de prueba para las consulta de la base de datos
- */
-
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-
 public class RellenaBD {
 
     /**
@@ -16,7 +7,7 @@ public class RellenaBD {
      */
     public static void main(String[] args) {
 
-        ConexionBD conexionBD=null;
+      /*  ConexionBD conexionBD=null;
         ResultSet consulta=null;
         StringBuilder respuesta=null;
         
@@ -31,7 +22,7 @@ public class RellenaBD {
         }
              
         try {    
-            consulta=conexionBD.consulta("Select * from tnombre");
+            consulta=conexionBD.consultaSelect("Select * from tnombre");
         } catch (SQLException ex) {
             System.out.println("error en la consulta SQL");
         } 
@@ -45,6 +36,11 @@ public class RellenaBD {
         
         System.out.println(respuesta.toString());
         conexionBD.cerrarBaseDatos();
-        
+    */
+         RellenaClientes rellenaClientes = new RellenaClientes();
+          if (!rellenaClientes.hayClientes()){
+              System.out.println("NO hay clientes");
+              rellenaClientes.creaClientes(200);
+          }
    }
 }
