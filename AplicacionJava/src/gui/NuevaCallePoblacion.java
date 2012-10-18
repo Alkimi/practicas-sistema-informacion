@@ -240,7 +240,7 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
         
         //Hago una consulta que me devuelva todas la provincias con sus códigos y las almaceno en conjuntoResultados
         try {
-            conjuntoResultados=Principal.cbd.consulta("SELECT * FROM  `provincias` ");
+            conjuntoResultados=Principal.cbd.consultaSelect("SELECT * FROM  `provincias` ");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
         }
@@ -302,7 +302,7 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
     
         //Hago una consulta que me devuelva las poblaciones de la provincia seleccionada
         try {
-            conjuntoResultados=Principal.cbd.consulta("SELECT CodigoProvincia,CodigoPoblacion,Poblacion FROM poblaciones WHERE CodigoProvincia="+codigoProvinciaAux);
+            conjuntoResultados=Principal.cbd.consultaSelect("SELECT CodigoProvincia,CodigoPoblacion,Poblacion FROM poblaciones WHERE CodigoProvincia="+codigoProvinciaAux);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
         }
@@ -398,13 +398,13 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
        switch(opcionSeleccionada){
            case 1:try {
                     //conjuntoResultados=Principal.cbd.consulta("SELECT Poblacion FROM poblaciones WHERE Poblacion="+txtPoblacion.getText());
-                    consult=Principal.cbd.consulta("SELECT * FROM poblaciones WHERE Poblacion='"+txtPoblacion.getText()+"'");
+                    consult=Principal.cbd.consultaSelect("SELECT * FROM poblaciones WHERE Poblacion='"+txtPoblacion.getText()+"'");
                    
                     if (!consult.next()){
                         
                         
                        // "SELECT MAX([" & Campo & "]) As n_Maximo FROM " & "[" & Tabla & "]"  
-                        conjuntoResultados=Principal.cbd.consulta("SELECT CodigoPoblacion FROM poblaciones ORDER BY CodigoPoblacion DESC");
+                        conjuntoResultados=Principal.cbd.consultaSelect("SELECT CodigoPoblacion FROM poblaciones ORDER BY CodigoPoblacion DESC");
                         while(conjuntoResultados.next()){
                             aux = conjuntoResultados.getObject(1).toString();
                             break;
