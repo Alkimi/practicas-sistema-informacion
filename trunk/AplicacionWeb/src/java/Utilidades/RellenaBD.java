@@ -37,10 +37,11 @@ public class RellenaBD {
         System.out.println(respuesta.toString());
         conexionBD.cerrarBaseDatos();
     */
-         RellenaClientes rellenaClientes = new RellenaClientes();
+       /*  RellenaClientes rellenaClientes = new RellenaClientes();
           if (!rellenaClientes.hayClientes()){
               System.out.println("NO hay clientes");
               rellenaClientes.creaClientes(200);
           }
+          * */
    }
 }

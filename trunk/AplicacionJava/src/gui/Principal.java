@@ -51,7 +51,7 @@ public class Principal extends javax.swing.JFrame {
            
         //Establece conexión con BD
         try {
-            cbd = new ConexionBD("root", "carranza", "consumoelectrico");
+            cbd = new ConexionBD("root", "toor", "consumoelectrico");
         } catch (ClassNotFoundException ex) {
             
         } catch (SQLException ex) {
