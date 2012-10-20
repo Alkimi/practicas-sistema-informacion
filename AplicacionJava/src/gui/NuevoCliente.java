@@ -68,6 +68,10 @@ public class NuevoCliente extends javax.swing.JFrame {
         txtNumero = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Nuevo Cliente");
@@ -154,46 +158,71 @@ public class NuevoCliente extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel1.setText("*");
+
+        jLabel9.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel9.setText("**");
+
+        jLabel10.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        jLabel10.setText("*Pulsar el Botón \"Actualizar Calles\" tras seleccionar una Población");
+
+        jLabel11.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        jLabel11.setText("**El Campo \"Piso\" es Opcional");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(34, 34, 34)
-                .addComponent(btAceptar)
-                .addGap(98, 98, 98))
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(lbPob2)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel8)
-                    .addComponent(lbPob3))
-                .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtMetros, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtApellido2)
-                    .addComponent(ComboPobla, 0, 237, Short.MAX_VALUE)
-                    .addComponent(ComboProv, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtNombre)
-                    .addComponent(txtApellido)
-                    .addComponent(ComboCalle, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(44, 44, 44)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(lbPob2)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel8)
+                            .addComponent(lbPob3))
+                        .addGap(43, 43, 43)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtMetros, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel7)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(6, 6, 6)
+                                    .addComponent(txtPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtApellido2)
+                                .addComponent(ComboPobla, 0, 237, Short.MAX_VALUE)
+                                .addComponent(ComboProv, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtNombre)
+                                .addComponent(txtApellido)
+                                .addComponent(ComboCalle, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(23, 23, 23)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(3, 3, 3)
+                                .addComponent(jButton3))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jButton3)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(jLabel11))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(btAceptar))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel10))))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,7 +248,9 @@ public class NuevoCliente extends javax.swing.JFrame {
                     .addComponent(ComboPobla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbPob2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3)
+                    .addComponent(jLabel1))
                 .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbPob3)
@@ -229,16 +260,21 @@ public class NuevoCliente extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jLabel7)
                     .addComponent(txtPiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txtMetros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addComponent(jLabel10)
+                .addGap(1, 1, 1)
+                .addComponent(jLabel11)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(btAceptar))
-                .addGap(20, 20, 20))
+                .addContainerGap())
         );
 
         pack();
@@ -328,6 +364,9 @@ public class NuevoCliente extends javax.swing.JFrame {
     private javax.swing.JButton btAceptar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -335,6 +374,7 @@ public class NuevoCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel lbPob2;
     private javax.swing.JLabel lbPob3;
     private javax.swing.JTextField txtApellido;
@@ -345,6 +385,9 @@ public class NuevoCliente extends javax.swing.JFrame {
     private javax.swing.JTextField txtPiso;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Se encarga de mostrar el formulario
+     */
     public void Mostrar(){
         setVisible(true);
         
@@ -355,7 +398,9 @@ public class NuevoCliente extends javax.swing.JFrame {
         btAceptar.requestFocusInWindow();
     }
     
-     //Rellena el combo de Provincias
+     /**
+      * Rellena el combo de Provincias
+      */
     public void rellenaProvincias(){
         //Borra el combobox
         ComboProv.removeAll();
@@ -412,7 +457,9 @@ public class NuevoCliente extends javax.swing.JFrame {
         }
     }
     
-     //Extrae el código de la provincia seleccionada segun el indice del combobox 
+    /**
+     * Extrae el código de la provincia seleccionada segun el indice del combobox 
+     */
    public String extraerCodigoProvinciaSeleccinada(){
        
        Provincia pAux = listaProvincias.get(ComboProv.getSelectedIndex());
@@ -421,13 +468,18 @@ public class NuevoCliente extends javax.swing.JFrame {
        
    }
    
-   //Extrae el código de la poblacion seleccionada segun el indice del combobox
+   /**
+    * Extrae el código de la poblacion seleccionada segun el indice del combobox
+    */
    public String extraerCodigoPoblacionSeleccinada(){
             Poblacion pAux = listaPoblaciones.get(ComboPobla.getSelectedIndex());
             return pAux.getCodPoblacion();
    }
    
-   //Extrae el código de la poblacion seleccionada segun el indice del combobox
+   /**
+    * Extrae el codigo de la calle seleccionada el combo
+    * @return 
+    */
    public String extraerCodigoCalleSeleccinada(){
        
        callespoblaciones cAux = listaCalles.get(ComboCalle.getSelectedIndex());
@@ -436,7 +488,9 @@ public class NuevoCliente extends javax.swing.JFrame {
       
    }
    
-   //Rellena el combo de Poblacion
+   /**
+    * Metodo encargado de rellenar el combo de poblacion
+    */
     public void rellenaPoblacion(){
         
         //Borra el combobox
@@ -517,8 +571,11 @@ public class NuevoCliente extends javax.swing.JFrame {
         
     }
     
-    //Rellena el combo de Callse
+    /**
+     * Rellena el combo de la calle
+     */
     public void rellenaCalle(){
+        try{
         
         //Borra el combobox
         ComboCalle.removeAllItems();
@@ -604,18 +661,29 @@ public class NuevoCliente extends javax.swing.JFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
         }
+         //Controla la posibilidad de que se pulse el botón actualizar calles antes de tiempo
+        }catch(IndexOutOfBoundsException asd){
+            ComboCalle.addItem("--Vacío--");
+        }
     }
     
+    /**
+     * Metodo al que llama el botón aceptar
+     */
     public void aceptar(){
+        try{
+            //Control de los campos nombre y apellidos
         if(txtNombre.getText().equals("") || txtApellido.equals("") || txtApellido2.equals("")){
             JOptionPane.showMessageDialog(null, "Debe introducir nombres y apellidos");
         }
         else{
-            if(ComboPobla.getSelectedItem().equals("--Vacío--")){
+            //Control de los combo
+            if(ComboPobla.getSelectedItem().equals("--Vacío--") || ComboCalle.getSelectedItem().equals("--Vacío--")){
                 JOptionPane.showMessageDialog(null, "Debe seleccionar Provincia, Poblacion y Calle "
                         + "\n Recuerde pulsar actualizar calles despues de seleccionar la Poblacion");
             }
             else{
+                //Control de campos numero y metros
                 if(txtNumero.getText().equals("") || txtMetros.getText().equals("")){
                        JOptionPane.showMessageDialog(null, "Debe introducir todos los campos necesarios");
                 }
@@ -624,20 +692,44 @@ public class NuevoCliente extends javax.swing.JFrame {
                     try {
                         String aux=extraerCodigoPoblacionSeleccinada();
                         String aux2=extraerCodigoCalleSeleccinada();
-                       
-                       System.out.println(Principal.cbd.consultaYmostrar("SELECT * FROM clientes WHERE Nombre='"+ txtNombre.getText() +"' && Apellido='"+ txtApellido.getText() +"' "
-                               + "&& Calle='"+ aux2 +"' && CodigoPoblacion='"+ aux +"'"));
-                       //---AQUI debo comprobar si existe o no el cliente
-                       
+                        String aux3=extraerCodigoProvinciaSeleccinada();
+                            
+                        //Realizo una consulta, para evitar que se introduzca un cliente duplicado
+                             consult=Principal.cbd.consultaSelect("SELECT * FROM clientes WHERE Nombre='"+ txtNombre.getText() +"' && Apellido='"+ txtApellido.getText() +"' "
+                               + "&& Calle='"+ aux2 +"' && CodigoPoblacion='"+ aux +"'");
                         
-                        
-                        
-                        //INSERT INTO `clientes` (`Codigo`, `Nombre`, `Apellido`, `Apellido2`, `Calle`, `Numero`, `Piso`, `Metros`, `CodigoPoblacion`, `CodigoProvincia`) VALUES (NULL, 'Manolo', 'Caracol', 'Garcia', '1', '17', '1', '50', '15030', '15');
+                        if (!consult.next()){
+                            
+                            //Controlo que se rellene o no la casilla del piso, puesto que es un dato opcional
+                            String piso = null;
+                            if(txtPiso.getText().equals("")){
+                                piso="NULL";
+                            }else{
+                                piso=txtPiso.getText();
+                            }
+                            
+                            //---INSERT a la base de datos
+                            Principal.cbd.consultaUpdate("INSERT INTO clientes (Nombre,Apellido,Apellido2,Calle,Numero,Piso,Metros,CodigoPoblacion,CodigoProvincia) "
+                                    + "VALUES ('"+txtNombre.getText()+"','"+txtApellido.getText()+"','"+txtApellido2.getText()+"','"+ aux2 +"','"+txtNumero.getText()+"',"
+                                    + "'"+piso+"','"+txtMetros.getText()+"','"+aux+"','"+aux3+"');");
+                            
+                            JOptionPane.showMessageDialog(null,"Cliente añadido correctamente");
+                            setVisible(false);
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(null, "El cliente indicado ya existe en la base de datos");
+                        }
                     } catch (SQLException ex) {
                         JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
+                    
                     }
                 }
             }
+        }
+        //Excepción que controla que se evite el error de los combo cuando pulsas aceptar, si estos no estan rellenos
+        }catch (NullPointerException asd){
+               JOptionPane.showMessageDialog(null, "Debe seleccionar Provincia, Poblacion y Calle "
+                        + "\n Recuerde pulsar actualizar calles despues de seleccionar la Poblacion");
         }
     }
 }
