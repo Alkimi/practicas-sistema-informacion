@@ -65,6 +65,8 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
+        setTitle("Nueva Calle o Poblacion");
+
         jLabel1.setText("Provincia");
 
         lbPob1.setText("Población");
@@ -78,10 +80,6 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
         });
 
         ComboPoblacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione" }));
-
-        txtCalle.setText("Escriba el Nombre");
-
-        txtPoblacion.setText("Escriba el Nombre");
 
         lbPob2.setText("Población");
 
@@ -369,7 +367,7 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
         
     }
     
-   //Estrae el código de la provincia seleccionada segun el indice del combobox 
+   //Extrae el código de la provincia seleccionada segun el indice del combobox 
    public String extraerCodigoProvinciaSeleccinada(){
        
        Provincia pAux = listaProvincias.get(ComboProvincia.getSelectedIndex());
@@ -378,7 +376,7 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
        
    }
    
-   //Estrae el código de la poblacion seleccionada segun el indice del combobox
+   //Extrae el código de la poblacion seleccionada segun el indice del combobox
    public String extraerCodigoPoblacionSeleccinada(){
        
        Poblacion pAux = listaPoblaciones.get(ComboPoblacion.getSelectedIndex());
@@ -392,18 +390,19 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
        
        
        ResultSet consult=null;
-       String aux=null;//Almacena el valor máximo de las claves de poblaciones
+       String aux=null;//Almacena el valor máximo de las claves seleccionadas
        
        //El switch controla aceptar segun la forma en la que se muestra el formulario
        switch(opcionSeleccionada){
            case 1:try {
-                    //conjuntoResultados=Principal.cbd.consulta("SELECT Poblacion FROM poblaciones WHERE Poblacion="+txtPoblacion.getText());
+                    //Comprueba si el nombre de la poblacion escrito ya se encuentra en la tabla
                     consult=Principal.cbd.consultaSelect("SELECT * FROM poblaciones WHERE Poblacion='"+txtPoblacion.getText()+"'");
                    
                     if (!consult.next()){
                         
                         
-                       // "SELECT MAX([" & Campo & "]) As n_Maximo FROM " & "[" & Tabla & "]"  
+                       // Selecciona los codigos de poblacion y ordena el campo de mayor a menor, para cojer el mayor numero
+                       // , luego pasarlo a entero, incrementar su valor y usarlo como codigo de la nueva poblacion
                         conjuntoResultados=Principal.cbd.consultaSelect("SELECT CodigoPoblacion FROM poblaciones ORDER BY CodigoPoblacion DESC");
                         while(conjuntoResultados.next()){
                             aux = conjuntoResultados.getObject(1).toString();
@@ -415,10 +414,10 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
                         aux=Integer.toString(codigoNuevo);
                         
                        
-                        //---No consigo hacer los INSERT a la base de datos
-                        // Principal.cbd.consulta("INSERT INTO `poblaciones` (`CodigoPoblacion`,`Poblacion`, `CodigoProvincia`) VALUES ('99999','NUEVA', '15');");
-                       // Principal.cbd.consulta("INSERT INTO poblaciones ('CodigoPoblacion','Poblacion','CodigoProvincia') VALUES ('" + aux +"','"+ txtPoblacion.getText().toString() +"','"+codigoProvinciaAux.toString()+"');");
-                        //JOptionPane.showMessageDialog(null,"La poblacion " + txtPoblacion.getText() + "ha sido dada de Alta");
+                        //---ESTABA LIAO CON ESTO
+                       
+                        Principal.cbd.consultaUpdate("INSERT INTO `poblaciones` (`CodigoPoblacion`,`Poblacion`, `CodigoProvincia`) VALUES ('"+aux.toString()+"','"+txtPoblacion.getText().toString()+"', '15');");
+                       JOptionPane.showMessageDialog(null,"La poblacion " + txtPoblacion.getText() + " ha sido dada de Alta");
                     }
                     else
                     {
@@ -429,7 +428,33 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
                      JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
                  }
                 break;
-           case 2:
+           case 2:try {
+                        consult=Principal.cbd.consultaSelect("SELECT * FROM callespoblaciones WHERE Nombre='"+txtCalle.getText()+"'");
+                       
+                           if (!consult.next()){
+                               // Selecciona los idcalle y ordena el campo de mayor a menor, para cojer el mayor numero
+                               // , luego pasarlo a entero, incrementar su valor y usarlo como codigo de la nueva poblacion
+                                conjuntoResultados=Principal.cbd.consultaSelect("SELECT idCalle FROM callespoblaciones ORDER BY idCalle DESC");
+                        
+                            while(conjuntoResultados.next()){
+                                    aux = conjuntoResultados.getObject(1).toString();
+                                    break;
+                                }
+                        
+                                int codigoNuevo = Integer.parseInt(aux);
+                                codigoNuevo++;
+                                aux=Integer.toString(codigoNuevo);
+                           
+                                //---AQUÍ DEBE IR EL INSERT---
+                           }
+                           else
+                           {
+                               JOptionPane.showMessageDialog(null,"ERROR, La calle ya existe");
+                           }
+                        
+                        } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
+                        }
                 break;
        }
    }

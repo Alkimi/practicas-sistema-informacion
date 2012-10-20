@@ -4,11 +4,16 @@
  */
 package gui;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author carranza
  */
 public class NuevaProvincia extends javax.swing.JFrame {
+    ResultSet conjuntoResultados=null;
 
     /**
      * Creates new form NuevaProvincia
@@ -31,6 +36,8 @@ public class NuevaProvincia extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
+        setTitle("Nueva Provincia");
+
         jLabel1.setText("Escriba el nombre de la nueva provincia");
 
         jButton1.setText("Cancelar");
@@ -41,6 +48,11 @@ public class NuevaProvincia extends javax.swing.JFrame {
         });
 
         jButton2.setText("Aceptar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -80,6 +92,52 @@ public class NuevaProvincia extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        ResultSet consult=null;
+       // String aux=null;//Almacena el valor máximo de las claves seleccionadas
+        if(txtNueva.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "El nombre de provincia no puede estar vacío");
+        }
+        else
+        {
+        try {
+                    //Comprueba si el nombre de la provincia escrito ya se encuentra en la tabla
+                    consult=Principal.cbd.consultaSelect("SELECT * FROM provincias WHERE Provincia='"+txtNueva.getText()+"'");
+                   
+                    if (!consult.next()){
+                        
+                        
+                       // Selecciona los codigos de provincia y ordena el campo de mayor a menor, para cojer el mayor numero
+                       // , luego pasarlo a entero, incrementar su valor y usarlo como codigo de la nueva poblacion
+                       /* conjuntoResultados=Principal.cbd.consultaSelect("SELECT CodigoProvincia FROM provincias ORDER BY CodigoProvincia DESC");
+                        while(conjuntoResultados.next()){
+                            aux = conjuntoResultados.getObject(1).toString();
+                            break;
+                        }
+                        
+                        int codigoNuevo = Integer.parseInt(aux);
+                        codigoNuevo++;
+                        aux=Integer.toString(codigoNuevo);*/
+                        
+                        //INSERT INTO provincias (Provincia) VALUES ('nueva');
+                        
+                        //---INSERT a la base de datos
+                        Principal.cbd.consultaUpdate("INSERT INTO provincias (Provincia) VALUES ('"+txtNueva.getText()+"');");
+                       // Principal.cbd.consulta("INSERT INTO `poblaciones` (`CodigoPoblacion`,`Poblacion`, `CodigoProvincia`) VALUES ('99999','NUEVA', '15');");
+                        JOptionPane.showMessageDialog(null,"Provincia añadida correctamente");
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null,"ERROR, La provincia ya existe");
+                    }
+                    
+                 } catch (SQLException ex) {
+                     JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
+                 }
+        }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

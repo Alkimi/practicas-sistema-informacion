@@ -15,10 +15,10 @@ public class AplicacionJava {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        RellenaClientes rellenaClientes = new RellenaClientes();
+       /* RellenaClientes rellenaClientes = new RellenaClientes();
           if (!rellenaClientes.hayClientes()){
               System.out.println("NO hay clientes");
               rellenaClientes.creaClientes(20000);
-          }
+          }*/
     }
 }

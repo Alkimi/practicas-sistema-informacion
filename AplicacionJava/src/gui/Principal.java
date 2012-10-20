@@ -24,7 +24,7 @@ public class Principal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
    
         //Lanzar consulta si hay cliente, sino hay clientes lanza pregunta.
-        {
+       /* {
            RellenaClientes rellenaClientes = new RellenaClientes();
            
            if (!rellenaClientes.hayClientes()){
@@ -47,7 +47,7 @@ public class Principal extends javax.swing.JFrame {
                 } 
                
            }
-       }
+       }*/
            
         //Establece conexión con BD
         try {
@@ -76,6 +76,7 @@ public class Principal extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Compania Eléctrica");
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

@@ -39,6 +39,8 @@ public class Modificaciones extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
 
+        setTitle("Modificar");
+
         jLabel1.setText("Selecciona una opción para modificar:");
 
         jButton1.setText("Clientes");
