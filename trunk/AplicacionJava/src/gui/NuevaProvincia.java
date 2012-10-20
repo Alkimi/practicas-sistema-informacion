@@ -34,11 +34,18 @@ public class NuevaProvincia extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtNueva = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btAceptar = new javax.swing.JButton();
 
         setTitle("Nueva Provincia");
 
         jLabel1.setText("Escriba el nombre de la nueva provincia");
+
+        txtNueva.setText("Escribe el nombre de la nueva provincia");
+        txtNueva.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNuevaFocusGained(evt);
+            }
+        });
 
         jButton1.setText("Cancelar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -47,10 +54,10 @@ public class NuevaProvincia extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Aceptar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btAceptar.setText("Aceptar");
+        btAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btAceptarActionPerformed(evt);
             }
         });
 
@@ -69,7 +76,7 @@ public class NuevaProvincia extends javax.swing.JFrame {
                         .addGap(65, 65, 65)
                         .addComponent(jButton1)
                         .addGap(54, 54, 54)
-                        .addComponent(jButton2)))
+                        .addComponent(btAceptar)))
                 .addContainerGap(54, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -82,21 +89,31 @@ public class NuevaProvincia extends javax.swing.JFrame {
                 .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btAceptar))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+     /**
+     * Cuando pulsa botón cancelar se cierra el formulario
+     * 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    /**
+     * Cuando pulsa el botón aceptar, recoje el texto de la caja de texto, comprueba si el nombre
+     * ya existe en BD, y controla posibles errores, finalmente, si todo está correcto
+     * introduce la nueva provincia en la BD
+     * 
+     */
+    private void btAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAceptarActionPerformed
         ResultSet consult=null;
        // String aux=null;//Almacena el valor máximo de las claves seleccionadas
-        if(txtNueva.getText().equals("")){
+        if(txtNueva.getText().equals("") || txtNueva.getText().equals("Escribe el nombre de la nueva provincia")){
             JOptionPane.showMessageDialog(null, "El nombre de provincia no puede estar vacío");
         }
         else
@@ -137,7 +154,11 @@ public class NuevaProvincia extends javax.swing.JFrame {
                  }
         }
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btAceptarActionPerformed
+
+    private void txtNuevaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNuevaFocusGained
+        txtNueva.setText("");
+    }//GEN-LAST:event_txtNuevaFocusGained
 
     /**
      * @param args the command line arguments
@@ -174,15 +195,20 @@ public class NuevaProvincia extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btAceptar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField txtNueva;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Metodo de inicio de ejecución del programa
+     */
     public void Mostrar(){
         setVisible(true);
         setLocationRelativeTo(null);
+        //El boton aceptar recibe el focus al inicio
+        btAceptar.requestFocusInWindow();
     }
 
 }

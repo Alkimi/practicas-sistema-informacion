@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -60,7 +62,7 @@ public class NuevoCliente extends javax.swing.JFrame {
         txtApellido2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btAceptar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         txtNumero = new javax.swing.JTextField();
@@ -127,7 +129,12 @@ public class NuevoCliente extends javax.swing.JFrame {
 
         jLabel4.setText("Número");
 
-        jButton2.setText("Aceptar");
+        btAceptar.setText("Aceptar");
+        btAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAceptarActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Cancelar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -155,7 +162,7 @@ public class NuevoCliente extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(34, 34, 34)
-                .addComponent(jButton2)
+                .addComponent(btAceptar)
                 .addGap(98, 98, 98))
             .addGroup(layout.createSequentialGroup()
                 .addGap(44, 44, 44)
@@ -230,7 +237,7 @@ public class NuevoCliente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btAceptar))
                 .addGap(20, 20, 20))
         );
 
@@ -276,6 +283,10 @@ public class NuevoCliente extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         rellenaCalle();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAceptarActionPerformed
+        aceptar();
+    }//GEN-LAST:event_btAceptarActionPerformed
   /**
      * @param args the command line arguments
      */
@@ -314,8 +325,8 @@ public class NuevoCliente extends javax.swing.JFrame {
     private javax.swing.JComboBox ComboCalle;
     private javax.swing.JComboBox ComboPobla;
     private javax.swing.JComboBox ComboProv;
+    private javax.swing.JButton btAceptar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -340,6 +351,8 @@ public class NuevoCliente extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         
         rellenaProvincias();
+        
+        btAceptar.requestFocusInWindow();
     }
     
      //Rellena el combo de Provincias
@@ -507,8 +520,6 @@ public class NuevoCliente extends javax.swing.JFrame {
     //Rellena el combo de Callse
     public void rellenaCalle(){
         
-        //if(ComboPobla.getSelectedItem().toString()!="--Vacío--"){
-        
         //Borra el combobox
         ComboCalle.removeAllItems();
         //Borra la lista de calles
@@ -592,6 +603,41 @@ public class NuevoCliente extends javax.swing.JFrame {
             
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
+        }
+    }
+    
+    public void aceptar(){
+        if(txtNombre.getText().equals("") || txtApellido.equals("") || txtApellido2.equals("")){
+            JOptionPane.showMessageDialog(null, "Debe introducir nombres y apellidos");
+        }
+        else{
+            if(ComboPobla.getSelectedItem().equals("--Vacío--")){
+                JOptionPane.showMessageDialog(null, "Debe seleccionar Provincia, Poblacion y Calle "
+                        + "\n Recuerde pulsar actualizar calles despues de seleccionar la Poblacion");
+            }
+            else{
+                if(txtNumero.getText().equals("") || txtMetros.getText().equals("")){
+                       JOptionPane.showMessageDialog(null, "Debe introducir todos los campos necesarios");
+                }
+                else{
+                 ResultSet consult = null;
+                    try {
+                        String aux=extraerCodigoPoblacionSeleccinada();
+                        String aux2=extraerCodigoCalleSeleccinada();
+                       
+                       System.out.println(Principal.cbd.consultaYmostrar("SELECT * FROM clientes WHERE Nombre='"+ txtNombre.getText() +"' && Apellido='"+ txtApellido.getText() +"' "
+                               + "&& Calle='"+ aux2 +"' && CodigoPoblacion='"+ aux +"'"));
+                       //---AQUI debo comprobar si existe o no el cliente
+                       
+                        
+                        
+                        
+                        //INSERT INTO `clientes` (`Codigo`, `Nombre`, `Apellido`, `Apellido2`, `Calle`, `Numero`, `Piso`, `Metros`, `CodigoPoblacion`, `CodigoProvincia`) VALUES (NULL, 'Manolo', 'Caracol', 'Garcia', '1', '17', '1', '50', '15030', '15');
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
+                    }
+                }
+            }
         }
     }
 }

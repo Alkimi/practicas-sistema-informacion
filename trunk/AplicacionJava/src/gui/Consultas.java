@@ -103,7 +103,6 @@ public class Consultas extends javax.swing.JFrame {
 
         jLabel8.setText("jLabel8");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Consultas");
 
         jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {

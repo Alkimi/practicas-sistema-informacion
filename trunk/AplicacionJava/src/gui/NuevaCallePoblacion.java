@@ -63,7 +63,7 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
         txtPoblacion = new javax.swing.JTextField();
         lbPob2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btAceptar = new javax.swing.JButton();
 
         setTitle("Nueva Calle o Poblacion");
 
@@ -81,6 +81,20 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
 
         ComboPoblacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione" }));
 
+        txtCalle.setText("Nombre de la calle");
+        txtCalle.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCalleFocusGained(evt);
+            }
+        });
+
+        txtPoblacion.setText("Nombre de la poblacion");
+        txtPoblacion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPoblacionFocusGained(evt);
+            }
+        });
+
         lbPob2.setText("Población");
 
         jButton1.setText("Cancelar");
@@ -90,10 +104,10 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Aceptar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btAceptar.setText("Aceptar");
+        btAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btAceptarActionPerformed(evt);
             }
         });
 
@@ -120,7 +134,7 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
                         .addGap(72, 72, 72)
                         .addComponent(jButton1)
                         .addGap(42, 42, 42)
-                        .addComponent(jButton2)))
+                        .addComponent(btAceptar)))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -145,24 +159,52 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btAceptar))
                 .addGap(29, 29, 29))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Cierra el formulario
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    /**
+     * Llama al metodo de rellenar el combo de poblaciones
+     * @param evt 
+     */
     private void ComboProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboProvinciaActionPerformed
         rellenaPoblacion();
     }//GEN-LAST:event_ComboProvinciaActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    /**
+     * Llama al metodo que controla cuando se pulsa el boton aceptar
+     * @param evt 
+     */
+    private void btAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAceptarActionPerformed
        Aceptar();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btAceptarActionPerformed
+
+    /**
+     * Deja la caja de texto vacia cuando pulsamos sobre ella
+     * @param evt 
+     */
+    private void txtPoblacionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPoblacionFocusGained
+        txtPoblacion.setText("");
+    }//GEN-LAST:event_txtPoblacionFocusGained
+
+    /**
+     * Deja la caja de texto vacia cuando pulsamos sobre ella
+     * @param evt 
+     */
+    private void txtCalleFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCalleFocusGained
+        txtCalle.setText("");
+    }//GEN-LAST:event_txtCalleFocusGained
 
     /**
      * @param args the command line arguments
@@ -201,8 +243,8 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox ComboPoblacion;
     private javax.swing.JComboBox ComboProvincia;
+    private javax.swing.JButton btAceptar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbCalle;
     private javax.swing.JLabel lbPob1;
@@ -211,7 +253,10 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
     private javax.swing.JTextField txtPoblacion;
     // End of variables declaration//GEN-END:variables
 
-    //Muestra el formulario en la opcion de introducir poblacion
+    /**
+     * Muestra el formulario en la opcion de introducir poblacion
+     * 
+     */
     public void Mostrar1(){
         setVisible(true);
         
@@ -220,18 +265,26 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
         ComboPoblacion.setVisible(false);
         lbPob1.setVisible(false);
         opcionSeleccionada=1;
+        btAceptar.requestFocusInWindow();
     }
     
-    //Muestra el formulario en la opcion de introducir calles
+    /**
+     * Muestra el formulario en la opcion de introducir calles
+     * 
+     */
     public void Mostrar2(){
         setVisible(true);
         
         txtPoblacion.setVisible(false);
         lbPob2.setVisible(false);
         opcionSeleccionada=2;
+        btAceptar.requestFocusInWindow();
     }
     
-    //Rellena el combo de Provincias
+    /**
+     *Rellena el combo de Provincias
+     * 
+     */
     public void rellenaProvincias(){
         //Borra el combobox
         ComboProvincia.removeAllItems();
@@ -272,8 +325,8 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
                 }
             }
           }
-            
-            Iterator iterador = listaProvincias.listIterator(); //Le solicito a la lista que me devuelva un iterador con todos los el elementos contenidos en ella
+            //Le solicito a la lista que me devuelva un iterador con todos los el elementos contenidos en ella
+            Iterator iterador = listaProvincias.listIterator(); 
  
             while( iterador.hasNext() ) {
                 Provincia pr=(Provincia) iterador.next();
@@ -288,7 +341,10 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
         }
     }
     
-    //Rellena el combo de Poblacion
+    /**
+     * Rellena el combo de Poblacion
+     * 
+     */
     public void rellenaPoblacion(){
         
         //Borra el combobox
@@ -367,7 +423,10 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
         
     }
     
-   //Extrae el código de la provincia seleccionada segun el indice del combobox 
+   /**
+    * Extrae el código de la provincia seleccionada segun el indice del combobox 
+    * 
+    */
    public String extraerCodigoProvinciaSeleccinada(){
        
        Provincia pAux = listaProvincias.get(ComboProvincia.getSelectedIndex());
@@ -376,7 +435,10 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
        
    }
    
-   //Extrae el código de la poblacion seleccionada segun el indice del combobox
+   /**
+    * Extrae el código de la poblacion seleccionada segun el indice del combobox
+    * 
+    */
    public String extraerCodigoPoblacionSeleccinada(){
        
        Poblacion pAux = listaPoblaciones.get(ComboPoblacion.getSelectedIndex());
@@ -385,7 +447,10 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
       
    }
    
-   //Metodo al que se llama cuando se pulsa aceptar
+   /**
+    * Metodo al que se llama cuando se pulsa aceptar
+    * 
+    */
    public void Aceptar(){
        
        
@@ -394,7 +459,14 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
        
        //El switch controla aceptar segun la forma en la que se muestra el formulario
        switch(opcionSeleccionada){
-           case 1:try {
+           case 1:
+                    //Comprueba que la caja de texto esté correctamente
+                    if(txtPoblacion.getText().equals("") || txtPoblacion.getText().equals("Nombre de la poblacion")){
+                        JOptionPane.showMessageDialog(null, "Debe introducir un nombre de población");
+                    }else
+                    {
+                        
+                    try {
                     //Comprueba si el nombre de la poblacion escrito ya se encuentra en la tabla
                     consult=Principal.cbd.consultaSelect("SELECT * FROM poblaciones WHERE Poblacion='"+txtPoblacion.getText()+"'");
                    
@@ -413,11 +485,10 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
                         codigoNuevo++;
                         aux=Integer.toString(codigoNuevo);
                         
-                       
-                        //---ESTABA LIAO CON ESTO
-                       
-                        Principal.cbd.consultaUpdate("INSERT INTO `poblaciones` (`CodigoPoblacion`,`Poblacion`, `CodigoProvincia`) VALUES ('"+aux.toString()+"','"+txtPoblacion.getText().toString()+"', '15');");
+                        //Inserta la nueva población
+                       Principal.cbd.consultaUpdate("INSERT INTO `poblaciones` (`CodigoPoblacion`,`Poblacion`, `CodigoProvincia`) VALUES ('"+aux.toString()+"','"+txtPoblacion.getText().toString()+"', '"+codigoProvinciaAux.toString()+"');");
                        JOptionPane.showMessageDialog(null,"La poblacion " + txtPoblacion.getText() + " ha sido dada de Alta");
+                       setVisible(false);
                     }
                     else
                     {
@@ -427,25 +498,28 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
                  } catch (SQLException ex) {
                      JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
                  }
+                }
                 break;
-           case 2:try {
+           case 2:  if(txtCalle.getText().equals("") || txtPoblacion.getText().equals("Nombre de la calle")){
+                        JOptionPane.showMessageDialog(null, "Debe introducir un nombre de calle");
+                    }
+                    else
+                    {
+                        if(ComboPoblacion.getSelectedItem().equals("--Vacío--")){
+                            JOptionPane.showMessageDialog(null, "Debe seleccionar una poblacion");
+                        }
+                        else{
+                        try {
                         consult=Principal.cbd.consultaSelect("SELECT * FROM callespoblaciones WHERE Nombre='"+txtCalle.getText()+"'");
                        
                            if (!consult.next()){
-                               // Selecciona los idcalle y ordena el campo de mayor a menor, para cojer el mayor numero
-                               // , luego pasarlo a entero, incrementar su valor y usarlo como codigo de la nueva poblacion
-                                conjuntoResultados=Principal.cbd.consultaSelect("SELECT idCalle FROM callespoblaciones ORDER BY idCalle DESC");
-                        
-                            while(conjuntoResultados.next()){
-                                    aux = conjuntoResultados.getObject(1).toString();
-                                    break;
-                                }
-                        
-                                int codigoNuevo = Integer.parseInt(aux);
-                                codigoNuevo++;
-                                aux=Integer.toString(codigoNuevo);
-                           
-                                //---AQUÍ DEBE IR EL INSERT---
+                               //---NO ME DEJA HACER INSERT EN LAS CALLES
+                               //Inserta la nueva calle
+                                codigoPoblacionAux=extraerCodigoPoblacionSeleccinada();
+                                Principal.cbd.consultaUpdate("INSERT INTO `callespoblaciones` (`CodPoblacion`,`Nombre`) VALUES ('15030','NUEVA');");
+                               // Principal.cbd.consultaUpdate("INSERT INTO `callespoblaciones` (`CodPoblacion`,`Nombre`) VALUES ('"+codigoPoblacionAux.toString()+"','"+txtCalle.getText().toString()+"');");
+                                JOptionPane.showMessageDialog(null,"La calle " + txtPoblacion.getText() + " ha sido dada de Alta");
+                                setVisible(false);
                            }
                            else
                            {
@@ -455,6 +529,8 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
                         } catch (SQLException ex) {
                         JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
                         }
+                        }
+                    }
                 break;
        }
    }
