@@ -1,6 +1,8 @@
 package aplicacionjava;
 
 
+import Utilidades.ConexionBD;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Random;
@@ -12,19 +14,26 @@ import java.util.Random;
  * @version 1.0
  */
 public class RellenaClientes {
-        private  Utilidades.ConexionBD conexionBD=null;
+        private  ConexionBD conexionBD=null;
         private  ResultSet consulta=null;
+        
     
         /**
          * Constructor de la clase, simplemente realiza la conexion a la base de datos
          */
     public RellenaClientes(){
         try {
-            conexionBD = new Utilidades.ConexionBD("root","toor","consumoelectrico");
+           conexionBD = new ConexionBD("root","toor","consumoelectrico");
+
+           //
+           conexionBD.consultaUpdate("drop table clientes2");
+           conexionBD.consultaUpdate("create table clientes2 like clientes");
+           //
+           
         } catch (ClassNotFoundException ex){
             System.out.println("Error al conectar con la base de datos 1");
             System.exit(500);
-        }catch( SQLException ex){
+        } catch( SQLException ex){
             System.out.println("Error al conectar con la base de datos 2");
             System.exit(1);
         }
@@ -37,18 +46,12 @@ public class RellenaClientes {
      */
     public boolean hayClientes(){
         try {
-            consulta=conexionBD.consultaSelect("Select * from clientes2 limit 1");
+            consulta= conexionBD.consultaSelect("Select * from clientes2 limit 1");
         } catch (SQLException ex){
             System.out.println("Error en la base de datos");
             System.exit(2);
         }
-        
-        if (conexionBD.totalFilas()!=0) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return (conexionBD.totalFilas()>0);
     }
     
     /**
@@ -130,63 +133,87 @@ public class RellenaClientes {
              }
              
              Random R = new Random();
-
              
-             t1=System.currentTimeMillis(); //a borrar
+             //borramos la tabla temporal
+            conexionBD.consultaUpdate("drop table t1");
 
-             // creamos los datos aleatorios de los clientes con las tres tablas que tenemos 
-             // parece que el mySQL no soporta mas de 100 entras en una linea
-             
-             /// forma 2
-             cadena="Insert into clientes2 (Nombre, Apellido, Apellido2, Calle, "
+          // /* // forma 1 y 3
+             cadena="INSERT INTO clientes2(Nombre, Apellido, Apellido2, Calle, "
                      +"Numero, Piso, Metros, CodigoPoblacion, CodigoProvincia"
-                     +") VALUES (";
-             /// forma 2
+                     +") VALUES("; 
+         //   */ 
+             /* // forma 2
              
-             /* forma 1
-               StringBuilder cadenas= new StringBuilder();
-               cadena="Insert into clientes2 (Nombre, Apellido, Apellido2, Calle, "
+               cadena="INSERT INTO clientes2(Nombre, Apellido, Apellido2, Calle, "
                      +"Numero, Piso, Metros, CodigoPoblacion, CodigoProvincia"
-                     +") VALUES ";
-               String enlace="(";
-               cadenas.append(cadena); 
-              */
+                     +") VALUES(?,?,?,?,?,?,?,?,?)";
+            
+             
+           */
+           /* // forma 2
+               PreparedStatement pstmt = conexionBD.prepareStatement(cadena);
+         */
 
-             for (int i = 0;i<(numeroClientes);i++) {
+    
+                   for (int i = 0;i<numeroClientes;i++) {
+                 
                     x=R.nextInt(cantidad_nombre);
                     y=R.nextInt(cantidad_apellidos);
                     z=R.nextInt(cantidad_apellidos);
                     k=R.nextInt(cantidad_calles);
-                    //// forma 2
-                    conexionBD.preparaUpdate(cadena+"'"+nombres[x]+"', '"+apellidos[y]+"', '"+apellidos[z]+"', "
-                         +calles[k][0]+", "+R.nextInt(150)+", "+R.nextInt(10)+", "
-                         +String.valueOf( R.nextInt(120)+30)+", '" + calles[k][1]+"', "+calles[k][2]+")" );
-                    /// forma 2
-            /* forma 1
-                    cadenas.append(enlace+"'"+nombres[x]+"', '"+apellidos[y]+"', '"+apellidos[z]+"', "
-                         +calles[k][0]+", "+R.nextInt(150)+", "+R.nextInt(10)+", "
-                         +String.valueOf( R.nextInt(120)+30)+", '" + calles[k][1]+"', "+calles[k][2]+")" );
-                    if(i==0){
-                     enlace=", (";
+                    
+                /* //forma 2 
+                   pstmt.setString(1, nombres[x]);
+                    pstmt.setString(2, apellidos[y]);
+                    pstmt.setString(3, apellidos[z]);
+                    pstmt.setInt(4, Integer.parseInt(calles[k][0]));
+                    pstmt.setInt(5, R.nextInt(150));
+                    pstmt.setInt(6, R.nextInt(10));
+                    pstmt.setInt(7, R.nextInt(120)+30);
+                    pstmt.setString(8, calles[k][1]);
+                    pstmt.setInt(9, Integer.parseInt(calles[k][2]));
+                    
+                    pstmt.addBatch();
+                  if ((i+1) % 1000 == 0) {
+                        pstmt.executeBatch(); //se ejecuta cada 1000 consultas para no saturar el conector
+                    }    */
+                    
+                    if (i%50==0){
+                        System.out.println("inserccion: "+ i);
                     }
-             }
-             //realizamos la insercion
-             conexionBD.consultaUpdate(cadenas.toString());
-             */
-             /// forma 2    
-             }
-             conexionBD.realizaUpdare();
-             /// forma 2
-             
-             //borramos la tabla temporal
-             conexionBD.consultaUpdate("drop table t1");
-            t2=System.currentTimeMillis();
+
+             /*    //forma 1   
+                 conexionBD.consultaUpdate(cadena+"'"+nombres[x]+"', '"+apellidos[y]+"', '"+apellidos[z]+"', "
+                         +calles[k][0]+", "+R.nextInt(150)+", "+R.nextInt(10)+", "
+                         +String.valueOf( R.nextInt(120)+30)+", '" + calles[k][1]+"', "+calles[k][2]+")" );
+             */    
+                /* //forma 2
+                  pstmt.addBatch(cadena+"'"+nombres[x]+"', '"+apellidos[y]+"', '"+apellidos[z]+"', "
+                         +calles[k][0]+", "+R.nextInt(150)+", "+R.nextInt(10)+", "
+                         +String.valueOf( R.nextInt(120)+30)+", '" + calles[k][1]+"', "+calles[k][2]+")" );
+              */
+                 
+             //    /* // forma 3
+                  conexionBD.preparaUpdate(cadena+"'"+nombres[x]+"', '"+apellidos[y]+"', '"+apellidos[z]+"', "
+                         +calles[k][0]+", "+R.nextInt(150)+", "+R.nextInt(10)+", "
+                         +String.valueOf( R.nextInt(120)+30)+", '" + calles[k][1]+"', "+calles[k][2]+")" );
+           //      */
+          }
+
+             /* // forma 2
+               pstmt.executeBatch();
+               pstmt.close();
+            */
+                   
+        //  /* // forma 3
+            conexionBD.realizaUpdare();// falla al insertar pero inserta la mayoria      
+
+        //   */
+
         } catch (SQLException ex) {
             System.out.println("error en la consulta SQL");
-            System.exit(2);
+           // System.exit(2);
         }
-
         conexionBD.cerrarBaseDatos();
-        System.out.println("Tiempo ejecutado: "+(t2-t1));
    }
 }

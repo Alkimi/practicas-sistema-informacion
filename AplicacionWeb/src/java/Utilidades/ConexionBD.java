@@ -162,6 +162,15 @@ public class ConexionBD {
         }
    }
    
+   public PreparedStatement prepareStatement(String Cadena) throws SQLException{
+       try{
+           return conexion.prepareStatement(userName);
+           
+       }catch (SQLException ex){
+           throw  ex;
+       }
+   }
+   
    /**
     * Devuelve el ResulSet de la ultima consulta realizad a la base de datos
     * 
