@@ -4,6 +4,15 @@
  */
 package gui;
 
+import clases.Poblacion;
+import clases.Provincia;
+import clases.callespoblaciones;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -11,6 +20,15 @@ import javax.swing.JOptionPane;
  * @author carranza
  */
 public class BajaCliente extends javax.swing.JFrame {
+    
+    ResultSet conjuntoResultados=null;
+    List<Provincia> listaProvincias = new ArrayList<>();
+    List<Poblacion> listaPoblaciones = new ArrayList<>();
+    List<callespoblaciones> listaCalles = new ArrayList<>();
+    String codigoProvinciaAux;
+    String codigoPoblacionAux;
+    String codigoCalleAux;
+    String pobActual=null;
 
     /**
      * Creates new form BajaCliente
@@ -57,7 +75,7 @@ public class BajaCliente extends javax.swing.JFrame {
         lbPob4 = new javax.swing.JLabel();
         txtPiso1 = new javax.swing.JTextField();
         txtApellido1 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        btBaja = new javax.swing.JButton();
         lbPob5 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
@@ -107,13 +125,19 @@ public class BajaCliente extends javax.swing.JFrame {
 
         setTitle("Baja Cliente");
 
-        ComboPobla1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione" }));
+        ComboPobla1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboPobla1ActionPerformed(evt);
+            }
+        });
 
-        ComboProv1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione" }));
+        ComboProv1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboProv1ActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("Apellido");
-
-        ComboCalle1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione" }));
 
         txtApellido3.setEditable(false);
 
@@ -125,7 +149,7 @@ public class BajaCliente extends javax.swing.JFrame {
 
         txtApellido1.setEditable(false);
 
-        jButton3.setText("Dar de Baja");
+        btBaja.setText("Dar de Baja");
 
         lbPob5.setText("Población");
 
@@ -165,7 +189,7 @@ public class BajaCliente extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton4)
                         .addGap(34, 34, 34)
-                        .addComponent(jButton3))
+                        .addComponent(btBaja))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -249,12 +273,12 @@ public class BajaCliente extends javax.swing.JFrame {
                             .addComponent(txtNumero1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(jLabel15)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4)
-                    .addComponent(jButton3))
+                    .addComponent(btBaja))
                 .addContainerGap())
         );
 
@@ -269,6 +293,15 @@ public class BajaCliente extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void ComboProv1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboProv1ActionPerformed
+        rellenaPoblacion();
+    }//GEN-LAST:event_ComboProv1ActionPerformed
+
+    private void ComboPobla1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboPobla1ActionPerformed
+        rellenaCalle();
+    }//GEN-LAST:event_ComboPobla1ActionPerformed
+
+    
     /**
      * @param args the command line arguments
      */
@@ -310,9 +343,9 @@ public class BajaCliente extends javax.swing.JFrame {
     private javax.swing.JComboBox ComboPobla1;
     private javax.swing.JComboBox ComboProv;
     private javax.swing.JComboBox ComboProv1;
+    private javax.swing.JButton btBaja;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -363,17 +396,301 @@ public class BajaCliente extends javax.swing.JFrame {
                     if((seleccion + 1)==1)
                     {
                              // PRESIONA ID
-                                 ComboProv.setEnabled(false);
-                                 ComboPobla.setEnabled(false);
-                                 ComboCalle.setEnabled(false);
+                                 ComboProv1.setEnabled(false);
+                                 ComboPobla1.setEnabled(false);
+                                 ComboCalle1.setEnabled(false);
                     }
                     else
                     {
                     //PRESIONO ZONA
                         txtCodCliente.setEnabled(false);
+                        rellenaProvincias();
                     }
+                    
+                    btBaja.requestFocusInWindow();
                 } 
-               
+        }
+      /**
+      * Rellena el combo de Provincias
+      */
+    public void rellenaProvincias(){
+        //Borra el combobox
+        ComboProv1.removeAll();
+        
+        //Hago una consulta que me devuelva todas la provincias con sus códigos y las almaceno en conjuntoResultados
+        try {
+            conjuntoResultados=Principal.cbd.consultaSelect("SELECT * FROM  `provincias` ");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
+        }
+        
+         int numeroDeColumnas=0;
+         ResultSetMetaData metaDatos = null;
+        
+         
+         try {
+            metaDatos = conjuntoResultados.getMetaData();
+            numeroDeColumnas = metaDatos.getColumnCount();
+            
+            //creo el contador para ir pivotando entre las columnas de la tabla
+            int cont=0;
+            String cod=null;
+            String nom=null;
+            
+            while (conjuntoResultados.next()) {
+            for (int i = 1; i <= numeroDeColumnas; i++) {
+                
+                switch(cont){
+                    case 0: cod=conjuntoResultados.getObject(i).toString();
+                            cont=1;
+                            break;
+                    case 1: nom=conjuntoResultados.getObject(i).toString();
+                            //creo un objeto provincia, variable
+                            Provincia aux = new Provincia(cod,nom); 
+                            listaProvincias.add(aux);
+                            cont=0;
+                            break;
+                }
+            }
+          }
+            
+            Iterator iterador = listaProvincias.listIterator(); //Le solicito a la lista que me devuelva un iterador con todos los el elementos contenidos en ella
+ 
+            while( iterador.hasNext() ) {
+                Provincia pr=(Provincia) iterador.next();
+                
+                ComboProv1.addItem(pr.getProvincia());
+                
+                codigoProvinciaAux=extraerCodigoProvinciaSeleccinada();
+                
+                }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
+        }
+    }
+    
+    /**
+     * Extrae el código de la provincia seleccionada segun el indice del combobox 
+     */
+   public String extraerCodigoProvinciaSeleccinada(){
+       
+       Provincia pAux = listaProvincias.get(ComboProv1.getSelectedIndex());
+       
+       return pAux.getCodigoProvincia();
+       
+   }
+   
+   /**
+    * Extrae el código de la poblacion seleccionada segun el indice del combobox
+    */
+   public String extraerCodigoPoblacionSeleccinada(){
+            Poblacion pAux = listaPoblaciones.get(ComboPobla1.getSelectedIndex());
+            pobActual=pAux.getNombrePob();
+            return pAux.getCodPoblacion();
+   }
+   
+   /**
+    * Extrae el codigo de la calle seleccionada el combo
+    * @return 
+    */
+   public String extraerCodigoCalleSeleccinada(){
+       
+       callespoblaciones cAux = listaCalles.get(ComboCalle.getSelectedIndex());
+       
+       return cAux.getIdCalle();
+      
+   }
+   
+   /**
+    * Metodo encargado de rellenar el combo de poblacion
+    */
+    public void rellenaPoblacion(){
+        
+        //Borra el combobox
+        ComboPobla1.removeAllItems();
+        //Borra la lista de poblaciones
+        listaPoblaciones.clear();
+        //Extrae el codigo de la provincia seleccionada
+        codigoProvinciaAux = extraerCodigoProvinciaSeleccinada();
+        
+        ResultSet results = null;
+    
+        //Hago una consulta que me devuelva las poblaciones de la provincia seleccionada
+        try {
+            results=Principal.cbd.consultaSelect("SELECT CodigoProvincia,CodigoPoblacion,Poblacion FROM poblaciones WHERE CodigoProvincia="+codigoProvinciaAux);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
+        }
+        
+         //Declaro algunas variables para poder rellenar el combo
+        int numeroDeColumnas=0;
+        ResultSetMetaData metaDatos = null;
+        
+         
+         try {
+            metaDatos = results.getMetaData();
+            numeroDeColumnas = metaDatos.getColumnCount();
+            
+            //Creo el contador para ir pivotando entre las columnas de la tabla
+            int cont=0;
+            //Variables que almacenan los datos que se añaden al final del bucle
+            String codProv=null;
+            String codPob=null;
+            String nom=null;
+            
+            while (results.next()) {
+            for (int i = 1; i <= numeroDeColumnas; i++) {
+                
+                switch(cont){
+                    case 0: codProv=results.getObject(i).toString();
+                            cont=1;
+                            break;
+                    case 1: codPob=results.getObject(i).toString();
+                            cont=2;
+                            break;
+                    case 2: nom=results.getObject(i).toString();
+                            //Creo un objeto poblacion y añado los datos que se han ido recogiendo el switch
+                            Poblacion aux = new Poblacion(codProv,codPob,nom); 
+                            listaPoblaciones.add(aux);
+                            cont=0; //para que vuelva a rellenar desde el primer campo
+                            break;
+                }
+            }
+          }
+            
+         //Le solicito a la lista que me devuelva un iterador con todos los el elementos contenidos en ella
+         Iterator iterador = listaPoblaciones.listIterator();
+         
+         //En caso de no existir ninguna poblacion para la provincia muestro en el combo vacio, sino relleno el combo
+         if(listaPoblaciones.isEmpty()){
+             ComboPobla1.addItem("--Vacío--");
+             
+             codigoPoblacionAux=null;
+         }
+         else
+         {
+             while( iterador.hasNext() ) {
+              Poblacion pr=(Poblacion) iterador.next();
+          
+               ComboPobla1.addItem(pr.getNombrePob());
+                }
+             
+             codigoPoblacionAux=extraerCodigoPoblacionSeleccinada();
+         }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
+        }
+        
+    }
+    
+    /**
+     * Rellena el combo de la calle
+     */
+    public void rellenaCalle(){
+        String op=null;
+        
+        try{
+        
+        //Borra el combobox
+        ComboCalle1.removeAllItems();
+        //Borra la lista de calles
+        listaCalles.clear();
+        //Extrae el codigo de la poblacion seleccionada
+        codigoPoblacionAux = extraerCodigoPoblacionSeleccinada();
+        
+        ResultSet results2=null;
+        
+        
+    
+        //Hago una consulta que me devuelva las calles de la poblacion seleccionada
+        try {
+            
+            results2=Principal.cbd.consultaSelect("SELECT idCalle,CodPoblacion,Nombre FROM callespoblaciones WHERE CodPoblacion="+codigoPoblacionAux);
+         
+        
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
+        }
+        
+         //Declaro algunas variables para poder rellenar el combo
+        int numeroDeColumnas=0;
+        ResultSetMetaData metaDatos = null;
+        
+         
+         try {
+            metaDatos = results2.getMetaData();
+            numeroDeColumnas = metaDatos.getColumnCount();
+            
+            //Creo el contador para ir pivotando entre las columnas de la tabla
+            int cont=0;
+            //Variables que almacenan los datos que se añaden al final del bucle
+            String idCalle=null;
+            String codPob=null;
+            String nom=null;
+            
+            
+                while (results2.next()) {
+                for (int i = 1; i <= numeroDeColumnas; i++) {
+                
+                switch(cont){
+                    case 0: idCalle=results2.getObject(i).toString();
+                            cont=1;
+                            break;
+                    case 1: codPob=results2.getObject(i).toString();
+                            cont=2;
+                            break;
+                    case 2: nom=results2.getObject(i).toString();
+                            //Creo un objeto poblacion y añado los datos que se han ido recogiendo el switch
+                            callespoblaciones aux = new callespoblaciones(idCalle,codPob,nom); 
+                            listaCalles.add(aux);
+                            cont=0; //para que vuelva a rellenar desde el primer campo
+                            break;
+                }
+            }
+            
+          }
+            
+         //Le solicito a la lista que me devuelva un iterador con todos los el elementos contenidos en ella
+         Iterator iterador = listaCalles.listIterator();
+         
+         //En caso de no existir ningun objeto para el codigo seleccionado muestro en el combo vacio, sino relleno el combo
+         if(listaCalles.isEmpty()){
+             ComboCalle1.addItem("--Vacío--");
+             
+             codigoCalleAux=null;
+         }
+         else
+         {
+             while( iterador.hasNext() ) {
+              callespoblaciones pr=(callespoblaciones) iterador.next();
+                if(pr.getNombre().equals(ComboPobla.getSelectedItem().toString())){
+                    ComboCalle1.removeAll();
+                    ComboCalle1.addItem("--Vacío--");
+                    }
+                else{
+                    ComboCalle1.addItem(pr.getNombre());
+                    op=pr.getNombre();
+                }
+                }
+             
+             codigoCalleAux=extraerCodigoCalleSeleccinada();
+         }
+         
+         //Controla problema de duplicidad comboBox
+         if(pobActual.equals(op)){
+                ComboCalle1.removeAllItems();
+                ComboCalle1.addItem("--Vacío--");
+        }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
+        }
+         //Controla la posibilidad de que se pulse el botón actualizar calles antes de tiempo
+        }catch(IndexOutOfBoundsException asd){
+            ComboCalle1.addItem("--Vacío--");
+        }
     }
 
 }
