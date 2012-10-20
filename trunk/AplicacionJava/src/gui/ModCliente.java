@@ -81,6 +81,8 @@ public class ModCliente extends javax.swing.JFrame {
 
         jLabel8.setText("Metros");
 
+        setTitle("Modificar Cliente");
+
         jLabel16.setText("Código Cliente");
 
         ComboPobla1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione" }));
@@ -340,8 +342,6 @@ public class ModCliente extends javax.swing.JFrame {
     private javax.swing.JComboBox ComboProv2;
     private javax.swing.JComboBox ComboProv3;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

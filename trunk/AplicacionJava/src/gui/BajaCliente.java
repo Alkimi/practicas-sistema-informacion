@@ -104,6 +104,7 @@ public class BajaCliente extends javax.swing.JFrame {
         jLabel8.setText("Metros");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Baja Cliente");
 
         ComboPobla1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione" }));
 
