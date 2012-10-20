@@ -4,6 +4,8 @@
  */
 package gui;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author carranza
@@ -103,7 +105,6 @@ public class BajaCliente extends javax.swing.JFrame {
 
         jLabel8.setText("Metros");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Baja Cliente");
 
         ComboPobla1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione" }));
@@ -352,6 +353,27 @@ public class BajaCliente extends javax.swing.JFrame {
         setVisible(true);
         
         setLocationRelativeTo(null);
+        
+        
+              int seleccion = JOptionPane.showOptionDialog(this,"Como desea localizar el cliente?", 
+                                                        "Seleccione una opción", JOptionPane.YES_NO_CANCEL_OPTION,
+                                                         JOptionPane.QUESTION_MESSAGE,null,new Object[] { "Número ID", "Lista por Zona"},null);
+              
+                 if (seleccion != -1){
+                    if((seleccion + 1)==1)
+                    {
+                             // PRESIONA ID
+                                 ComboProv.setEnabled(false);
+                                 ComboPobla.setEnabled(false);
+                                 ComboCalle.setEnabled(false);
+                    }
+                    else
+                    {
+                    //PRESIONO ZONA
+                        txtCodCliente.setEnabled(false);
+                    }
+                } 
+               
     }
 
 }
