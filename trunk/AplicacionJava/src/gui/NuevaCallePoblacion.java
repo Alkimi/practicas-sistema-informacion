@@ -64,6 +64,10 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
         lbPob2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         btAceptar = new javax.swing.JButton();
+        lbHab = new javax.swing.JLabel();
+        txtNumHab = new javax.swing.JTextField();
+        lbCP = new javax.swing.JLabel();
+        txtCP = new javax.swing.JTextField();
 
         setTitle("Nueva Calle o Poblacion");
 
@@ -111,6 +115,24 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
             }
         });
 
+        lbHab.setText("Habitantes");
+
+        txtNumHab.setText("Numero de Habitantes");
+        txtNumHab.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNumHabFocusGained(evt);
+            }
+        });
+
+        lbCP.setText("CodPostal");
+
+        txtCP.setText("Código Postal");
+        txtCP.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCPFocusGained(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -119,23 +141,33 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(lbCalle)
-                            .addComponent(lbPob1)
-                            .addComponent(lbPob2))
-                        .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(ComboProvincia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ComboPoblacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtCalle)
-                            .addComponent(txtPoblacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(lbPob1)
+                                    .addComponent(lbPob2))
+                                .addGap(44, 44, 44)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(ComboProvincia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(ComboPoblacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtPoblacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbCalle)
+                                    .addComponent(lbHab)
+                                    .addComponent(lbCP))
+                                .addGap(34, 34, 34)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtCalle)
+                                    .addComponent(txtNumHab)
+                                    .addComponent(txtCP)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(72, 72, 72)
                         .addComponent(jButton1)
                         .addGap(42, 42, 42)
                         .addComponent(btAceptar)))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,11 +184,19 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPoblacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbPob2))
-                .addGap(33, 33, 33)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbCalle)
                     .addComponent(txtCalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbHab)
+                    .addComponent(txtNumHab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbCP)
+                    .addComponent(txtCP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(btAceptar))
@@ -206,6 +246,14 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
         txtCalle.setText("");
     }//GEN-LAST:event_txtCalleFocusGained
 
+    private void txtNumHabFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumHabFocusGained
+        txtNumHab.setText("");
+    }//GEN-LAST:event_txtNumHabFocusGained
+
+    private void txtCPFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCPFocusGained
+        txtCP.setText("");
+    }//GEN-LAST:event_txtCPFocusGained
+
     /**
      * @param args the command line arguments
      */
@@ -246,10 +294,14 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
     private javax.swing.JButton btAceptar;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lbCP;
     private javax.swing.JLabel lbCalle;
+    private javax.swing.JLabel lbHab;
     private javax.swing.JLabel lbPob1;
     private javax.swing.JLabel lbPob2;
+    private javax.swing.JTextField txtCP;
     private javax.swing.JTextField txtCalle;
+    private javax.swing.JTextField txtNumHab;
     private javax.swing.JTextField txtPoblacion;
     // End of variables declaration//GEN-END:variables
 
@@ -266,6 +318,9 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
         lbPob1.setVisible(false);
         opcionSeleccionada=1;
         btAceptar.requestFocusInWindow();
+        lbCP.setVisible(false);
+        txtCP.setVisible(false);
+        
     }
     
     /**
@@ -279,6 +334,8 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
         lbPob2.setVisible(false);
         opcionSeleccionada=2;
         btAceptar.requestFocusInWindow();
+        lbHab.setVisible(false);
+        txtNumHab.setVisible(false);
     }
     
     /**
@@ -463,8 +520,10 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
                     //Comprueba que la caja de texto esté correctamente
                     if(txtPoblacion.getText().equals("") || txtPoblacion.getText().equals("Nombre de la poblacion")){
                         JOptionPane.showMessageDialog(null, "Debe introducir un nombre de población");
-                    }else
-                    {
+                    }else{
+                    if(txtNumHab.getText().equals("") || txtNumHab.getText().equals("Numero de Habitantes")){
+                        JOptionPane.showMessageDialog(null, "Debe introducir el número de habitantes");
+                    }else{
                         
                     try {
                     //Comprueba si el nombre de la poblacion escrito ya se encuentra en la tabla
@@ -486,7 +545,8 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
                         aux=Integer.toString(codigoNuevo);
                         
                         //Inserta la nueva población
-                       Principal.cbd.consultaUpdate("INSERT INTO `poblaciones` (`CodigoPoblacion`,`Poblacion`, `CodigoProvincia`) VALUES ('"+aux.toString()+"','"+txtPoblacion.getText().toString()+"', '"+codigoProvinciaAux.toString()+"');");
+                       Principal.cbd.consultaUpdate("INSERT INTO `poblaciones` (`CodigoPoblacion`,`Poblacion`,`Habitantes`, `CodigoProvincia`) "
+                               + "VALUES ('"+aux.toString()+"','"+txtPoblacion.getText().toString()+"','"+ txtNumHab.getText().toString() +"','"+codigoProvinciaAux.toString()+"');");
                        JOptionPane.showMessageDialog(null,"La poblacion " + txtPoblacion.getText() + " ha sido dada de Alta");
                        setVisible(false);
                     }
@@ -499,9 +559,11 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
                      JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
                  }
                 }
+                }
                 break;
-           case 2:  if(txtCalle.getText().equals("") || txtPoblacion.getText().equals("Nombre de la calle")){
-                        JOptionPane.showMessageDialog(null, "Debe introducir un nombre de calle");
+           case 2:  if(txtCalle.getText().equals("") || txtPoblacion.getText().equals("Nombre de la calle")
+                   || txtCP.getText().equals("") || txtCP.getText().equals("Código Postal")){
+                        JOptionPane.showMessageDialog(null, "Debe introducir el campo Calle y Codigo Postal");
                     }
                     else
                     {
@@ -516,8 +578,9 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
                                //---NO ME DEJA HACER INSERT EN LAS CALLES
                                //Inserta la nueva calle
                                 codigoPoblacionAux=extraerCodigoPoblacionSeleccinada();
-                                Principal.cbd.consultaUpdate("INSERT INTO `callespoblaciones` (`CodPoblacion`,`Nombre`) VALUES ('15030','NUEVA');");
-                               // Principal.cbd.consultaUpdate("INSERT INTO `callespoblaciones` (`CodPoblacion`,`Nombre`) VALUES ('"+codigoPoblacionAux.toString()+"','"+txtCalle.getText().toString()+"');");
+                               // Principal.cbd.consultaUpdate("INSERT INTO `callespoblaciones` (`CodPoblacion`,`Nombre`) VALUES ('15030','NUEVA');");
+                               Principal.cbd.consultaUpdate("INSERT INTO `callespoblaciones` (`CodPoblacion`,`Nombre`,`CosPostal`) VALUES "
+                                       + "('"+codigoPoblacionAux.toString()+"','"+txtCalle.getText().toString()+"','"+txtCP.getText().toString()+"');");
                                 JOptionPane.showMessageDialog(null,"La calle " + txtPoblacion.getText() + " ha sido dada de Alta");
                                 setVisible(false);
                            }

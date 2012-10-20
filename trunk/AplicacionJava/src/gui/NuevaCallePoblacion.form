@@ -26,18 +26,33 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbCalle" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbPob1" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbPob2" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="ComboProvincia" max="32767" attributes="0"/>
-                          <Component id="ComboPoblacion" max="32767" attributes="0"/>
-                          <Component id="txtCalle" max="32767" attributes="0"/>
-                          <Component id="txtPoblacion" alignment="1" min="-2" pref="184" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbPob1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbPob2" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="ComboProvincia" max="32767" attributes="0"/>
+                                  <Component id="ComboPoblacion" max="32767" attributes="0"/>
+                                  <Component id="txtPoblacion" alignment="1" min="-2" pref="184" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lbCalle" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbHab" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbCP" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="txtCalle" max="32767" attributes="0"/>
+                                  <Component id="txtNumHab" max="32767" attributes="0"/>
+                                  <Component id="txtCP" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -47,7 +62,7 @@
                       <Component id="btAceptar" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="47" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -69,12 +84,22 @@
                   <Component id="txtPoblacion" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lbPob2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lbCalle" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtCalle" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="49" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lbHab" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtNumHab" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lbCP" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtCP" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="14" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btAceptar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -154,6 +179,32 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btAceptarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lbHab">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Habitantes"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtNumHab">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Numero de Habitantes"/>
+      </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNumHabFocusGained"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lbCP">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="CodPostal"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtCP">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="C&#xf3;digo Postal"/>
+      </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtCPFocusGained"/>
       </Events>
     </Component>
   </SubComponents>
