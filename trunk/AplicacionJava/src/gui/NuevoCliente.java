@@ -30,6 +30,7 @@ public class NuevoCliente extends javax.swing.JFrame {
     String codigoProvinciaAux;
     String codigoPoblacionAux;
     String codigoCalleAux;
+    String pobActual=null;
 
     /**
      * Creates new form NuevoCliente
@@ -67,10 +68,7 @@ public class NuevoCliente extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtNumero = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -151,21 +149,8 @@ public class NuevoCliente extends javax.swing.JFrame {
 
         jLabel5.setText("Apellido");
 
-        jButton3.setText("Actualizar Calles");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel1.setText("*");
-
         jLabel9.setForeground(new java.awt.Color(255, 0, 0));
         jLabel9.setText("**");
-
-        jLabel10.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        jLabel10.setText("*Pulsar el Botón \"Actualizar Calles\" tras seleccionar una Población");
 
         jLabel11.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         jLabel11.setText("**El Campo \"Piso\" es Opcional");
@@ -188,40 +173,30 @@ public class NuevoCliente extends javax.swing.JFrame {
                             .addComponent(jLabel8)
                             .addComponent(lbPob3))
                         .addGap(43, 43, 43)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtMetros, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel7)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(6, 6, 6)
-                                    .addComponent(txtPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(txtApellido2)
-                                .addComponent(ComboPobla, 0, 237, Short.MAX_VALUE)
-                                .addComponent(ComboProv, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtNombre)
-                                .addComponent(txtApellido)
-                                .addComponent(ComboCalle, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtMetros, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(23, 23, 23)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(3, 3, 3)
-                                .addComponent(jButton3))))
+                                .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(txtPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtApellido2)
+                            .addComponent(ComboPobla, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ComboProv, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtNombre)
+                            .addComponent(txtApellido)
+                            .addComponent(ComboCalle, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel11))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(btAceptar))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jLabel10))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btAceptar)))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -247,15 +222,11 @@ public class NuevoCliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ComboPobla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbPob2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jLabel1))
-                .addGap(5, 5, 5)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbPob3)
                     .addComponent(ComboCalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel7)
@@ -266,9 +237,7 @@ public class NuevoCliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txtMetros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                .addComponent(jLabel10)
-                .addGap(1, 1, 1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                 .addComponent(jLabel11)
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -293,7 +262,7 @@ public class NuevoCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_ComboCalleActionPerformed
 
     private void ComboPoblaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboPoblaActionPerformed
-        
+        rellenaCalle();        
     }//GEN-LAST:event_ComboPoblaActionPerformed
 
     private void ComboPoblaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ComboPoblaFocusGained
@@ -315,10 +284,6 @@ public class NuevoCliente extends javax.swing.JFrame {
     private void ComboPoblaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ComboPoblaFocusLost
 
     }//GEN-LAST:event_ComboPoblaFocusLost
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        rellenaCalle();
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAceptarActionPerformed
         aceptar();
@@ -363,9 +328,6 @@ public class NuevoCliente extends javax.swing.JFrame {
     private javax.swing.JComboBox ComboProv;
     private javax.swing.JButton btAceptar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -468,11 +430,12 @@ public class NuevoCliente extends javax.swing.JFrame {
        
    }
    
-   /**
+  /**
     * Extrae el código de la poblacion seleccionada segun el indice del combobox
     */
    public String extraerCodigoPoblacionSeleccinada(){
             Poblacion pAux = listaPoblaciones.get(ComboPobla.getSelectedIndex());
+            pobActual=pAux.getNombrePob();
             return pAux.getCodPoblacion();
    }
    
@@ -575,6 +538,8 @@ public class NuevoCliente extends javax.swing.JFrame {
      * Rellena el combo de la calle
      */
     public void rellenaCalle(){
+        String op=null;
+        
         try{
         
         //Borra el combobox
@@ -585,13 +550,14 @@ public class NuevoCliente extends javax.swing.JFrame {
         codigoPoblacionAux = extraerCodigoPoblacionSeleccinada();
         
         ResultSet results2=null;
+        
+        
     
         //Hago una consulta que me devuelva las calles de la poblacion seleccionada
         try {
             
             results2=Principal.cbd.consultaSelect("SELECT idCalle,CodPoblacion,Nombre FROM callespoblaciones WHERE CodPoblacion="+codigoPoblacionAux);
-           
-            //System.out.println(Principal.cbd.consultaYmostrar("SELECT idCalle,CodPoblacion,Nombre FROM callespoblaciones WHERE CodPoblacion=15030"));
+         
         
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
@@ -613,8 +579,9 @@ public class NuevoCliente extends javax.swing.JFrame {
             String codPob=null;
             String nom=null;
             
-            while (results2.next()) {
-            for (int i = 1; i <= numeroDeColumnas; i++) {
+            
+                while (results2.next()) {
+                for (int i = 1; i <= numeroDeColumnas; i++) {
                 
                 switch(cont){
                     case 0: idCalle=results2.getObject(i).toString();
@@ -631,6 +598,7 @@ public class NuevoCliente extends javax.swing.JFrame {
                             break;
                 }
             }
+            
           }
             
          //Le solicito a la lista que me devuelva un iterador con todos los el elementos contenidos en ella
@@ -652,11 +620,18 @@ public class NuevoCliente extends javax.swing.JFrame {
                     }
                 else{
                     ComboCalle.addItem(pr.getNombre());
+                    op=pr.getNombre();
                 }
                 }
              
              codigoCalleAux=extraerCodigoCalleSeleccinada();
          }
+         
+         //Controla problema de duplicidad comboBox
+         if(pobActual.equals(op)){
+                ComboCalle.removeAllItems();
+                ComboCalle.addItem("--Vacío--");
+        }
             
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
