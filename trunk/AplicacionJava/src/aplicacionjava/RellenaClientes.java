@@ -2,11 +2,8 @@ package aplicacionjava;
 
 
 import Utilidades.ConexionBD;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.Random;
 
 /**
@@ -26,19 +23,11 @@ public class RellenaClientes {
     public RellenaClientes(){
         try {
            conexionBD = new ConexionBD("root","toor","consumoelectrico");
-
-           //
-           conexionBD.consultaUpdate("drop table clientes2");
-           conexionBD.consultaUpdate("create table clientes2 like clientes");
-           conexionBD.consultaUpdate("drop table  mediciones2");
-           conexionBD.consultaUpdate("create table mediciones2 like mediciones");
-           //
-           
         } catch (ClassNotFoundException ex){
-            System.out.println("Error al conectar con la base de datos 1");
+            System.out.println("Error al conectar con la base de datos");
             System.exit(500);
         } catch( SQLException ex){
-            System.out.println("Error al conectar con la base de datos 2");
+            System.out.println("Error al conectar con la base de datos");
             System.exit(1);
         }
     }
@@ -67,7 +56,9 @@ public class RellenaClientes {
      */
     public void creaClientes(int numeroClientes){
             String cadena;
-            int x,y,z,k;
+            String cadenaaux;
+            String enlace;
+            int k;
             Random R = new Random();
             try {
                 //cogemos los nombres y los pasamos a un vector auxiliar
@@ -135,130 +126,83 @@ public class RellenaClientes {
                          calles[cantidad_calles][2]=consulta.getString(3);
                         cantidad_calles++;
                  }
-                 
-                 
-                 
-                 //borramos la tabla temporal
+                //borramos la tabla temporal
                 conexionBD.consultaUpdate("drop table t1");
 
-              // /* // forma 1 y 3
-                 cadena="INSERT INTO clientes2(Nombre, Apellido, Apellido2, Calle, "
+                //preparamos la cadena para los clientes
+                cadena="INSERT INTO clientes(Nombre, Apellido, Apellido2, Calle, "
                          +"Numero, Piso, Metros, CodigoPoblacion, CodigoProvincia"
-                         +") VALUES("; 
-             //   */ 
-                 /* // forma 2
-                 
-                   cadena="INSERT INTO clientes2(Nombre, Apellido, Apellido2, Calle, "
-                         +"Numero, Piso, Metros, CodigoPoblacion, CodigoProvincia"
-                         +") VALUES(?,?,?,?,?,?,?,?,?)";
-                
-                 
-               */
-               /* // forma 2
-                   PreparedStatement pstmt = conexionBD.prepareStatement(cadena);
-             */
+                         +") VALUES "; 
 
-        
-                       for (int i = 0;i<numeroClientes;i++) {
-                     
-                        x=R.nextInt(cantidad_nombre);
-                        y=R.nextInt(cantidad_apellidos);
-                        z=R.nextInt(cantidad_apellidos);
+                //podemos hacer unas 120 insercciones en cada insert, asi que dividimos 
+                // el total entre 120
+                for (int j=0;j<numeroClientes/120;j++){
+                    cadenaaux=cadena;
+                    enlace="(";
+                    for( int i=0;i<120;i++){
                         k=R.nextInt(cantidad_calles);
-                        
-                    /* //forma 2 
-                       pstmt.setString(1, nombres[x]);
-                        pstmt.setString(2, apellidos[y]);
-                        pstmt.setString(3, apellidos[z]);
-                        pstmt.setInt(4, Integer.parseInt(calles[k][0]));
-                        pstmt.setInt(5, R.nextInt(150));
-                        pstmt.setInt(6, R.nextInt(10));
-                        pstmt.setInt(7, R.nextInt(120)+30);
-                        pstmt.setString(8, calles[k][1]);
-                        pstmt.setInt(9, Integer.parseInt(calles[k][2]));
-                        
-                        pstmt.addBatch();
-                      if ((i+1) % 1000 == 0) {
-                            pstmt.executeBatch(); //se ejecuta cada 1000 consultas para no saturar el conector
-                        }    */
-                        
-                        if (i%50==0){
-                            System.out.println("inserccion: "+ i);
+                        //creamos la cadena de la consulta.
+                        cadenaaux=cadenaaux+enlace+"'"+nombres[R.nextInt(cantidad_nombre)]+"', '"+apellidos[R.nextInt(cantidad_apellidos)]+"', '"
+                        +apellidos[R.nextInt(cantidad_apellidos)]+"', " +calles[k][0]+", "
+                        +R.nextInt(100)+", "+R.nextInt(10)+", "+(R.nextInt(90)+30)+", '"
+                        + calles[k][1]+"', "+calles[k][2]+")";
+                        if(i==0){
+                            enlace=",(";
                         }
+                    }
+                    
+                    conexionBD.consultaUpdate(cadenaaux);
+                }
+                // realizamos el resto de los clientes que falten
+                cadenaaux=cadena;
+                enlace="(";
+                for (int i=0;i<(numeroClientes%120);i++){
+                         k=R.nextInt(cantidad_calles);
+                        
+                        cadenaaux=cadenaaux+enlace+"'"+nombres[R.nextInt(cantidad_nombre)]+"', '"+apellidos[R.nextInt(cantidad_apellidos)]+"', '"
+                        +apellidos[R.nextInt(cantidad_apellidos)]+"', " +calles[k][0]+", "
+                        +R.nextInt(100)+", "+R.nextInt(10)+", "+(R.nextInt(90)+30)+", '"
+                        + calles[k][1]+"', "+calles[k][2]+")";
+                        if(i==0){
+                            enlace=",(";
+                        }
+                    }
+                 conexionBD.consultaUpdate(cadenaaux);
 
-                 /*    //forma 1   
-                     conexionBD.consultaUpdate(cadena+"'"+nombres[x]+"', '"+apellidos[y]+"', '"+apellidos[z]+"', "
-                             +calles[k][0]+", "+R.nextInt(150)+", "+R.nextInt(10)+", "
-                             +String.valueOf( R.nextInt(120)+30)+", '" + calles[k][1]+"', "+calles[k][2]+");" );
-                 */    
-                    /* //forma 2
-                      pstmt.addBatch(cadena+"'"+nombres[x]+"', '"+apellidos[y]+"', '"+apellidos[z]+"', "
-                             +calles[k][0]+", "+R.nextInt(150)+", "+R.nextInt(10)+", "
-                             +String.valueOf( R.nextInt(120)+30)+", '" + calles[k][1]+"', "+calles[k][2]+");" );
-                  */
-                     
-                 //    /* // forma 3
-                      conexionBD.preparaUpdate(cadena+"'"+nombres[x]+"', '"+apellidos[y]+"', '"+apellidos[z]+"', "
-                             +calles[k][0]+", "+R.nextInt(150)+", "+R.nextInt(10)+", "
-                             +String.valueOf( R.nextInt(120)+30)+", '" + calles[k][1]+"', "+calles[k][2]+");" );
-               //      */
-              }
-
-                 /* // forma 2
-                   pstmt.executeBatch();
-                   pstmt.close();
-                */
-            //  /* // forma 3
-                conexionBD.realizaUpdare();// falla al insertar pero inserta la mayoria      
-
-            //   */
-              } catch (SQLException ex) {
-                System.out.println("error en la consulta SQL");
-               // System.exit(2);
-            }           
-             try {
                  ////////////creamos las mediciones
                  // cogemos los identificadores de clientes
                  // realizamos la consulta
-                 consulta=conexionBD.consultaSelect("select Codigo from clientes2"); 
+                 consulta=conexionBD.consultaSelect("select Codigo from clientes"); 
                  int[] clientes;
+                 //creamos un vector de todos los clientes
                  clientes = new int[conexionBD.totalFilas()];
-                 cadena="insert into mediciones2(Cliete,FechaHora,KW) values(";
-                 float kw;
-                 Timestamp tiempo = new Timestamp(0);
-                 for(int i=0;i<clientes.length;i++){
-                   
-                     tiempo.setTime(new Date(2012,1,15,12,24).getTime());
-                     kw = R.nextInt(500)+R.nextFloat();
-                     conexionBD.preparaUpdate(cadena+clientes[i]+", "+tiempo.toString()+", "+String.valueOf(kw)+");");
-                     
-                     tiempo.setTime(new Date(2012,2,15,10,4).getTime());
-                     kw = R.nextInt(500)+R.nextFloat();
-                     conexionBD.preparaUpdate(cadena+clientes[i]+", "+tiempo.toString()+", "+String.valueOf(kw)+")");
-                    
-                     tiempo.setTime(new Date(2012,3,15,16,50).getTime());
-                     kw = R.nextInt(500)+R.nextFloat();
-                     conexionBD.preparaUpdate(cadena+clientes[i]+", "+tiempo.toString()+", "+String.valueOf(kw)+")");
-                    
-                     tiempo.setTime(new Date(2012,4,15,11,35).getTime());
-                     kw = R.nextInt(500)+R.nextFloat();
-                     conexionBD.preparaUpdate(cadena+clientes[i]+", "+tiempo.toString()+", "+String.valueOf(kw)+")");
-                     
-                     tiempo.setTime(new Date(2012,5,15,12,15).getTime());
-                     kw = R.nextInt(500)+R.nextFloat();
-                     conexionBD.preparaUpdate(cadena+clientes[i]+", "+tiempo.toString()+", "+String.valueOf(kw)+")");
-                     
-                      if (i%50==0){
-                            System.out.println("inserccion: "+ i);
-                        }
+                 int j=0;
+                 while (consulta.next()){
+                       clientes[j]=consulta.getInt(1);
+                       j++;
                  }
-                 conexionBD.realizaUpdare();
-                
+                 //prepararmos la inserccion de las mediciones
+                 cadena="insert into mediciones(Cliente,FechaHora,KW) values(";
+                 
+                 //creamos las 5 lecturas del contador
+                 for(int i=0;i<clientes.length;i++){
 
-            conexionBD.cerrarBaseDatos();
+                     cadenaaux=cadena+clientes[i]+", '2012-01-15 12:24:00', "+(R.nextInt(500)+R.nextFloat())+"),(";
+
+                     cadenaaux=cadenaaux+clientes[i]+", '2012-02-15 10:04:00', "+(R.nextInt(500)+R.nextFloat())+"),(";
+
+                     cadenaaux=cadenaaux+clientes[i]+", '2012-02-15-16:50:00', "+(R.nextInt(500)+R.nextFloat())+"),(";
+                     
+                     cadenaaux=cadenaaux+clientes[i]+", '2012-03-15 11:35:00', "+(R.nextInt(500)+R.nextFloat())+"),(";
+
+                     cadenaaux=cadenaaux+clientes[i]+", '2012-05-15 12:15:00', "+(R.nextInt(500)+R.nextFloat())+");";
+
+                     conexionBD.consultaUpdate(cadenaaux);
+                 }
         } catch (SQLException ex) {
             System.out.println("error en la consulta SQL");
-               // System.exit(2);
+            System.exit(1);
         }
+        conexionBD.cerrarBaseDatos();    
    }
 }

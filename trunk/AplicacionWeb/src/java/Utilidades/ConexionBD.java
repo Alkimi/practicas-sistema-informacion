@@ -136,40 +136,15 @@ public class ConexionBD {
     * 
     * @throws SQLException, se produce la excepcion si la consulta no es correcta
     */
-   public int consultaUpdate(String Cadena) throws SQLException{
-       int aux;
+   public boolean consultaUpdate(String Cadena) throws SQLException{
+       boolean aux;
         try {
-            aux= instruccion.executeUpdate(Cadena);
+            aux= instruccion.execute(Cadena);
         } catch (SQLException ex) {
             throw ex;
         }
         return aux;
      }
-   
-   public void preparaUpdate(String Cadena) throws SQLException{
-        try {
-            instruccion.addBatch(Cadena);
-        } catch (SQLException ex) {
-           throw  ex;
-        }
-   }
-   
-   public void realizaUpdare() throws SQLException{
-        try {
-            instruccion.executeBatch();
-        } catch (SQLException ex) {
-            //throw ex;
-        }
-   }
-   
-   public PreparedStatement prepareStatement(String Cadena) throws SQLException{
-       try{
-           return conexion.prepareStatement(userName);
-           
-       }catch (SQLException ex){
-           throw  ex;
-       }
-   }
    
    /**
     * Devuelve el ResulSet de la ultima consulta realizad a la base de datos
