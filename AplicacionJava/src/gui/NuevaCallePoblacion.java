@@ -575,12 +575,10 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
                         consult=Principal.cbd.consultaSelect("SELECT * FROM callespoblaciones WHERE Nombre='"+txtCalle.getText()+"'");
                        
                            if (!consult.next()){
-                               //---NO ME DEJA HACER INSERT EN LAS CALLES
                                //Inserta la nueva calle
                                 codigoPoblacionAux=extraerCodigoPoblacionSeleccinada();
-                               // Principal.cbd.consultaUpdate("INSERT INTO `callespoblaciones` (`CodPoblacion`,`Nombre`) VALUES ('15030','NUEVA');");
-                               Principal.cbd.consultaUpdate("INSERT INTO `callespoblaciones` (`CodPoblacion`,`Nombre`,`CosPostal`) VALUES "
-                                       + "('"+codigoPoblacionAux.toString()+"','"+txtCalle.getText().toString()+"','"+txtCP.getText().toString()+"');");
+                               Principal.cbd.consultaUpdate("INSERT INTO callespoblaciones (CodPoblacion,Nombre,CodPostal) VALUES "
+                                       + "("+codigoPoblacionAux.toString()+",'"+txtCalle.getText().toString()+"',"+txtCP.getText().toString()+");");
                                 JOptionPane.showMessageDialog(null,"La calle " + txtPoblacion.getText() + " ha sido dada de Alta");
                                 setVisible(false);
                            }
@@ -590,7 +588,7 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
                            }
                         
                         } catch (SQLException ex) {
-                        JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
+                        JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos"+ex.getMessage());
                         }
                         }
                     }
