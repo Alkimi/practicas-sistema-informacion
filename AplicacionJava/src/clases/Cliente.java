@@ -17,10 +17,8 @@ public class Cliente {
     String numero;
     String piso;
     String metros;
-    String codigoPoblacion;
-    String codigoProvincia;
 
-    public Cliente(String codigo, String nombre, String apellido, String apellido2, String calle, String numero, String piso, String metros, String codigoPoblacion, String codigoProvincia) {
+    public Cliente(String codigo, String nombre, String apellido, String apellido2, String calle, String numero, String piso, String metros) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -29,8 +27,6 @@ public class Cliente {
         this.numero = numero;
         this.piso = piso;
         this.metros = metros;
-        this.codigoPoblacion = codigoPoblacion;
-        this.codigoProvincia = codigoProvincia;
     }
 
     public String getApellido() {
@@ -47,14 +43,6 @@ public class Cliente {
 
     public String getCodigo() {
         return codigo;
-    }
-
-    public String getCodigoPoblacion() {
-        return codigoPoblacion;
-    }
-
-    public String getCodigoProvincia() {
-        return codigoProvincia;
     }
 
     public String getNombre() {
@@ -87,14 +75,6 @@ public class Cliente {
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
-    }
-
-    public void setCodigoPoblacion(String codigoPoblacion) {
-        this.codigoPoblacion = codigoPoblacion;
-    }
-
-    public void setCodigoProvincia(String codigoProvincia) {
-        this.codigoProvincia = codigoProvincia;
     }
 
     public void setMetros(String metros) {
