@@ -4,6 +4,7 @@
  */
 package gui;
 
+import clases.Cliente;
 import clases.Poblacion;
 import clases.Provincia;
 import clases.callespoblaciones;
@@ -25,6 +26,7 @@ public class BajaCliente extends javax.swing.JFrame {
     List<Provincia> listaProvincias = new ArrayList<>();
     List<Poblacion> listaPoblaciones = new ArrayList<>();
     List<callespoblaciones> listaCalles = new ArrayList<>();
+    List<Cliente> listaClientes = new ArrayList<>();
     String codigoProvinciaAux;
     String codigoPoblacionAux;
     String codigoCalleAux;
@@ -138,6 +140,12 @@ public class BajaCliente extends javax.swing.JFrame {
         });
 
         jLabel9.setText("Apellido");
+
+        ComboCalle1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboCalle1ActionPerformed(evt);
+            }
+        });
 
         txtApellido3.setEditable(false);
 
@@ -300,6 +308,10 @@ public class BajaCliente extends javax.swing.JFrame {
     private void ComboPobla1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboPobla1ActionPerformed
         rellenaCalle();
     }//GEN-LAST:event_ComboPobla1ActionPerformed
+
+    private void ComboCalle1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboCalle1ActionPerformed
+        rellenaClientes();
+    }//GEN-LAST:event_ComboCalle1ActionPerformed
 
     
     /**
@@ -693,4 +705,11 @@ public class BajaCliente extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Metodo encargado de rellenar la lista de clientes 
+     * 
+     */
+    public void rellenaClientes(){
+        
+    }
 }
