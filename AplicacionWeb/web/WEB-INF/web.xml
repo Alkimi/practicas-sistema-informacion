@@ -4,13 +4,34 @@
         <servlet-name>Practica1</servlet-name>
         <servlet-class>Practica1</servlet-class>
     </servlet>
+        <servlet>
+        <servlet-name>Calculo</servlet-name>
+        <servlet-class>Calculo</servlet-class>
+    </servlet>
+        <servlet>
+        <servlet-name>Calculo2</servlet-name>
+        <servlet-class>Calculo2</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Practica1</servlet-name>
         <url-pattern>/Practica1</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>Calculo</servlet-name>
+        <url-pattern>/Calculo</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>Calculo2</servlet-name>
+        <url-pattern>/Calculo2</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+     <welcome-file-list>
+	<welcome-file>
+            index.jsp
+        </welcome-file>
+    </welcome-file-list>
 </web-app>
