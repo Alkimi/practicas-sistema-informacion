@@ -24,7 +24,7 @@ public class Principal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
    
         //Lanzar consulta si hay cliente, sino hay clientes lanza pregunta.
-       /* {
+       {
            RellenaClientes rellenaClientes = new RellenaClientes();
            
            if (!rellenaClientes.hayClientes()){
@@ -47,7 +47,7 @@ public class Principal extends javax.swing.JFrame {
                 } 
                
            }
-       }*/
+       }
            
         //Establece conexión con BD
         try {

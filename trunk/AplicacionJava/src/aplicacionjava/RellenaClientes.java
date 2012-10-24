@@ -39,7 +39,7 @@ public class RellenaClientes {
      */
     public boolean hayClientes(){
         try {
-            consulta= conexionBD.consultaSelect("Select * from clientes2 limit 1");
+            consulta= conexionBD.consultaSelect("Select * from clientes limit 1");
         } catch (SQLException ex){
             System.out.println("Error en la base de datos");
             System.exit(2);
@@ -191,9 +191,9 @@ public class RellenaClientes {
 
                      cadenaaux=cadenaaux+clientes[i]+", '2012-02-15 10:04:00', "+(R.nextInt(500)+R.nextFloat())+"),(";
 
-                     cadenaaux=cadenaaux+clientes[i]+", '2012-02-15-16:50:00', "+(R.nextInt(500)+R.nextFloat())+"),(";
+                     cadenaaux=cadenaaux+clientes[i]+", '2012-03-15-16:50:00', "+(R.nextInt(500)+R.nextFloat())+"),(";
                      
-                     cadenaaux=cadenaaux+clientes[i]+", '2012-03-15 11:35:00', "+(R.nextInt(500)+R.nextFloat())+"),(";
+                     cadenaaux=cadenaaux+clientes[i]+", '2012-04-15 11:35:00', "+(R.nextInt(500)+R.nextFloat())+"),(";
 
                      cadenaaux=cadenaaux+clientes[i]+", '2012-05-15 12:15:00', "+(R.nextInt(500)+R.nextFloat())+");";
 
