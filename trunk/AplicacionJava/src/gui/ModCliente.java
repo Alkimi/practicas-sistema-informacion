@@ -308,15 +308,27 @@ public class ModCliente extends javax.swing.JFrame {
 
         jLabel19.setText("Provincia");
 
-        ComboProv3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione" }));
+        ComboProv3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboProv3ActionPerformed(evt);
+            }
+        });
 
         lbPob9.setText("Población");
 
-        ComboPobla3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione" }));
+        ComboPobla3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboPobla3ActionPerformed(evt);
+            }
+        });
 
         lbPob8.setText("Calle");
 
-        ComboCalle3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione" }));
+        ComboCalle3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboCalle3ActionPerformed(evt);
+            }
+        });
 
         btCancPanel.setText("Cancelar");
         btCancPanel.addActionListener(new java.awt.event.ActionListener() {
@@ -374,6 +386,19 @@ public class ModCliente extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jLabel16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtCodCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btBuscarId))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -419,24 +444,10 @@ public class ModCliente extends javax.swing.JFrame {
                                                 .addGap(0, 0, Short.MAX_VALUE))
                                             .addComponent(panelDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                             .addComponent(jLabel20))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
                         .addContainerGap())))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jLabel16)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCodCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btBuscarId))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -527,11 +538,24 @@ public class ModCliente extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         mostrarPanel();
         cambioDireccion=true;
+        rellenaProvincias();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         modificar();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void ComboProv3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboProv3ActionPerformed
+        rellenaPoblacion();
+    }//GEN-LAST:event_ComboProv3ActionPerformed
+
+    private void ComboCalle3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboCalle3ActionPerformed
+        
+    }//GEN-LAST:event_ComboCalle3ActionPerformed
+
+    private void ComboPobla3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboPobla3ActionPerformed
+        rellenaCalle();
+    }//GEN-LAST:event_ComboPobla3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -667,7 +691,11 @@ public class ModCliente extends javax.swing.JFrame {
     public void rellenaProvincias() {
         
         //Borra el combobox
-        ComboProv1.removeAll();
+        if(cambioDireccion){
+            ComboProv3.removeAll();
+        }else{
+            ComboProv1.removeAll();
+        }
 
         //Hago una consulta que me devuelva todas la provincias con sus códigos y las almaceno en conjuntoResultados
         try {
@@ -713,7 +741,11 @@ public class ModCliente extends javax.swing.JFrame {
             while (iterador.hasNext()) {
                 Provincia pr = (Provincia) iterador.next();
 
-                ComboProv1.addItem(pr.getProvincia());
+                if (cambioDireccion) {
+                    ComboProv3.addItem(pr.getProvincia());
+                } else {
+                    ComboProv1.addItem(pr.getProvincia());
+                }
 
                 codigoProvinciaAux = extraerCodigoProvinciaSeleccinada();
 
@@ -729,9 +761,13 @@ public class ModCliente extends javax.swing.JFrame {
      * combobox
      */
     public String extraerCodigoProvinciaSeleccinada() {
-
-        Provincia pAux = listaProvincias.get(ComboProv1.getSelectedIndex());
-
+        Provincia pAux;
+        
+        if(cambioDireccion){
+            pAux = listaProvincias.get(ComboProv3.getSelectedIndex());
+        }else{
+            pAux = listaProvincias.get(ComboProv1.getSelectedIndex());
+        }
         return pAux.getCodigoProvincia();
 
     }
@@ -741,21 +777,31 @@ public class ModCliente extends javax.swing.JFrame {
      * combobox
      */
     public String extraerCodigoPoblacionSeleccinada() {
-        Poblacion pAux = listaPoblaciones.get(ComboPobla1.getSelectedIndex());
+        Poblacion pAux;
+        
+        if(cambioDireccion){
+            pAux = listaPoblaciones.get(ComboPobla3.getSelectedIndex());
+        }else{
+            pAux = listaPoblaciones.get(ComboPobla1.getSelectedIndex());
+        }
+        
         pobActual = pAux.getNombrePob();
         return pAux.getCodPoblacion();
     }
 
     /**
-     * Extrae el codigo de la calle seleccionada el combo
+     * Extrae el codigo de la calle seleccionada en el combo
      *
      * @return
      */
     public String extraerCodigoCalleSeleccinada() {
-
+        callespoblaciones cAux;
         
-        callespoblaciones cAux = listaCalles.get(ComboCalle1.getSelectedIndex());
-        
+        if(cambioDireccion){
+            cAux= listaCalles.get(ComboCalle3.getSelectedIndex());
+        }else{
+            cAux= listaCalles.get(ComboCalle1.getSelectedIndex());
+        }
         
         return cAux.getIdCalle();
 
@@ -767,7 +813,13 @@ public class ModCliente extends javax.swing.JFrame {
     public void rellenaPoblacion() {
 
         //Borra el combobox
-        ComboPobla1.removeAllItems();
+        if(cambioDireccion){
+            ComboPobla3.removeAllItems();
+        }else{
+            ComboPobla1.removeAllItems();
+        }
+        
+  
         //Borra la lista de poblaciones
         listaPoblaciones.clear();
         //Extrae el codigo de la provincia seleccionada
@@ -826,14 +878,22 @@ public class ModCliente extends javax.swing.JFrame {
 
             //En caso de no existir ninguna poblacion para la provincia muestro en el combo vacio, sino relleno el combo
             if (listaPoblaciones.isEmpty()) {
-                ComboPobla1.addItem("--Vacío--");
-
+                
+                if(cambioDireccion){
+                    ComboPobla3.addItem("--Vacío--");
+                }else{
+                    ComboPobla1.addItem("--Vacío--");
+                }
                 codigoPoblacionAux = null;
             } else {
                 while (iterador.hasNext()) {
                     Poblacion pr = (Poblacion) iterador.next();
-
-                    ComboPobla1.addItem(pr.getNombrePob());
+                    if (cambioDireccion) {
+                        ComboPobla3.addItem(pr.getNombrePob());
+                    } else {
+                        ComboPobla1.addItem(pr.getNombrePob());
+                    }
+                    
                 }
 
                 codigoPoblacionAux = extraerCodigoPoblacionSeleccinada();
@@ -854,7 +914,12 @@ public class ModCliente extends javax.swing.JFrame {
         try {
 
             //Borra el combobox
-            ComboCalle1.removeAllItems();
+            if(cambioDireccion){
+                ComboCalle3.removeAllItems();
+            }else{
+                ComboCalle1.removeAllItems();
+            }
+            
             //Borra la lista de calles
             listaCalles.clear();
             //Extrae el codigo de la poblacion seleccionada
@@ -920,18 +985,32 @@ public class ModCliente extends javax.swing.JFrame {
 
                 //En caso de no existir ningun objeto para el codigo seleccionado muestro en el combo vacio, sino relleno el combo
                 if (listaCalles.isEmpty()) {
-                    ComboCalle1.addItem("--Vacío--");
+                    if(cambioDireccion){
+                        ComboCalle3.addItem("--Vacío--");
+                    }else{
+                        ComboCalle1.addItem("--Vacío--");
+                    }
 
                     codigoCalleAux = null;
                 } else {
                     while (iterador.hasNext()) {
                         callespoblaciones pr = (callespoblaciones) iterador.next();
-                        if (pr.getNombre().equals(ComboPobla1.getSelectedItem().toString())) {
-                            ComboCalle1.removeAll();
-                            ComboCalle1.addItem("--Vacío--");
+                        if(cambioDireccion){
+                             if (pr.getNombre().equals(ComboPobla3.getSelectedItem().toString())) {
+                                ComboCalle3.removeAll();
+                                ComboCalle3.addItem("--Vacío--");
+                            } else {
+                                ComboCalle3.addItem(pr.getNombre());
+                                op = pr.getNombre();
+                            }
                         } else {
-                            ComboCalle1.addItem(pr.getNombre());
-                            op = pr.getNombre();
+                            if (pr.getNombre().equals(ComboPobla1.getSelectedItem().toString())) {
+                                ComboCalle1.removeAll();
+                                ComboCalle1.addItem("--Vacío--");
+                            } else {
+                                ComboCalle1.addItem(pr.getNombre());
+                                op = pr.getNombre();
+                            }
                         }
                     }
 
@@ -940,8 +1019,13 @@ public class ModCliente extends javax.swing.JFrame {
 
                 //Controla problema de duplicidad comboBox
                 if (pobActual.equals(op)) {
-                    ComboCalle1.removeAllItems();
-                    ComboCalle1.addItem("--Vacío--");
+                    if(cambioDireccion){
+                        ComboCalle3.removeAllItems();
+                        ComboCalle3.addItem("--Vacío--");
+                    }else{
+                        ComboCalle1.removeAllItems();
+                        ComboCalle1.addItem("--Vacío--");
+                    }
                 }
 
             } catch (SQLException ex) {
@@ -949,7 +1033,11 @@ public class ModCliente extends javax.swing.JFrame {
             }
             //Controla la posibilidad de que se pulse el botón actualizar calles antes de tiempo
         } catch (IndexOutOfBoundsException asd) {
-            ComboCalle1.addItem("--Vacío--");
+            if(cambioDireccion){
+                ComboCalle3.addItem("--Vacío--");
+            }else{
+                ComboCalle1.addItem("--Vacío--");
+            }
         }
     }
 
@@ -1176,17 +1264,19 @@ public class ModCliente extends javax.swing.JFrame {
         ComboProv3.setEnabled(false);
         ComboCalle3.setEnabled(false);
         btCancPanel.setEnabled(false);
+        cambioDireccion=false;
     }
     private void mostrarPanel(){
         ComboPobla3.setEnabled(true);
         ComboProv3.setEnabled(true);
         ComboCalle3.setEnabled(true);
         btCancPanel.setEnabled(true);
+        cambioDireccion=true;
     }
      
      public boolean comprobarCambios(){
          return (!txtNombre1.getText().equals(nombreAux) || !txtApellido1.getText().equals(apellAux) || !txtApellido3.getText().equals(apell3Aux)
-           || !txtNumero1.getText().equals(numAux) || !txtPiso1.getText().equals(pisoAux) || !txtMetros1.getText().equals(metroAux));
+           || !txtNumero1.getText().equals(numAux) || !txtPiso1.getText().equals(pisoAux) || !txtMetros1.getText().equals(metroAux) || cambioDireccion==true);
         
     }
      
@@ -1194,13 +1284,27 @@ public class ModCliente extends javax.swing.JFrame {
         if(!txtCodCliente.getText().equals("")){
         if(comprobarCambios()){
             try {
-                Principal.cbd.consultaUpdate("UPDATE clientes SET Nombre='"+txtNombre1.getText()+"', Apellido='"+txtApellido1.getText()+
-                        "', Apellido2='" + txtApellido3.getText() + "', Numero="+txtNumero1.getText()+", Piso="+txtPiso1.getText()+
-                        ", Metros="+txtMetros1.getText()+" WHERE Codigo=" + txtCodCliente.getText());
-                        
+                if(cambioDireccion){
+                     Principal.cbd.consultaUpdate("UPDATE clientes SET Nombre='" + txtNombre1.getText() + "', Apellido='" + txtApellido1.getText()
+                            + "', Apellido2='" + txtApellido3.getText() + "', Numero=" + txtNumero1.getText() + ", Piso=" + txtPiso1.getText()
+                            + ", Metros=" + txtMetros1.getText() + ", Calle=" + extraerCodigoCalleSeleccinada() +", CodigoPoblacion="+ codigoPoblacionAux +
+                             ", CodigoProvincia="+ codigoProvinciaAux +" WHERE Codigo=" + txtCodCliente.getText());
+                } else {
+                    Principal.cbd.consultaUpdate("UPDATE clientes SET Nombre='" + txtNombre1.getText() + "', Apellido='" + txtApellido1.getText()
+                            + "', Apellido2='" + txtApellido3.getText() + "', Numero=" + txtNumero1.getText() + ", Piso=" + txtPiso1.getText()
+                            + ", Metros=" + txtMetros1.getText() + " WHERE Codigo=" + txtCodCliente.getText());
+                } 
                         JOptionPane.showMessageDialog(null, "Cliente actualizado correctamente");    
                         
                         borrarTexto();
+                        codigoProvinciaAux=("1");
+                        rellenaProvincias();
+                        cambioDireccion=false;
+                        ocultarPanel();
+                        rellenaProvincias();
+                        DefaultListModel listaAux = new DefaultListModel();
+                        listaAux.clear();
+                        lista.setModel(listaAux);
                         
             } catch (SQLException ex) {
                  JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos" + ex.getMessage());    
