@@ -4,6 +4,7 @@
  */
 package gui;
 
+import Utilidades.Conversion;
 import clases.Cliente;
 import clases.Poblacion;
 import clases.Provincia;
@@ -14,6 +15,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -62,22 +65,24 @@ public class Consultas extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         comboProvPob = new javax.swing.JComboBox();
         comboMesPob = new javax.swing.JComboBox();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btMes = new javax.swing.JButton();
+        btAnio = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         comboPobPob = new javax.swing.JComboBox();
         jScrollPane3 = new javax.swing.JScrollPane();
         listaConPob = new javax.swing.JList();
+        btConsultaPob = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btMesProv = new javax.swing.JButton();
+        btAnioProv = new javax.swing.JButton();
         comboMesPro = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         comboProvProv = new javax.swing.JComboBox();
         jScrollPane4 = new javax.swing.JScrollPane();
         listaConProv = new javax.swing.JList();
+        btConsultaProv = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -101,12 +106,13 @@ public class Consultas extends javax.swing.JFrame {
         txtCodCliente = new javax.swing.JTextField();
         lbPob4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        btAnioCli = new javax.swing.JButton();
+        btMesCli = new javax.swing.JButton();
         comboMesCli = new javax.swing.JComboBox();
         jScrollPane2 = new javax.swing.JScrollPane();
         listaCli = new javax.swing.JList();
         jButton9 = new javax.swing.JButton();
+        btConsultaCli = new javax.swing.JButton();
 
         jLabel6.setText("Selecciona Tipo Consulta");
 
@@ -149,19 +155,17 @@ public class Consultas extends javax.swing.JFrame {
             }
         });
 
-        comboMesPob.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecciona el Mes" }));
-
-        jButton3.setText("Mes");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btMes.setText("Mes");
+        btMes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btMesActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Año");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btAnio.setText("Año");
+        btAnio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btAnioActionPerformed(evt);
             }
         });
 
@@ -173,6 +177,14 @@ public class Consultas extends javax.swing.JFrame {
         listaConPob.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane3.setViewportView(listaConPob);
 
+        btConsultaPob.setText("Realizar Consulta");
+        btConsultaPob.setToolTipText("");
+        btConsultaPob.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btConsultaPobActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -180,10 +192,11 @@ public class Consultas extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 779, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton4)
+                        .addComponent(btAnio)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)
+                        .addComponent(btMes)
                         .addGap(18, 18, 18)
                         .addComponent(comboMesPob, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -195,8 +208,10 @@ public class Consultas extends javax.swing.JFrame {
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(3, 3, 3)
                         .addComponent(comboPobPob, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 688, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(btConsultaPob)))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,12 +228,14 @@ public class Consultas extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton3)
+                    .addComponent(btAnio)
+                    .addComponent(btMes)
                     .addComponent(comboMesPob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(249, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btConsultaPob)
+                .addGap(12, 12, 12)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(123, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -234,17 +251,17 @@ public class Consultas extends javax.swing.JFrame {
 
         panel.addTab("Poblacion", jPanel2);
 
-        jButton1.setText("Mes");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btMesProv.setText("Mes");
+        btMesProv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btMesProvActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Año");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btAnioProv.setText("Año");
+        btAnioProv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btAnioProvActionPerformed(evt);
             }
         });
 
@@ -261,26 +278,39 @@ public class Consultas extends javax.swing.JFrame {
         listaConProv.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane4.setViewportView(listaConProv);
 
+        btConsultaProv.setText("Realizar Consulta");
+        btConsultaProv.setToolTipText("");
+        btConsultaProv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btConsultaProvActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(comboMesPro, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btAnioProv)
+                                .addGap(18, 18, 18)
+                                .addComponent(btMesProv)
+                                .addGap(18, 18, 18)
+                                .addComponent(comboMesPro, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(comboProvProv, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 688, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(comboProvProv, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel2)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 688, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                        .addGap(36, 36, 36)
+                        .addComponent(btConsultaProv)))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -293,12 +323,14 @@ public class Consultas extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1)
+                    .addComponent(btAnioProv)
+                    .addComponent(btMesProv)
                     .addComponent(comboMesPro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                .addGap(18, 18, 18)
+                .addComponent(btConsultaProv)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(296, Short.MAX_VALUE))
+                .addContainerGap(267, Short.MAX_VALUE))
         );
 
         panel.addTab("Provincia", jPanel1);
@@ -358,17 +390,17 @@ public class Consultas extends javax.swing.JFrame {
 
         jLabel7.setText("Selecciona Tipo Consulta");
 
-        jButton7.setText("Año");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btAnioCli.setText("Año");
+        btAnioCli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btAnioCliActionPerformed(evt);
             }
         });
 
-        jButton8.setText("Mes");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        btMesCli.setText("Mes");
+        btMesCli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                btMesCliActionPerformed(evt);
             }
         });
 
@@ -389,6 +421,9 @@ public class Consultas extends javax.swing.JFrame {
             }
         });
 
+        btConsultaCli.setText("Realizar Consulta");
+        btConsultaCli.setToolTipText("");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -396,16 +431,6 @@ public class Consultas extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jButton7)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton8)
-                                .addGap(18, 18, 18)
-                                .addComponent(comboMesCli, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel7))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
@@ -438,7 +463,7 @@ public class Consultas extends javax.swing.JFrame {
                                 .addComponent(txtPiso1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(25, 25, 25))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 14, Short.MAX_VALUE)
+                        .addGap(0, 100, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 688, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -449,10 +474,21 @@ public class Consultas extends javax.swing.JFrame {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(btAnioCli)
+                                .addGap(18, 18, 18)
+                                .addComponent(btMesCli)
+                                .addGap(18, 18, 18)
+                                .addComponent(comboMesCli, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel7)
+                            .addComponent(btConsultaCli))
+                        .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                    .addContainerGap(36, Short.MAX_VALUE)
+                    .addContainerGap(122, Short.MAX_VALUE)
                     .addComponent(jLabel16)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(txtCodCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -505,11 +541,13 @@ public class Consultas extends javax.swing.JFrame {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton7)
-                    .addComponent(jButton8)
+                    .addComponent(btAnioCli)
+                    .addComponent(btMesCli)
                     .addComponent(comboMesCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(btConsultaCli)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(22, Short.MAX_VALUE))
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel4Layout.createSequentialGroup()
@@ -538,21 +576,21 @@ public class Consultas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        comboMesPro.setVisible(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btAnioProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAnioProvActionPerformed
+        pulsaAnio();
+    }//GEN-LAST:event_btAnioProvActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        comboMesPro.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btMesProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMesProvActionPerformed
+        pulsaMes();
+    }//GEN-LAST:event_btMesProvActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        comboMesPob.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void btMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMesActionPerformed
+      pulsaMes();
+    }//GEN-LAST:event_btMesActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        comboMesPob.setVisible(false);
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void btAnioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAnioActionPerformed
+       pulsaAnio();
+    }//GEN-LAST:event_btAnioActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
@@ -562,13 +600,13 @@ public class Consultas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        comboMesCli.setVisible(true);
-    }//GEN-LAST:event_jButton8ActionPerformed
+    private void btMesCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMesCliActionPerformed
+        pulsaMes();
+    }//GEN-LAST:event_btMesCliActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        comboMesCli.setVisible(false);
-    }//GEN-LAST:event_jButton7ActionPerformed
+    private void btAnioCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAnioCliActionPerformed
+        pulsaAnio();
+    }//GEN-LAST:event_btAnioCliActionPerformed
 
     private void panelStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_panelStateChanged
        opt=panel.getSelectedIndex();
@@ -606,6 +644,14 @@ public class Consultas extends javax.swing.JFrame {
     private void ComboCalle1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboCalle1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ComboCalle1ActionPerformed
+
+    private void btConsultaPobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultaPobActionPerformed
+        realizaConsultas();
+    }//GEN-LAST:event_btConsultaPobActionPerformed
+
+    private void btConsultaProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultaProvActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btConsultaProvActionPerformed
 
     /**
      * @param args the command line arguments
@@ -645,6 +691,15 @@ public class Consultas extends javax.swing.JFrame {
     private javax.swing.JComboBox ComboCalle1;
     private javax.swing.JComboBox ComboPobla1;
     private javax.swing.JComboBox ComboProv1;
+    private javax.swing.JButton btAnio;
+    private javax.swing.JButton btAnioCli;
+    private javax.swing.JButton btAnioProv;
+    private javax.swing.JButton btConsultaCli;
+    private javax.swing.JButton btConsultaPob;
+    private javax.swing.JButton btConsultaProv;
+    private javax.swing.JButton btMes;
+    private javax.swing.JButton btMesCli;
+    private javax.swing.JButton btMesProv;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox comboMesCli;
     private javax.swing.JComboBox comboMesPob;
@@ -653,14 +708,8 @@ public class Consultas extends javax.swing.JFrame {
     private javax.swing.JComboBox comboPobPob;
     private javax.swing.JComboBox comboProvPob;
     private javax.swing.JComboBox comboProvProv;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -712,6 +761,80 @@ public class Consultas extends javax.swing.JFrame {
         setVisible(true);
         setLocationRelativeTo(null);
         rellenaProvincias();
+        noPermitir();
+        activaBtConsulta(false);
+    }
+    
+    
+    private void pulsaAnio(){
+        switch(opt){
+            case 0: comboMesPob.setVisible(false);
+                    btMes.setEnabled(true);
+                    btAnio.setEnabled(false);
+                    break;
+            case 1: comboMesPro.setVisible(false);
+                    btMesProv.setEnabled(true);
+                    btAnioProv.setEnabled(false);
+                    break;
+            case 2: comboMesCli.setVisible(false);
+                    btMesCli.setEnabled(true);
+                    btAnioCli.setEnabled(false);
+                    break;
+               
+        }
+        
+        activaBtConsulta(true);
+    }
+    
+    private void pulsaMes(){
+        switch(opt){
+            case 0: comboMesPob.setVisible(true);
+                    btMes.setEnabled(false);
+                    btAnio.setEnabled(true);
+                    break;
+            case 1: comboMesPro.setVisible(true);
+                    btMesProv.setEnabled(false);
+                    btAnioProv.setEnabled(true);
+                    break;
+            case 2: comboMesCli.setVisible(true);
+                    btMesCli.setEnabled(false);
+                    btAnioCli.setEnabled(true);
+                    break;
+        
+        }
+        
+        activaBtConsulta(true);
+        rellenaMeses();
+    }
+    
+    private void activaBtConsulta(boolean aux){
+        switch(opt){
+            case 0:btConsultaPob.setEnabled(aux);
+                   break;
+            case 1:btConsultaProv.setEnabled(aux);
+                    break;
+            case 2: btConsultaCli.setEnabled(aux);
+                    break;
+        }
+        
+    }
+    
+    private void noPermitir(){
+        switch(opt){
+            case 0: btMes.setEnabled(false);
+                    btAnio.setEnabled(false);
+                   break;
+            case 1: btMesProv.setEnabled(false);
+                    btAnioProv.setEnabled(false);
+                   break;
+            case 2: btMesCli.setEnabled(false);
+                    btAnioCli.setEnabled(false);
+                   break;
+        
+        }
+        activaBtConsulta(false);
+        noMostrar();
+        
     }
     
     /**
@@ -779,6 +902,7 @@ public class Consultas extends javax.swing.JFrame {
                         break;
                     case 1:
                         comboProvProv.addItem(pr.getProvincia());
+                        pulsaAnio();
                         break;
                     case 2:
                         ComboProv1.addItem(pr.getProvincia());
@@ -924,6 +1048,7 @@ public class Consultas extends javax.swing.JFrame {
                 switch (opt) {
                     case 0:
                         comboPobPob.addItem("--Vacío--");
+                        noPermitir();
                         break;
                     case 2:
                         ComboPobla1.addItem("--Vacío--");
@@ -938,6 +1063,7 @@ public class Consultas extends javax.swing.JFrame {
                     switch (opt) {
                         case 0:
                             comboPobPob.addItem(pr.getNombrePob());
+                            pulsaAnio();
                             break;
                         case 2:
                             ComboPobla1.addItem(pr.getNombrePob());
@@ -1189,7 +1315,11 @@ public class Consultas extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos" + ex.getMessage());
             }
         }
-
+        if(txtCodCliente.getText().equals("")){
+            noPermitir();
+        }else{
+            pulsaAnio();
+        }
     }
 
     public Cliente extraeClienteDeLista() {
@@ -1221,5 +1351,89 @@ public class Consultas extends javax.swing.JFrame {
             txtPiso1.setText("");
             txtCodCliente.setText("");
      
+    }
+    
+    private void rellenaMeses(){
+        comboMesPob.removeAllItems();
+        comboMesPob.addItem("Mes Actual");
+        comboMesPob.addItem("Enero");
+        comboMesPob.addItem("Febrero");
+        comboMesPob.addItem("Marzo");
+        comboMesPob.addItem("Abril");
+        comboMesPob.addItem("Mayo");
+        comboMesPob.addItem("Junio");
+        comboMesPob.addItem("Julio");
+        comboMesPob.addItem("Agosto");
+        comboMesPob.addItem("Septiembre");
+        comboMesPob.addItem("Octubre");
+        comboMesPob.addItem("Noviembre");
+        comboMesPob.addItem("Diciembre");
+    }
+    
+    private void realizaConsultas(){
+        codigoPoblacionAux=extraerCodigoPoblacionSeleccinada();
+        ResultSet resultado= null;
+        Conversion conversionC = new Conversion();
+        
+        if(comboPobPob.getSelectedItem().equals("--Vacío--")){
+            JOptionPane.showMessageDialog(null, "Debe selecccionar una población para realizar la consulta");
+        }else{
+            try {
+                if (!btMes.isEnabled()) {
+                    if(comboMesPob.getSelectedIndex()==0){
+                        resultado = Principal.cbd.consultaSelect("select SUM(KW) from mediciones where Cliente in (select Codigo from clientes "
+                            + "where CodigoPoblacion='"+codigoPoblacionAux+"') and FechaHora between " + conversionC.obetenerMesActual());
+                    }else{
+                        resultado = Principal.cbd.consultaSelect("select SUM(KW) from mediciones where Cliente in (select Codigo from clientes "
+                            + "where CodigoPoblacion='"+codigoPoblacionAux+"') and FechaHora between " + conversionC.obtenerMesCualquiera(comboMesPob.getSelectedIndex()));
+                    }
+                    
+
+                } else {
+
+
+                    resultado = Principal.cbd.consultaSelect("select AVG (suma) from (select sum(KW) as suma from mediciones where Cliente in "
+                            + "(select Codigo from clientes where CodigoPoblacion='" + codigoPoblacionAux + "')"
+                            + " and FechaHora between" + conversionC.obtenerYear() + " Group by MONTH (FechaHora)) as t1");
+
+                }
+                
+                pintar(resultado);
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos" + ex.getMessage());
+            }
+        }
+    }
+    
+    private void pintar(ResultSet cadena){
+        DefaultListModel listaAux = new DefaultListModel();
+        
+        listaAux.clear();
+        try {
+          
+            
+            //System.out.println(Principal.cbd.totalFilas());
+            if(!cadena.first()){
+                listaAux.addElement("No existen mediciones");
+            }else{
+               // cadena.next();
+                listaAux.addElement(cadena.getObject(1).toString());
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos" + ex.getMessage());
+        } catch (NullPointerException ex){
+            listaAux.addElement("No existen mediciones");
+        }
+        
+        switch(opt){
+            case 0: listaConPob.setModel(listaAux);
+                    break;
+            case 1: listaConProv.setModel(listaAux);
+                    break;
+            case 2: listaConCli.setModel(listaAux);
+                    break;
+        }
+        
+    
     }
 }
