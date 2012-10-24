@@ -4,12 +4,36 @@
  */
 package gui;
 
+import clases.Cliente;
+import clases.Poblacion;
+import clases.Provincia;
+import clases.callespoblaciones;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author carranza
  */
 public class Modificaciones extends javax.swing.JFrame {
-
+    ResultSet conjuntoResultados = null;
+    List<Provincia> listaProvincias = new ArrayList<>();
+    List<Poblacion> listaPoblaciones = new ArrayList<>();
+    List<callespoblaciones> listaCalles = new ArrayList<>();
+    List<Cliente> listaClientes = new ArrayList<>();
+    String codigoProvinciaAux;
+    String codigoPoblacionAux;
+    String codigoCalleAux;
+    String pobActual = null;
+    boolean opCalle=false;
+    
     /**
      * Creates new form Modificaciones
      */
@@ -38,6 +62,9 @@ public class Modificaciones extends javax.swing.JFrame {
         comboCalle = new javax.swing.JComboBox();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        lbCalle = new javax.swing.JLabel();
 
         setTitle("Modificar");
 
@@ -64,15 +91,26 @@ public class Modificaciones extends javax.swing.JFrame {
             }
         });
 
-        comboProvincia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione Provincia" }));
+        comboProvincia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboProvinciaActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Introduzca el nuevo Nombre");
 
-        comboPoblacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione Poblacion" }));
-
-        comboCalle.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione Calle" }));
+        comboPoblacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboPoblacionActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Aceptar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("Cancelar");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -80,6 +118,12 @@ public class Modificaciones extends javax.swing.JFrame {
                 jButton6ActionPerformed(evt);
             }
         });
+
+        jLabel3.setText("Provincia");
+
+        jLabel4.setText("Poblacion");
+
+        lbCalle.setText("Calle");
 
         javax.swing.GroupLayout panelProvLayout = new javax.swing.GroupLayout(panelProv);
         panelProv.setLayout(panelProvLayout);
@@ -92,27 +136,35 @@ public class Modificaciones extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtNuevoNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
-                    .addGroup(panelProvLayout.createSequentialGroup()
-                        .addGroup(panelProvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(comboProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboPoblacion, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboCalle, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelProvLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton6)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton5)))
+                        .addComponent(jButton5))
+                    .addGroup(panelProvLayout.createSequentialGroup()
+                        .addGroup(panelProvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(comboProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboPoblacion, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboCalle, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(lbCalle))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelProvLayout.setVerticalGroup(
             panelProvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelProvLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addComponent(jLabel3)
+                .addGap(7, 7, 7)
                 .addComponent(comboProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addGap(7, 7, 7)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comboPoblacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbCalle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comboCalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(panelProvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -169,12 +221,16 @@ public class Modificaciones extends javax.swing.JFrame {
         panelProv.setVisible(true);
         comboPoblacion.setVisible(true);
         comboCalle.setVisible(false);
+        lbCalle.setVisible(false);
+        opCalle=false;
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         panelProv.setVisible(true);
         comboPoblacion.setVisible(true);
         comboCalle.setVisible(true);
+        lbCalle.setVisible(true);
+        opCalle=true;
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -187,6 +243,18 @@ public class Modificaciones extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         setVisible(false);
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void comboProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboProvinciaActionPerformed
+        rellenaPoblacion();
+    }//GEN-LAST:event_comboProvinciaActionPerformed
+
+    private void comboPoblacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboPoblacionActionPerformed
+        rellenaCalle();
+    }//GEN-LAST:event_comboPoblacionActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        modificar();
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -233,6 +301,9 @@ public class Modificaciones extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel lbCalle;
     private javax.swing.JPanel panelProv;
     private javax.swing.JTextField txtNuevoNombre;
     // End of variables declaration//GEN-END:variables
@@ -244,6 +315,368 @@ public class Modificaciones extends javax.swing.JFrame {
         panelProv.setVisible(false);
         comboPoblacion.setVisible(false);
         comboCalle.setVisible(false);
+        rellenaProvincias();
+    }
+    
+    /**
+     * Rellena el combo de Provincias
+     */
+    public void rellenaProvincias() {
+        //Borra el combobox
+        comboProvincia.removeAll();
+
+        //Hago una consulta que me devuelva todas la provincias con sus códigos y las almaceno en conjuntoResultados
+        try {
+            conjuntoResultados = Principal.cbd.consultaSelect("SELECT * FROM  `provincias` ");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos");
+        }
+
+        int numeroDeColumnas = 0;
+        ResultSetMetaData metaDatos = null;
+
+
+        try {
+            metaDatos = conjuntoResultados.getMetaData();
+            numeroDeColumnas = metaDatos.getColumnCount();
+
+            //creo el contador para ir pivotando entre las columnas de la tabla
+            int cont = 0;
+            String cod = null;
+            String nom = null;
+
+            while (conjuntoResultados.next()) {
+                for (int i = 1; i <= numeroDeColumnas; i++) {
+
+                    switch (cont) {
+                        case 0:
+                            cod = conjuntoResultados.getObject(i).toString();
+                            cont = 1;
+                            break;
+                        case 1:
+                            nom = conjuntoResultados.getObject(i).toString();
+                            //creo un objeto provincia, variable
+                            Provincia aux = new Provincia(cod, nom);
+                            listaProvincias.add(aux);
+                            cont = 0;
+                            break;
+                    }
+                }
+            }
+
+            Iterator iterador = listaProvincias.listIterator(); //Le solicito a la lista que me devuelva un iterador con todos los el elementos contenidos en ella
+
+            while (iterador.hasNext()) {
+                Provincia pr = (Provincia) iterador.next();
+
+                comboProvincia.addItem(pr.getProvincia());
+
+                codigoProvinciaAux = extraerCodigoProvinciaSeleccinada();
+
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos");
+        }
     }
 
+    /**
+     * Extrae el código de la provincia seleccionada segun el indice del
+     * combobox
+     */
+    public String extraerCodigoProvinciaSeleccinada() {
+
+        Provincia pAux = listaProvincias.get(comboProvincia.getSelectedIndex());
+
+        return pAux.getCodigoProvincia();
+
+    }
+
+    /**
+     * Extrae el código de la poblacion seleccionada segun el indice del
+     * combobox
+     */
+    public String extraerCodigoPoblacionSeleccinada() {
+        Poblacion pAux = listaPoblaciones.get(comboPoblacion.getSelectedIndex());
+        pobActual = pAux.getNombrePob();
+        return pAux.getCodPoblacion();
+    }
+
+    /**
+     * Extrae el codigo de la calle seleccionada el combo
+     *
+     * @return
+     */
+    public String extraerCodigoCalleSeleccinada() {
+
+        
+        callespoblaciones cAux = listaCalles.get(comboCalle.getSelectedIndex());
+        
+        
+        return cAux.getIdCalle();
+
+    }
+
+    /**
+     * Metodo encargado de rellenar el combo de poblacion
+     */
+    public void rellenaPoblacion() {
+
+        //Borra el combobox
+        comboPoblacion.removeAllItems();
+        //Borra la lista de poblaciones
+        listaPoblaciones.clear();
+        //Extrae el codigo de la provincia seleccionada
+        codigoProvinciaAux = extraerCodigoProvinciaSeleccinada();
+
+        ResultSet results = null;
+
+        //Hago una consulta que me devuelva las poblaciones de la provincia seleccionada
+        try {
+            results = Principal.cbd.consultaSelect("SELECT CodigoProvincia,CodigoPoblacion,Poblacion FROM poblaciones WHERE CodigoProvincia=" + codigoProvinciaAux);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos");
+        }
+
+        //Declaro algunas variables para poder rellenar el combo
+        int numeroDeColumnas = 0;
+        ResultSetMetaData metaDatos = null;
+
+
+        try {
+            metaDatos = results.getMetaData();
+            numeroDeColumnas = metaDatos.getColumnCount();
+
+            //Creo el contador para ir pivotando entre las columnas de la tabla
+            int cont = 0;
+            //Variables que almacenan los datos que se añaden al final del bucle
+            String codProv = null;
+            String codPob = null;
+            String nom = null;
+
+            while (results.next()) {
+                for (int i = 1; i <= numeroDeColumnas; i++) {
+
+                    switch (cont) {
+                        case 0:
+                            codProv = results.getObject(i).toString();
+                            cont = 1;
+                            break;
+                        case 1:
+                            codPob = results.getObject(i).toString();
+                            cont = 2;
+                            break;
+                        case 2:
+                            nom = results.getObject(i).toString();
+                            //Creo un objeto poblacion y añado los datos que se han ido recogiendo el switch
+                            Poblacion aux = new Poblacion(codProv, codPob, nom);
+                            listaPoblaciones.add(aux);
+                            cont = 0; //para que vuelva a rellenar desde el primer campo
+                            break;
+                    }
+                }
+            }
+
+            //Le solicito a la lista que me devuelva un iterador con todos los el elementos contenidos en ella
+            Iterator iterador = listaPoblaciones.listIterator();
+
+            //En caso de no existir ninguna poblacion para la provincia muestro en el combo vacio, sino relleno el combo
+            if (listaPoblaciones.isEmpty()) {
+                comboPoblacion.addItem("--Vacío--");
+
+                codigoPoblacionAux = null;
+            } else {
+                while (iterador.hasNext()) {
+                    Poblacion pr = (Poblacion) iterador.next();
+
+                    comboPoblacion.addItem(pr.getNombrePob());
+                }
+
+                codigoPoblacionAux = extraerCodigoPoblacionSeleccinada();
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos");
+        }
+
+    }
+
+    /**
+     * Rellena el combo de la calle
+     */
+    public void rellenaCalle() {
+        String op = null;
+
+        try {
+
+            //Borra el combobox
+            comboCalle.removeAllItems();
+            //Borra la lista de calles
+            listaCalles.clear();
+            //Extrae el codigo de la poblacion seleccionada
+            codigoPoblacionAux = extraerCodigoPoblacionSeleccinada();
+
+            ResultSet results2 = null;
+
+
+
+            //Hago una consulta que me devuelva las calles de la poblacion seleccionada
+            try {
+
+                results2 = Principal.cbd.consultaSelect("SELECT idCalle,CodPoblacion,Nombre FROM callespoblaciones WHERE CodPoblacion=" + codigoPoblacionAux);
+
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos");
+            }
+
+            //Declaro algunas variables para poder rellenar el combo
+            int numeroDeColumnas = 0;
+            ResultSetMetaData metaDatos = null;
+
+
+            try {
+                metaDatos = results2.getMetaData();
+                numeroDeColumnas = metaDatos.getColumnCount();
+
+                //Creo el contador para ir pivotando entre las columnas de la tabla
+                int cont = 0;
+                //Variables que almacenan los datos que se añaden al final del bucle
+                String idCalle = null;
+                String codPob = null;
+                String nom = null;
+
+
+                while (results2.next()) {
+                    for (int i = 1; i <= numeroDeColumnas; i++) {
+
+                        switch (cont) {
+                            case 0:
+                                idCalle = results2.getObject(i).toString();
+                                cont = 1;
+                                break;
+                            case 1:
+                                codPob = results2.getObject(i).toString();
+                                cont = 2;
+                                break;
+                            case 2:
+                                nom = results2.getObject(i).toString();
+                                //Creo un objeto poblacion y añado los datos que se han ido recogiendo el switch
+                                callespoblaciones aux = new callespoblaciones(idCalle, codPob, nom);
+                                listaCalles.add(aux);
+                                cont = 0; //para que vuelva a rellenar desde el primer campo
+                                break;
+                        }
+                    }
+
+                }
+
+                //Le solicito a la lista que me devuelva un iterador con todos los el elementos contenidos en ella
+                Iterator iterador = listaCalles.listIterator();
+
+                //En caso de no existir ningun objeto para el codigo seleccionado muestro en el combo vacio, sino relleno el combo
+                if (listaCalles.isEmpty()) {
+                    comboCalle.addItem("--Vacío--");
+
+                    codigoCalleAux = null;
+                } else {
+                    while (iterador.hasNext()) {
+                        callespoblaciones pr = (callespoblaciones) iterador.next();
+                        if (pr.getNombre().equals(comboPoblacion.getSelectedItem().toString())) {
+                            comboCalle.removeAll();
+                            comboCalle.addItem("--Vacío--");
+                        } else {
+                            comboCalle.addItem(pr.getNombre());
+                            op = pr.getNombre();
+                        }
+                    }
+
+                    codigoCalleAux = extraerCodigoCalleSeleccinada();
+                }
+
+                //Controla problema de duplicidad comboBox
+                if (pobActual.equals(op)) {
+                    comboCalle.removeAllItems();
+                    comboCalle.addItem("--Vacío--");
+                }
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos");
+            }
+            //Controla la posibilidad de que se pulse el botón actualizar calles antes de tiempo
+        } catch (IndexOutOfBoundsException asd) {
+            comboCalle.addItem("--Vacío--");
+        }
+    }
+    
+    /**
+     * Metodo al que se llama cuando se pulsa el boton aceptar para modificar un campo
+     */
+    private void modificar() {
+        //Comprueba si el texto está vacío
+        if (txtNuevoNombre.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe escribir el nuevo nombre");
+        } else {
+            //Comprueba si ha seleccionado calle o población
+            if (opCalle) {
+                //Comprueba que no se duplique el nombre o se de nombre a un campo vacion
+                if (txtNuevoNombre.getText().equals(comboCalle.getSelectedItem().toString()) || comboCalle.getSelectedItem().equals("--Vacío--")) {
+                    JOptionPane.showMessageDialog(null, "No puede escribir el mismo nombre \no dar nombre a una poblacion sin calles");
+                } else {
+                    ResultSet resultado = null;
+                    try {
+                        //Consulta si el nombre indicado ya se encuentra registrado en otra calle
+                        resultado = Principal.cbd.consultaSelect("SELECT * FROM callespoblaciones WHERE Nombre='" + txtNuevoNombre.getText() + "'");
+
+                        if (!resultado.next()) {
+                            //Realiza la modificación en la BD
+                            Principal.cbd.consultaUpdate("UPDATE callespoblaciones SET Nombre='" + txtNuevoNombre.getText() + "' WHERE idCalle=" + codigoCalleAux);
+
+                            JOptionPane.showMessageDialog(null, "Nombre de la calle modificado correctamente");
+
+                            rellenaCalle();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "ERROR. El nombre indicado ya se encuentra registrado");
+                        }
+
+
+
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos: " + ex.getMessage());
+                    }
+
+                }
+            //Opción similar a a la del caso anterior, solo que con las poblaciones
+            } else { 
+                if (txtNuevoNombre.getText().equals(comboPoblacion.getSelectedItem().toString()) || comboPoblacion.getSelectedItem().equals("--Vacío--")) {
+                    JOptionPane.showMessageDialog(null, "No puede escribir el mismo nombre \no dar nombre a una provincia sin poblaciones");
+                } else {
+                    ResultSet resultado = null;
+                    try {
+                        resultado = Principal.cbd.consultaSelect("SELECT * FROM poblaciones WHERE Poblacion='" + txtNuevoNombre.getText() + "'");
+
+                        if (!resultado.next()) {
+
+                            Principal.cbd.consultaUpdate("UPDATE poblaciones SET Poblacion='" + txtNuevoNombre.getText() + "' WHERE CodigoPoblacion=" + codigoPoblacionAux);
+
+                            JOptionPane.showMessageDialog(null, "Nombre de la población modificado correctamente");
+
+                            rellenaPoblacion();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "ERROR. El nombre indicado ya se encuentra registrado");
+                        }
+
+
+
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos: " + ex.getMessage());
+                    }
+
+                }
+
+
+            }
+
+        }
+    }
 }

@@ -61,22 +61,23 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jTabbedPane1" alignment="0" max="32767" attributes="0"/>
+          <Component id="panel" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTabbedPane1" max="32767" attributes="0"/>
+              <Component id="panel" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+    <Container class="javax.swing.JTabbedPane" name="panel">
       <Events>
-        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jTabbedPane1StateChanged"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="panelMouseClicked"/>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="panelStateChanged"/>
       </Events>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
@@ -172,11 +173,12 @@
                 <Component class="javax.swing.JComboBox" name="comboProvPob">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="1">
-                        <StringItem index="0" value="Selecciona Provincia"/>
-                      </StringArray>
+                      <StringArray count="0"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboProvPobActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="comboMesPob">
                   <Properties>
@@ -217,9 +219,7 @@
                 <Component class="javax.swing.JComboBox" name="comboPobPob">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="1">
-                        <StringItem index="0" value="Selecciona Poblacion"/>
-                      </StringArray>
+                      <StringArray count="0"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -321,9 +321,7 @@
             <Component class="javax.swing.JComboBox" name="comboMesPro">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="1">
-                    <StringItem index="0" value="Selecciona el Mes"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
               </Properties>
             </Component>
@@ -340,11 +338,12 @@
             <Component class="javax.swing.JComboBox" name="comboProvProv">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="1">
-                    <StringItem index="0" value="Selecciona Provincia"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboProvProvActionPerformed"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane4">
               <AuxValues>
@@ -380,21 +379,35 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel15" min="-2" pref="246" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lbPob5" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lbPob4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jButton7" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="jButton8" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="comboMesCli" min="-2" pref="158" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="ComboPobla1" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="ComboProv1" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="ComboCalle1" alignment="0" min="-2" pref="237" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbPob5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbPob4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="ComboPobla1" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="ComboProv1" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="ComboCalle1" alignment="0" min="-2" pref="237" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Component id="jButton9" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -419,24 +432,24 @@
                               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
+                              <EmptySpace min="0" pref="14" max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" min="-2" pref="688" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jButton7" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jButton8" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="comboMesCli" min="-2" pref="158" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane2" min="-2" pref="688" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel15" min="-2" pref="246" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="26" max="32767" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="688" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
@@ -445,13 +458,6 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="txtCodCliente" min="-2" pref="150" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="419" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="103" rootIndex="2" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="22" max="32767" attributes="0"/>
-                          <Component id="jScrollPane2" min="-2" pref="688" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -504,9 +510,13 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                      <Component id="jButton9" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="161" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                      <Component id="jScrollPane2" min="-2" pref="121" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -526,13 +536,6 @@
                               <Component id="txtCodCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="540" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="103" rootIndex="2" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="209" max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="231" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -579,29 +582,32 @@
             <Component class="javax.swing.JComboBox" name="ComboProv1">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="1">
-                    <StringItem index="0" value="Seleccione"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ComboProv1ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="ComboPobla1">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="1">
-                    <StringItem index="0" value="Seleccione"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ComboPobla1ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="ComboCalle1">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="1">
-                    <StringItem index="0" value="Seleccione"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ComboCalle1ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel11">
               <Properties>
@@ -654,6 +660,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtCodCliente">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbPob4">
               <Properties>
@@ -704,9 +713,20 @@
                     </Property>
                     <Property name="selectionMode" type="int" value="0"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="listaCliMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JButton" name="jButton9">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Buscar"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton9ActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>
