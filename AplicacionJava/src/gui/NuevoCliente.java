@@ -4,9 +4,9 @@
  */
 package gui;
 
-import clases.Poblacion;
-import clases.Provincia;
-import clases.callespoblaciones;
+import aplicacionjava.Poblacion;
+import aplicacionjava.Provincia;
+import aplicacionjava.callespoblaciones;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -31,6 +31,7 @@ public class NuevoCliente extends javax.swing.JFrame {
     String codigoPoblacionAux;
     String codigoCalleAux;
     String pobActual=null;
+    aplicacionjava.Conversion conAux = new aplicacionjava.Conversion();
 
     /**
      * Creates new form NuevoCliente
@@ -68,8 +69,6 @@ public class NuevoCliente extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtNumero = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
 
         setTitle("Nuevo Cliente");
 
@@ -148,12 +147,6 @@ public class NuevoCliente extends javax.swing.JFrame {
 
         jLabel5.setText("Apellido");
 
-        jLabel9.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel9.setText("**");
-
-        jLabel11.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        jLabel11.setText("**El Campo \"Piso\" es Opcional");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -179,8 +172,6 @@ public class NuevoCliente extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
                                 .addComponent(txtPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtApellido2)
                             .addComponent(ComboPobla, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -188,9 +179,6 @@ public class NuevoCliente extends javax.swing.JFrame {
                             .addComponent(txtNombre)
                             .addComponent(txtApellido)
                             .addComponent(ComboCalle, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel11))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1)
@@ -230,19 +218,16 @@ public class NuevoCliente extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jLabel7)
                     .addComponent(txtPiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
+                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txtMetros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
-                .addComponent(jLabel11)
-                .addGap(20, 20, 20)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(btAceptar))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -327,7 +312,6 @@ public class NuevoCliente extends javax.swing.JFrame {
     private javax.swing.JComboBox ComboProv;
     private javax.swing.JButton btAceptar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -335,7 +319,6 @@ public class NuevoCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel lbPob2;
     private javax.swing.JLabel lbPob3;
     private javax.swing.JTextField txtApellido;
@@ -658,8 +641,10 @@ public class NuevoCliente extends javax.swing.JFrame {
             }
             else{
                 //Control de campos numero y metros
-                if(txtNumero.getText().equals("") || txtMetros.getText().equals("")){
-                       JOptionPane.showMessageDialog(null, "Debe introducir todos los campos necesarios");
+                if(txtNumero.getText().equals("") || txtMetros.getText().equals("") || !conAux.esNumerico(txtNumero.getText()) 
+                        || !conAux.esNumerico(txtMetros.getText()) || !conAux.esNumerico(txtPiso.getText()) || txtPiso.getText().equals(""))
+                {
+                       JOptionPane.showMessageDialog(null, "Debe introducir todos los campos necesarios en su formato");
                 }
                 else{
                  ResultSet consult = null;
@@ -673,19 +658,11 @@ public class NuevoCliente extends javax.swing.JFrame {
                                + "&& Calle='"+ aux2 +"' && CodigoPoblacion='"+ aux +"'");
                         
                         if (!consult.next()){
-                            
-                            //Controlo que se rellene o no la casilla del piso, puesto que es un dato opcional
-                            String piso = null;
-                            if(txtPiso.getText().equals("")){
-                                piso="NULL";
-                            }else{
-                                piso=txtPiso.getText();
-                            }
-                            
+             
                             //---INSERT a la base de datos
                             Principal.cbd.consultaUpdate("INSERT INTO clientes (Nombre,Apellido,Apellido2,Calle,Numero,Piso,Metros,CodigoPoblacion,CodigoProvincia) "
                                     + "VALUES ('"+txtNombre.getText()+"','"+txtApellido.getText()+"','"+txtApellido2.getText()+"','"+ aux2 +"','"+txtNumero.getText()+"',"
-                                    + "'"+piso+"','"+txtMetros.getText()+"','"+aux+"','"+aux3+"');");
+                                    + "'"+ txtPiso.getText() +"','"+txtMetros.getText()+"','"+aux+"','"+aux3+"');");
                             
                             JOptionPane.showMessageDialog(null,"Cliente añadido correctamente");
                             setVisible(false);

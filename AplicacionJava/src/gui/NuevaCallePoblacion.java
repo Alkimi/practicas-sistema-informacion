@@ -4,8 +4,8 @@
  */
 package gui;
 
-import clases.Poblacion;
-import clases.Provincia;
+import aplicacionjava.Poblacion;
+import aplicacionjava.Provincia;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -28,7 +29,7 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
     String codigoProvinciaAux;
     String codigoPoblacionAux;
     int opcionSeleccionada=-1;
-    
+    aplicacionjava.Conversion conAux = new aplicacionjava.Conversion();
 
     /**
      * Creates new form NuevaCallePoblacion
@@ -521,7 +522,7 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
                     if(txtPoblacion.getText().equals("") || txtPoblacion.getText().equals("Nombre de la poblacion")){
                         JOptionPane.showMessageDialog(null, "Debe introducir un nombre de población");
                     }else{
-                    if(txtNumHab.getText().equals("") || txtNumHab.getText().equals("Numero de Habitantes")){
+                    if(txtNumHab.getText().equals("") || txtNumHab.getText().equals("Numero de Habitantes") || !conAux.esNumerico(txtNumHab.getText())){
                         JOptionPane.showMessageDialog(null, "Debe introducir el número de habitantes");
                     }else{
                         
@@ -562,7 +563,7 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
                 }
                 break;
            case 2:  if(txtCalle.getText().equals("") || txtPoblacion.getText().equals("Nombre de la calle")
-                   || txtCP.getText().equals("") || txtCP.getText().equals("Código Postal")){
+                   || txtCP.getText().equals("") || txtCP.getText().equals("Código Postal") || !conAux.esNumerico(txtCP.getText())){
                         JOptionPane.showMessageDialog(null, "Debe introducir el campo Calle y Codigo Postal");
                     }
                     else

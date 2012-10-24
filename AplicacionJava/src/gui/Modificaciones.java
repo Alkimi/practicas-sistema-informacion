@@ -4,10 +4,10 @@
  */
 package gui;
 
-import clases.Cliente;
-import clases.Poblacion;
-import clases.Provincia;
-import clases.callespoblaciones;
+import aplicacionjava.Cliente;
+import aplicacionjava.Poblacion;
+import aplicacionjava.Provincia;
+import aplicacionjava.callespoblaciones;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
