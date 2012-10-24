@@ -1,6 +1,6 @@
 package gui;
 
-import Utilidades.ConexionBD;
+import aplicacionjava.ConexionBD;
 import aplicacionjava.RellenaClientes;
 import java.sql.ResultSet;
 import java.sql.SQLException;

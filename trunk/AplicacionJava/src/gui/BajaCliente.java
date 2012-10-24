@@ -4,20 +4,20 @@
  */
 package gui;
 
-import clases.Cliente;
-import clases.Poblacion;
-import clases.Provincia;
-import clases.callespoblaciones;
+import aplicacionjava.Cliente;
+import aplicacionjava.Poblacion;
+import aplicacionjava.Provincia;
+import aplicacionjava.callespoblaciones;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *

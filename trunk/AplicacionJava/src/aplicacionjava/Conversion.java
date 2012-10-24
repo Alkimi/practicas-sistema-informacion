@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Utilidades;
+package aplicacionjava;
 
 import java.util.Date;
 
@@ -44,7 +44,7 @@ public class Conversion {
      * 
      * @return cadena del tipo "'2012-05-01 00:00:00' AND '2012-05-31 23:59:59'" 
      */
-    public String obetenerMesActual(){
+    public String obtenerMesActual(){
         return ("'"+(1900+fecha.getYear())+"-"+rellena(fecha.getMonth()+1)+"-01 00:00:00' AND '"
                 +(1900+fecha.getYear())+"-"+rellena(fecha.getMonth()+1)+"-"+diasPorMes[fecha.getMonth()+1]+" 23:59:59'");
     }
@@ -99,4 +99,18 @@ public class Conversion {
             return String.valueOf(entrada);
         }
     }
+    
+    /**
+     * Devuelve true o false si la cadena es numerica o no
+     * @param cadena
+     * @return 
+     */
+    public boolean esNumerico(String cadena){
+	try {
+		Integer.parseInt(cadena);
+		return true;
+	} catch (NumberFormatException nfe){
+		return false;
+	}
+}
 }

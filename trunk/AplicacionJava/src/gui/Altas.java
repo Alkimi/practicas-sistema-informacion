@@ -4,9 +4,8 @@
  */
 package gui;
 
-import gui.NuevaCallePoblacion;
-import javax.swing.JOptionPane;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author carranza

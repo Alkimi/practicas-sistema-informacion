@@ -4,22 +4,22 @@
  */
 package gui;
 
-import Utilidades.Conversion;
-import clases.Cliente;
-import clases.Poblacion;
-import clases.Provincia;
-import clases.callespoblaciones;
+import aplicacionjava.Conversion;
+import aplicacionjava.Cliente;
+import aplicacionjava.Poblacion;
+import aplicacionjava.Provincia;
+import aplicacionjava.callespoblaciones;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -425,6 +425,11 @@ public class Consultas extends javax.swing.JFrame {
 
         btConsultaCli.setText("Realizar Consulta");
         btConsultaCli.setToolTipText("");
+        btConsultaCli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btConsultaCliActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -604,6 +609,7 @@ public class Consultas extends javax.swing.JFrame {
 
     private void btMesCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMesCliActionPerformed
         pulsaMes();
+        
     }//GEN-LAST:event_btMesCliActionPerformed
 
     private void btAnioCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAnioCliActionPerformed
@@ -613,6 +619,10 @@ public class Consultas extends javax.swing.JFrame {
     private void panelStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_panelStateChanged
        opt=panel.getSelectedIndex();
        rellenaProvincias();
+       btAnioCli.setEnabled(false);
+       btMesCli.setEnabled(false);
+       comboMesCli.setVisible(false);
+       btConsultaCli.setEnabled(false);
     }//GEN-LAST:event_panelStateChanged
 
     private void ComboProv1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboProv1ActionPerformed
@@ -629,6 +639,7 @@ public class Consultas extends javax.swing.JFrame {
 
     private void listaCliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaCliMouseClicked
         rellenaTexto();
+        pulsaAnio();
     }//GEN-LAST:event_listaCliMouseClicked
 
     private void panelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMouseClicked
@@ -654,6 +665,10 @@ public class Consultas extends javax.swing.JFrame {
     private void btConsultaProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultaProvActionPerformed
         realizaConsultas2();
     }//GEN-LAST:event_btConsultaProvActionPerformed
+
+    private void btConsultaCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultaCliActionPerformed
+        realizaConsultas3();
+    }//GEN-LAST:event_btConsultaCliActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1174,12 +1189,12 @@ public class Consultas extends javax.swing.JFrame {
                 } else {
                     while (iterador.hasNext()) {
                         callespoblaciones pr = (callespoblaciones) iterador.next();
-                        if (pr.getNombre().equals(ComboPobla1.getSelectedItem().toString())) {
+                        
+                        if(listaCalles.isEmpty()){
                             ComboCalle1.removeAll();
                             ComboCalle1.addItem("--Vacío--");
-                        } else {
+                        }else{
                             ComboCalle1.addItem(pr.getNombre());
-                            op = pr.getNombre();
                         }
                     }
 
@@ -1189,7 +1204,7 @@ public class Consultas extends javax.swing.JFrame {
                 //Controla problema de duplicidad comboBox
                 if (pobActual.equals(op)) {
                     ComboCalle1.removeAllItems();
-                    ComboCalle1.addItem("--Vacío--");
+                    ComboCalle1.addItem(pobActual);
                 }
 
             } catch (SQLException ex) {
@@ -1197,7 +1212,7 @@ public class Consultas extends javax.swing.JFrame {
             }
             //Controla la posibilidad de que se pulse el botón actualizar calles antes de tiempo
         } catch (IndexOutOfBoundsException asd) {
-            ComboCalle1.addItem("--Vacío--");
+            ComboCalle1.addItem(pobActual);
         }
     }
 
@@ -1388,7 +1403,7 @@ public class Consultas extends javax.swing.JFrame {
                 if (!btMes.isEnabled()) {
                     if(comboMesPob.getSelectedIndex()==0){
                         resultado = Principal.cbd.consultaSelect("select SUM(KW) from mediciones where Cliente in (select Codigo from clientes "
-                            + "where CodigoProvincia='"+codigoProvinciaAux+"') and FechaHora between " + conversionC.obetenerMesActual());
+                            + "where CodigoProvincia='"+codigoProvinciaAux+"') and FechaHora between " + conversionC.obtenerMesActual());
                     }else{
                         resultado = Principal.cbd.consultaSelect("select SUM(KW) from mediciones where Cliente in (select Codigo from clientes "
                             + "where CodigoProvincia='"+codigoProvinciaAux+"') and FechaHora between " + conversionC.obtenerMesCualquiera(comboMesPob.getSelectedIndex()));
@@ -1410,6 +1425,7 @@ public class Consultas extends javax.swing.JFrame {
             }
         }
     }
+    
      private void realizaConsultas2(){
         codigoProvinciaAux=extraerCodigoProvinciaSeleccinada();
        
@@ -1423,19 +1439,47 @@ public class Consultas extends javax.swing.JFrame {
                 if (!btMesProv.isEnabled()) {
                     if(comboMesPro.getSelectedIndex()==0){
                         resultado = Principal.cbd.consultaSelect("select SUM(KW) from mediciones where Cliente in (select Codigo from clientes "
-                            + "where CodigoProvincia='"+codigoProvinciaAux+"') and FechaHora between " + conversionC.obetenerMesActual());
+                            + "where CodigoProvincia='"+codigoProvinciaAux+"') and FechaHora between " + conversionC.obtenerMesActual());
                     }else{
                         resultado = Principal.cbd.consultaSelect("select SUM(KW) from mediciones where Cliente in (select Codigo from clientes "
                             + "where CodigoProvincia='"+codigoProvinciaAux+"') and FechaHora between " + conversionC.obtenerMesCualquiera(comboMesPro.getSelectedIndex()));
                     }
                     
-
                 } else {
 
                     resultado = Principal.cbd.consultaSelect("select AVG (suma) from (select sum(KW) as suma from mediciones where Cliente in "
                             + "(select Codigo from clientes where CodigoProvincia='" + codigoProvinciaAux + "')"
                             + " and FechaHora between" + conversionC.obtenerYear() + " Group by MONTH (FechaHora)) as t1");
 
+                }
+                
+                pintar(resultado);
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos" + ex.getMessage());
+            }
+        }
+    }
+     
+      private void realizaConsultas3(){
+       
+        ResultSet resultado= null;
+        Conversion conversionC = new Conversion();
+        
+        if(txtCodCliente.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Debe selecccionar los campos para realizar la consulta");
+        }else{
+            try {
+                if (!btMesCli.isEnabled()) {
+                    if(comboMesCli.getSelectedIndex()==0){
+                        resultado = Principal.cbd.consultaSelect("select KW from mediciones where Cliente ="+ txtCodCliente.getText() 
+                                +" and FechaHora between " + conversionC.obtenerMesActual());
+                    }else{
+                        resultado = Principal.cbd.consultaSelect("select KW from mediciones where Cliente ="+ txtCodCliente.getText() 
+                                +" and FechaHora between " + conversionC.obtenerMesCualquiera(comboMesCli.getSelectedIndex()));
+                    }
+                } else {
+                    resultado = Principal.cbd.consultaSelect("select avg(KW) from mediciones where Cliente = " 
+                            + txtCodCliente.getText() +" and FechaHora between " + conversionC.obtenerYear());
                 }
                 
                 pintar(resultado);

@@ -4,18 +4,16 @@
  */
 package gui;
 
-import clases.Cliente;
-import clases.Poblacion;
-import clases.Provincia;
-import clases.callespoblaciones;
+import aplicacionjava.Cliente;
+import aplicacionjava.Poblacion;
+import aplicacionjava.Provincia;
+import aplicacionjava.callespoblaciones;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -41,6 +39,8 @@ public class ModCliente extends javax.swing.JFrame {
     private String numAux;
     private String pisoAux;
     private String metroAux;
+    aplicacionjava.Conversion conAux = new aplicacionjava.Conversion();
+
 
     /**
      * Creates new form ModCliente
@@ -1284,6 +1284,11 @@ public class ModCliente extends javax.swing.JFrame {
         if(!txtCodCliente.getText().equals("")){
         if(comprobarCambios()){
             try {
+                if(txtNumero1.getText().equals("") || txtMetros1.getText().equals("") || !conAux.esNumerico(txtNumero1.getText()) 
+                        || !conAux.esNumerico(txtMetros1.getText()) || !conAux.esNumerico(txtPiso1.getText()) || txtPiso1.getText().equals("")){
+                    JOptionPane.showMessageDialog(null, "Debe introducir todos los campos en su formato correcto");
+                }else{
+                
                 if(cambioDireccion){
                      Principal.cbd.consultaUpdate("UPDATE clientes SET Nombre='" + txtNombre1.getText() + "', Apellido='" + txtApellido1.getText()
                             + "', Apellido2='" + txtApellido3.getText() + "', Numero=" + txtNumero1.getText() + ", Piso=" + txtPiso1.getText()
@@ -1304,7 +1309,8 @@ public class ModCliente extends javax.swing.JFrame {
                         rellenaProvincias();
                         DefaultListModel listaAux = new DefaultListModel();
                         listaAux.clear();
-                        lista.setModel(listaAux);
+                        lista.setModel(listaAux);}
+                
                         
             } catch (SQLException ex) {
                  JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos" + ex.getMessage());    
