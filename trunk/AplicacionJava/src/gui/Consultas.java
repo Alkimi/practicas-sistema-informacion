@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -36,6 +37,7 @@ public class Consultas extends javax.swing.JFrame {
     String pobActual = null;
     boolean porCodigo=false;
     int opt=0;
+    
 
     /**
      * Creates new form Consultas
@@ -650,7 +652,7 @@ public class Consultas extends javax.swing.JFrame {
     }//GEN-LAST:event_btConsultaPobActionPerformed
 
     private void btConsultaProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultaProvActionPerformed
-        // TODO add your handling code here:
+        realizaConsultas2();
     }//GEN-LAST:event_btConsultaProvActionPerformed
 
     /**
@@ -791,20 +793,23 @@ public class Consultas extends javax.swing.JFrame {
             case 0: comboMesPob.setVisible(true);
                     btMes.setEnabled(false);
                     btAnio.setEnabled(true);
+                    rellenaMeses(comboMesPob);
                     break;
             case 1: comboMesPro.setVisible(true);
                     btMesProv.setEnabled(false);
                     btAnioProv.setEnabled(true);
+                    rellenaMeses(comboMesPro);
                     break;
             case 2: comboMesCli.setVisible(true);
                     btMesCli.setEnabled(false);
                     btAnioCli.setEnabled(true);
+                    rellenaMeses(comboMesCli);
                     break;
         
         }
         
         activaBtConsulta(true);
-        rellenaMeses();
+        
     }
     
     private void activaBtConsulta(boolean aux){
@@ -1353,21 +1358,22 @@ public class Consultas extends javax.swing.JFrame {
      
     }
     
-    private void rellenaMeses(){
-        comboMesPob.removeAllItems();
-        comboMesPob.addItem("Mes Actual");
-        comboMesPob.addItem("Enero");
-        comboMesPob.addItem("Febrero");
-        comboMesPob.addItem("Marzo");
-        comboMesPob.addItem("Abril");
-        comboMesPob.addItem("Mayo");
-        comboMesPob.addItem("Junio");
-        comboMesPob.addItem("Julio");
-        comboMesPob.addItem("Agosto");
-        comboMesPob.addItem("Septiembre");
-        comboMesPob.addItem("Octubre");
-        comboMesPob.addItem("Noviembre");
-        comboMesPob.addItem("Diciembre");
+    private void rellenaMeses(JComboBox comboAux){
+        
+        comboAux.removeAllItems();
+        comboAux.addItem("Mes Actual");
+        comboAux.addItem("Enero");
+        comboAux.addItem("Febrero");
+        comboAux.addItem("Marzo");
+        comboAux.addItem("Abril");
+        comboAux.addItem("Mayo");
+        comboAux.addItem("Junio");
+        comboAux.addItem("Julio");
+        comboAux.addItem("Agosto");
+        comboAux.addItem("Septiembre");
+        comboAux.addItem("Octubre");
+        comboAux.addItem("Noviembre");
+        comboAux.addItem("Diciembre");
     }
     
     private void realizaConsultas(){
@@ -1382,10 +1388,10 @@ public class Consultas extends javax.swing.JFrame {
                 if (!btMes.isEnabled()) {
                     if(comboMesPob.getSelectedIndex()==0){
                         resultado = Principal.cbd.consultaSelect("select SUM(KW) from mediciones where Cliente in (select Codigo from clientes "
-                            + "where CodigoPoblacion='"+codigoPoblacionAux+"') and FechaHora between " + conversionC.obetenerMesActual());
+                            + "where CodigoProvincia='"+codigoProvinciaAux+"') and FechaHora between " + conversionC.obetenerMesActual());
                     }else{
                         resultado = Principal.cbd.consultaSelect("select SUM(KW) from mediciones where Cliente in (select Codigo from clientes "
-                            + "where CodigoPoblacion='"+codigoPoblacionAux+"') and FechaHora between " + conversionC.obtenerMesCualquiera(comboMesPob.getSelectedIndex()));
+                            + "where CodigoProvincia='"+codigoProvinciaAux+"') and FechaHora between " + conversionC.obtenerMesCualquiera(comboMesPob.getSelectedIndex()));
                     }
                     
 
@@ -1404,6 +1410,41 @@ public class Consultas extends javax.swing.JFrame {
             }
         }
     }
+     private void realizaConsultas2(){
+        codigoProvinciaAux=extraerCodigoProvinciaSeleccinada();
+       
+        ResultSet resultado= null;
+        Conversion conversionC = new Conversion();
+        
+        if(comboProvProv.getSelectedItem().equals("--Vacío--")){
+            JOptionPane.showMessageDialog(null, "Debe selecccionar una población para realizar la consulta");
+        }else{
+            try {
+                if (!btMesProv.isEnabled()) {
+                    if(comboMesPro.getSelectedIndex()==0){
+                        resultado = Principal.cbd.consultaSelect("select SUM(KW) from mediciones where Cliente in (select Codigo from clientes "
+                            + "where CodigoProvincia='"+codigoProvinciaAux+"') and FechaHora between " + conversionC.obetenerMesActual());
+                    }else{
+                        resultado = Principal.cbd.consultaSelect("select SUM(KW) from mediciones where Cliente in (select Codigo from clientes "
+                            + "where CodigoProvincia='"+codigoProvinciaAux+"') and FechaHora between " + conversionC.obtenerMesCualquiera(comboMesPro.getSelectedIndex()));
+                    }
+                    
+
+                } else {
+
+                    resultado = Principal.cbd.consultaSelect("select AVG (suma) from (select sum(KW) as suma from mediciones where Cliente in "
+                            + "(select Codigo from clientes where CodigoProvincia='" + codigoProvinciaAux + "')"
+                            + " and FechaHora between" + conversionC.obtenerYear() + " Group by MONTH (FechaHora)) as t1");
+
+                }
+                
+                pintar(resultado);
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos" + ex.getMessage());
+            }
+        }
+    }
+    
     
     private void pintar(ResultSet cadena){
         DefaultListModel listaAux = new DefaultListModel();
