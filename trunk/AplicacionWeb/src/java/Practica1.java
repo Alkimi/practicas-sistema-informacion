@@ -84,19 +84,46 @@ public class Practica1 extends HttpServlet {
         
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        String provincia;
+        String ciudad;
+        String calle;
+        
          try{
             if (Boolean.parseBoolean(request.getParameter("PeticionInicio"))){
-
+                //llamamos a la bd para obtener las provincias y enviarlas
                 cadena = consultaProvincias();
-            //llamamos a la bd para obtener las provincias y enviarlas
             }
-          } catch(Exception e){
+            if (request.getParameter("PeticionCiudad")!=null){
+                provincia=request.getParameter("PeticionCiudad");
+                cadena = consultaCiudades(provincia);
+            }    
+            if (request.getParameter("PeticionCalle")!=null){
+                ciudad=request.getParameter("PeticionCalle");
+                cadena= consultaCalles(ciudad);
+            }
+            
+            if (request.getParameter("PeticionCliente")!=null){
+                calle=request.getParameter("PeticionCliente");
+                cadena=consultaClientes(calle);
+            }
+            
+            if (Boolean.parseBoolean(request.getParameter("InsertaMedicion"))){
+                int cliente;
+                String fecha;
+                float kw;
+                cliente=Integer.parseInt(request.getParameter("Cliente"));
+                fecha=request.getParameter("Fecha");
+                kw=Float.parseFloat(request.getParameter("KW"));
+                realizaMedicion(cliente, fecha, kw);
+                cadena="Insercion realizada";
+            }
+            if (cadena!=null){
+                out.println(cadena);
+            }
+         } 
+         catch(Exception e){
             out.println("Error en cálculo de factorial. "+e.getMessage());
-        }  
-                
-        try {
-             out.println(cadena);
-         } finally {            
+        }  finally {            
             out.close();
         }
         
@@ -145,15 +172,56 @@ public class Practica1 extends HttpServlet {
     }// </editor-fold>
     
     private String consultaProvincias(){
-        String cadena="";
-        ResultSet consulta;    
+        try {
+            return convierte( conexion.consultaSelect("Select * from provincias"));
+        } catch (SQLException ex) {
+            return null;
+        }
+        
+    }
+    
+    private String consultaCiudades(String provincia){
+        try {
+            return convierte( conexion.consultaSelect("Select CodigoPoblacion, Poblacion from poblaciones where CodigoProvincia="
+                    +provincia));
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+    
+    private String consultaCalles(String ciudad){
+         try {
+            return convierte( conexion.consultaSelect("Select idCalle, Nombre from callespoblaciones where CodPoblacion='"
+                    +ciudad+"'"));
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+    
+    private String consultaClientes(String calle){
+        try {
+            return convierte( conexion.consultaSelect("Select Codigo, Nombre, Apellido, Apellido2, Numero, Piso from clientes "
+                    +"where Calle="+calle));
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+    
+    private void realizaMedicion(int cliente,String fecha, float kw){
+        try {
+            conexion.consultaUpdate("insert into mediciones (Cliente,FechaHora,KW) values("+cliente+",'"+fecha+"',"+kw+");");
+        } catch (SQLException ex) {
+            //Logger.getLogger(Practica1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public String convierte(ResultSet consulta){
+          String cadena="";
+    
         int columnas;
         try {
-
-            consulta=  conexion.consultaSelect("Select * from provincias");
-
-
         columnas=consulta.getMetaData().getColumnCount();
+
         while(consulta.next()){
             for (int i=1;i<=columnas;i++){
                 cadena=cadena+consulta.getObject(i).toString();

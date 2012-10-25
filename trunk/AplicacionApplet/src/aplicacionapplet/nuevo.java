@@ -188,6 +188,7 @@ public class nuevo extends javax.swing.JApplet {
                 System.out.println("Esperando respuesta del servidor: ");
                 cadenaretorno += cadenaaux;
                 System.out.println(cadenaretorno);
+
             }
             
             buffer.close();
