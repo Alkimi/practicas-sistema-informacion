@@ -27,6 +27,7 @@ public class nuevo extends javax.swing.JApplet {
                     initComponents();
                 }
             });
+            this.setSize(750, 600);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -79,6 +80,11 @@ public class nuevo extends javax.swing.JApplet {
         jLabel8.setText("KiloWatios Consumidos:");
 
         jButton1.setText("Aceptar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -160,6 +166,10 @@ public class nuevo extends javax.swing.JApplet {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       peticionGet("true");
+    }//GEN-LAST:event_jButton1ActionPerformed
         
     // enviamos por get la petición
     String peticionGet(String mensaje) {
@@ -169,18 +179,18 @@ public class nuevo extends javax.swing.JApplet {
         
         try {
             String host = this.getCodeBase().getHost();
-            String peticion = "http://localhost:8080/AplicacionWeb/Calculo2?factorial=" + URLEncoder.encode(mensaje);
+            String peticion = "http://localhost:8080/AplicacionWeb/Practica1?PeticionInicio="+ URLEncoder.encode(mensaje);
             miurl = new URL(getCodeBase(),peticion);
             InputStream buffer = miurl.openStream();
             BufferedReader bufferreader = new BufferedReader(new InputStreamReader(buffer));
             
             while( (cadenaaux = bufferreader.readLine()) != null) {
+                System.out.println("Esperando respuesta del servidor: ");
                 cadenaretorno += cadenaaux;
+                System.out.println(cadenaretorno);
             }
             
             buffer.close();
-//            Salida.setText(cadenaretorno);
-
         }
         catch (Exception e) {
             return "Error al generar url " + e.getMessage();
