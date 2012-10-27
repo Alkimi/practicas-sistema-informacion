@@ -226,11 +226,11 @@ public class Practica1 extends HttpServlet {
             for (int i=1;i<=columnas;i++){
                 cadena=cadena+consulta.getObject(i).toString();
                 if (i==columnas){
-                    cadena=cadena+"\n";
+                    cadena=cadena+";";
                     
                 }
                 else {
-                    cadena=cadena+";";
+                    cadena=cadena+"-";
                 }
             }
         }
