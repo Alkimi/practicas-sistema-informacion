@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import aplicacionjava.Poblacion;
@@ -19,9 +15,15 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author carranza
- */
-public class NuevaCallePoblacion extends javax.swing.JFrame {
+ * Formulario para insertar una nueva calle o una población
+ * 
+ * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
+ * @version 1.0
+ * 
+ * Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
+ * 
+ */public class NuevaCallePoblacion extends javax.swing.JFrame {
     //Declaración de variables
     ResultSet conjuntoResultados=null;
     List<Provincia> listaProvincias = new ArrayList<>();
@@ -343,7 +345,7 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
      *Rellena el combo de Provincias
      * 
      */
-    public void rellenaProvincias(){
+    private void rellenaProvincias(){
         //Borra el combobox
         ComboProvincia.removeAllItems();
         
@@ -403,7 +405,7 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
      * Rellena el combo de Poblacion
      * 
      */
-    public void rellenaPoblacion(){
+    private void rellenaPoblacion(){
         
         //Borra el combobox
         ComboPoblacion.removeAllItems();
@@ -485,7 +487,7 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
     * Extrae el código de la provincia seleccionada segun el indice del combobox 
     * 
     */
-   public String extraerCodigoProvinciaSeleccinada(){
+   private String extraerCodigoProvinciaSeleccinada(){
        
        Provincia pAux = listaProvincias.get(ComboProvincia.getSelectedIndex());
        
@@ -497,7 +499,7 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
     * Extrae el código de la poblacion seleccionada segun el indice del combobox
     * 
     */
-   public String extraerCodigoPoblacionSeleccinada(){
+   private String extraerCodigoPoblacionSeleccinada(){
        
        Poblacion pAux = listaPoblaciones.get(ComboPoblacion.getSelectedIndex());
        
@@ -509,7 +511,7 @@ public class NuevaCallePoblacion extends javax.swing.JFrame {
     * Metodo al que se llama cuando se pulsa aceptar
     * 
     */
-   public void Aceptar(){
+   private void Aceptar(){
        
        
        ResultSet consult=null;

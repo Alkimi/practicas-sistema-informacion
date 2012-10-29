@@ -96,5 +96,4 @@ public class Cliente {
         this.piso = piso;
     }
     
-    
 }

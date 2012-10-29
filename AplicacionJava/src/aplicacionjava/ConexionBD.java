@@ -1,6 +1,14 @@
-    package aplicacionjava;
+package aplicacionjava;
 
-
+/**
+ * Clase general para la conexión a la base de datos
+ * 
+ * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
+ * @version 1.0
+ *
+ * Sistemas de Información - Grado Ingeniería Informática T.I. Curso 2012/13
+ *
+ */
 
 
 import java.sql.Connection;
@@ -22,24 +30,30 @@ public class ConexionBD {
     public Statement instruccion=null;
     ResultSet conjuntoResultados=null; // resultado de la ultima consulta
 
+   
+    
+    
     /**
-     * Constuctor parametrizado para conectarse a una base de dato en el servidor
-     * local es decir LOCALHOST, se le pasa por parametro el usuario, la contraseña
-     * y el nombre de la base de datos, puede lanzar excepciones
-     * 
+     * Constuctor parametrizado para conectarse a una base de dato en el
+     * servidor local es decir LOCALHOST, se le pasa por parametro el usuario,
+     * la contraseña y el nombre de la base de datos, puede lanzar excepciones
+     *
      * @param Usuario, nombre del usuario con acceso a la base de datos
      * @param Password, contraseña del usuario con acceso a la base de datos
      * @param BaseDatos, nombre de la base de datos,
-     * @throws ClassNotFoundException, lanza esta excepcion si no esta el conector jdbc
-     * @throws SQLException, lanza esta excepcion si no conecta con la base de datos
-     */
+     * @throws ClassNotFoundException, lanza esta excepcion si no esta el
+     * conector jdbc
+     * @throws SQLException, lanza esta excepcion si no conecta con la base de
+     * datos
+     */ 
+    
     public ConexionBD(String Usuario, String Password, String BaseDatos) throws ClassNotFoundException, SQLException {
-        userName=Usuario;
-        password=Password;
-        baseDatos=BaseDatos;
-        servidor="localhost";
+        userName = Usuario;
+        password = Password;
+        baseDatos = BaseDatos;
+        servidor = "localhost";
         inicializa();
-   }
+    }
 
     /**
      * Constuctor parametrizado para conectarse a una base de dato en el servidor
