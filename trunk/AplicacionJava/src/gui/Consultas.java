@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import aplicacionjava.Conversion;
@@ -23,8 +19,16 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author carranza
+ * Formulario de consultas. Presenta los tipos de consultas por pestañas
+ * 
+ * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
+ * @version 1.0
+ * 
+ * Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
+ * 
  */
+
 public class Consultas extends javax.swing.JFrame {
     ResultSet conjuntoResultados = null;
     List<Provincia> listaProvincias = new ArrayList<>();
@@ -767,13 +771,18 @@ public class Consultas extends javax.swing.JFrame {
     private javax.swing.JTextField txtPiso1;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Metodo encargado de ocultar los combos innecesarios
+     */
     public void noMostrar(){
         comboMesCli.setVisible(false);
         comboMesPob.setVisible(false);
         comboMesPro.setVisible(false);
     }
     
-    
+    /**
+     * Metodo encargado de mostrar el formulario
+     */
     public void Mostrar(){
         setVisible(true);
         setLocationRelativeTo(null);
@@ -782,7 +791,9 @@ public class Consultas extends javax.swing.JFrame {
         activaBtConsulta(false);
     }
     
-    
+    /**
+     * Metodo que se encarga de mostrar los combos necesarios, segun la opcion seleccionada
+     */
     private void pulsaAnio(){
         switch(opt){
             case 0: comboMesPob.setVisible(false);
@@ -803,6 +814,9 @@ public class Consultas extends javax.swing.JFrame {
         activaBtConsulta(true);
     }
     
+    /**
+     * Metodo que se encarga de mostrar los combos necesarios, segun la opcion seleccionada
+     */
     private void pulsaMes(){
         switch(opt){
             case 0: comboMesPob.setVisible(true);
@@ -827,6 +841,10 @@ public class Consultas extends javax.swing.JFrame {
         
     }
     
+    /**
+     * Metodo encargado de mostrar un boton u otro segun la consulta seleccionada
+     * @param aux 
+     */
     private void activaBtConsulta(boolean aux){
         switch(opt){
             case 0:btConsultaPob.setEnabled(aux);
@@ -839,6 +857,9 @@ public class Consultas extends javax.swing.JFrame {
         
     }
     
+    /**
+     * Controla el acceso a los botones de meses y años
+     */
     private void noPermitir(){
         switch(opt){
             case 0: btMes.setEnabled(false);
@@ -860,7 +881,7 @@ public class Consultas extends javax.swing.JFrame {
     /**
      * Rellena el combo de Provincias
      */
-    public void rellenaProvincias() {
+    private void rellenaProvincias() {
         //Borra el combobox
         switch(opt){
             case 0: comboProvPob.removeAll();
@@ -944,7 +965,7 @@ public class Consultas extends javax.swing.JFrame {
      * Extrae el código de la provincia seleccionada segun el indice del
      * combobox
      */
-    public String extraerCodigoProvinciaSeleccinada() {
+    private String extraerCodigoProvinciaSeleccinada() {
         Provincia pAux=null;
         
         switch(opt){
@@ -965,14 +986,14 @@ public class Consultas extends javax.swing.JFrame {
      * Extrae el código de la poblacion seleccionada segun el indice del
      * combobox
      */
-    public String extraerCodigoPoblacionSeleccinada() {
+    private String extraerCodigoPoblacionSeleccinada() {
         Poblacion pAux = listaPoblaciones.get(comboPobPob.getSelectedIndex());
                    
         pobActual = pAux.getNombrePob();
         return pAux.getCodPoblacion();
     }
     
-    public String extraerCodigoPoblacionSeleccinada2() {
+    private String extraerCodigoPoblacionSeleccinada2() {
         Poblacion pAux = listaPoblaciones.get(ComboPobla1.getSelectedIndex());
                     
         pobActual = pAux.getNombrePob();
@@ -984,7 +1005,7 @@ public class Consultas extends javax.swing.JFrame {
      *
      * @return
      */
-    public String extraerCodigoCalleSeleccinada() {
+    private String extraerCodigoCalleSeleccinada() {
 
         
         callespoblaciones cAux = listaCalles.get(ComboCalle1.getSelectedIndex());
@@ -997,7 +1018,7 @@ public class Consultas extends javax.swing.JFrame {
     /**
      * Metodo encargado de rellenar el combo de poblacion
      */
-    public void rellenaPoblacion() {
+    private void rellenaPoblacion() {
 
         //Borra el combobox
         switch(opt){
@@ -1104,7 +1125,7 @@ public class Consultas extends javax.swing.JFrame {
     /**
      * Rellena el combo de la calle
      */
-    public void rellenaCalle() {
+    private void rellenaCalle() {
         String op = null;
 
         try {
@@ -1220,7 +1241,7 @@ public class Consultas extends javax.swing.JFrame {
      * Metodo encargado de rellenar la lista de clientes
      *
      */
-    public void rellenaClientes() {
+    private void rellenaClientes() {
 
         borrarTexto();
         
@@ -1342,12 +1363,19 @@ public class Consultas extends javax.swing.JFrame {
         }
     }
 
-    public Cliente extraeClienteDeLista() {
+    /**
+     * Extrae el cliente de la lista seleccinado
+     * @return 
+     */
+    private Cliente extraeClienteDeLista() {
         int indice = listaCli.getSelectedIndex();
         return listaClientes.get(indice);
     }
 
-    public void rellenaTexto() {
+    /**
+     * Rellena las cajas de texto con los datos del cliente
+     */
+    private void rellenaTexto() {
   
         if (!listaClientes.isEmpty()) {
             Cliente cli = extraeClienteDeLista();
@@ -1363,6 +1391,9 @@ public class Consultas extends javax.swing.JFrame {
         
     }
     
+    /**
+     * Borra las cajas de texto de información del cliente
+     */
     private void borrarTexto(){
             txtNombre1.setText("");
             txtApellido1.setText("");
@@ -1373,6 +1404,10 @@ public class Consultas extends javax.swing.JFrame {
      
     }
     
+    /**
+     * Rellena el combo de meses para seleccionar consultas
+     * @param comboAux 
+     */
     private void rellenaMeses(JComboBox comboAux){
         
         comboAux.removeAllItems();
@@ -1391,6 +1426,9 @@ public class Consultas extends javax.swing.JFrame {
         comboAux.addItem("Diciembre");
     }
     
+    /**
+     * Metodo encargado de realizar las consultas de las poblaciones
+     */
     private void realizaConsultas(){
         codigoPoblacionAux=extraerCodigoPoblacionSeleccinada();
         ResultSet resultado= null;
@@ -1426,6 +1464,9 @@ public class Consultas extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Metodo encargado de realizar las consultas de las provincias 
+     */
      private void realizaConsultas2(){
         codigoProvinciaAux=extraerCodigoProvinciaSeleccinada();
        
@@ -1460,6 +1501,9 @@ public class Consultas extends javax.swing.JFrame {
         }
     }
      
+     /**
+      * Metodo encargado de realizar las consultas de los clientes
+      */
       private void realizaConsultas3(){
        
         ResultSet resultado= null;
@@ -1489,20 +1533,24 @@ public class Consultas extends javax.swing.JFrame {
         }
     }
     
-    
+    /**
+     * Muestra en la lista de la pestaña seleccionada el resultado de la consulta
+     * @param cadena 
+     */
     private void pintar(ResultSet cadena){
         DefaultListModel listaAux = new DefaultListModel();
         
         listaAux.clear();
         try {
-          
-            
-            //System.out.println(Principal.cbd.totalFilas());
             if(!cadena.first()){
                 listaAux.addElement("No existen mediciones");
             }else{
-               // cadena.next();
-                listaAux.addElement(cadena.getObject(1).toString());
+                if (!cadena.getObject(1).toString().equals("")) {
+                    listaAux.addElement("El consumo del campo seleccionado es:");
+                    listaAux.addElement("***************************");
+                    listaAux.addElement("**** \t" + cadena.getObject(1).toString() + " kw ");
+                    listaAux.addElement("***************************");
+                }
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos" + ex.getMessage());

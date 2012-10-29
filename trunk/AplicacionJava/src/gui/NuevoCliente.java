@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import aplicacionjava.Poblacion;
@@ -19,7 +15,14 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author carranza
+ * Formulario de creación de nuevo cliente
+ * 
+ * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
+ * @version 1.0
+ * 
+ * Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
+ * 
  */
 public class NuevoCliente extends javax.swing.JFrame {
     
@@ -345,7 +348,7 @@ public class NuevoCliente extends javax.swing.JFrame {
      /**
       * Rellena el combo de Provincias
       */
-    public void rellenaProvincias(){
+    private void rellenaProvincias(){
         //Borra el combobox
         ComboProv.removeAll();
         
@@ -404,7 +407,7 @@ public class NuevoCliente extends javax.swing.JFrame {
     /**
      * Extrae el código de la provincia seleccionada segun el indice del combobox 
      */
-   public String extraerCodigoProvinciaSeleccinada(){
+   private String extraerCodigoProvinciaSeleccinada(){
        
        Provincia pAux = listaProvincias.get(ComboProv.getSelectedIndex());
        
@@ -425,7 +428,7 @@ public class NuevoCliente extends javax.swing.JFrame {
     * Extrae el codigo de la calle seleccionada el combo
     * @return 
     */
-   public String extraerCodigoCalleSeleccinada(){
+   private String extraerCodigoCalleSeleccinada(){
        
        callespoblaciones cAux = listaCalles.get(ComboCalle.getSelectedIndex());
        
@@ -436,7 +439,7 @@ public class NuevoCliente extends javax.swing.JFrame {
    /**
     * Metodo encargado de rellenar el combo de poblacion
     */
-    public void rellenaPoblacion(){
+    private void rellenaPoblacion(){
         
         //Borra el combobox
         ComboPobla.removeAllItems();
@@ -519,7 +522,7 @@ public class NuevoCliente extends javax.swing.JFrame {
     /**
      * Rellena el combo de la calle
      */
-    public void rellenaCalle(){
+    private void rellenaCalle(){
         String op=null;
         
         try{
@@ -627,7 +630,7 @@ public class NuevoCliente extends javax.swing.JFrame {
     /**
      * Metodo al que llama el botón aceptar
      */
-    public void aceptar(){
+    private void aceptar(){
         try{
             //Control de los campos nombre y apellidos
         if(txtNombre.getText().equals("") || txtApellido.equals("") || txtApellido2.equals("")){

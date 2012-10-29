@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import aplicacionjava.Cliente;
@@ -21,8 +17,16 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author carranza
+ * Formulario de bajas para los clientes
+ * 
+ * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
+ * @version 1.0
+ * 
+ * Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
+ * 
  */
+
 public class BajaCliente extends javax.swing.JFrame {
 
     ResultSet conjuntoResultados = null;
@@ -559,6 +563,9 @@ public class BajaCliente extends javax.swing.JFrame {
     private javax.swing.JTextField txtProv;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Método encargado de mostrar el formulario
+     */
     public void Mostrar() {
         setVisible(true);
 
@@ -615,7 +622,7 @@ public class BajaCliente extends javax.swing.JFrame {
     /**
      * Rellena el combo de Provincias
      */
-    public void rellenaProvincias() {
+    private void rellenaProvincias() {
         //Borra el combobox
         ComboProv1.removeAll();
 
@@ -678,7 +685,7 @@ public class BajaCliente extends javax.swing.JFrame {
      * Extrae el código de la provincia seleccionada segun el indice del
      * combobox
      */
-    public String extraerCodigoProvinciaSeleccinada() {
+    private String extraerCodigoProvinciaSeleccinada() {
 
         Provincia pAux = listaProvincias.get(ComboProv1.getSelectedIndex());
 
@@ -690,7 +697,7 @@ public class BajaCliente extends javax.swing.JFrame {
      * Extrae el código de la poblacion seleccionada segun el indice del
      * combobox
      */
-    public String extraerCodigoPoblacionSeleccinada() {
+    private String extraerCodigoPoblacionSeleccinada() {
         Poblacion pAux = listaPoblaciones.get(ComboPobla1.getSelectedIndex());
         pobActual = pAux.getNombrePob();
         return pAux.getCodPoblacion();
@@ -701,20 +708,17 @@ public class BajaCliente extends javax.swing.JFrame {
      *
      * @return
      */
-    public String extraerCodigoCalleSeleccinada() {
-
+    private String extraerCodigoCalleSeleccinada() {
         
         callespoblaciones cAux = listaCalles.get(ComboCalle1.getSelectedIndex());
         
-        
         return cAux.getIdCalle();
-
     }
 
     /**
      * Metodo encargado de rellenar el combo de poblacion
      */
-    public void rellenaPoblacion() {
+    private void rellenaPoblacion() {
 
         //Borra el combobox
         ComboPobla1.removeAllItems();
@@ -798,7 +802,7 @@ public class BajaCliente extends javax.swing.JFrame {
     /**
      * Rellena el combo de la calle
      */
-    public void rellenaCalle() {
+    private void rellenaCalle() {
         String op = null;
 
         try {
@@ -907,7 +911,7 @@ public class BajaCliente extends javax.swing.JFrame {
      * Metodo encargado de rellenar la lista de clientes
      *
      */
-    public void rellenaClientes() {
+    private void rellenaClientes() {
 
         borrarTexto();
         
@@ -1025,12 +1029,19 @@ public class BajaCliente extends javax.swing.JFrame {
 
     }
 
-    public Cliente extraeClienteDeLista() {
+    /**
+     * Extrae el cliente de la lista que los muestra
+     * @return un objeto cliente
+     */
+    private Cliente extraeClienteDeLista() {
         int indice = lista.getSelectedIndex();
         return listaClientes.get(indice);
     }
 
-    public void rellenaTexto() {
+    /**
+     * Rellena las cajas de texto con el cliente seleccionado
+     */
+    private void rellenaTexto() {
   
         if (!listaClientes.isEmpty()) {
             Cliente cli = extraeClienteDeLista();
@@ -1046,6 +1057,9 @@ public class BajaCliente extends javax.swing.JFrame {
         
     }
     
+    /**
+     * Borra el texto de las cajas de texto que muestran el cliente
+     */
     private void borrarTexto(){
             txtNombre1.setText("");
             txtApellido1.setText("");
@@ -1056,6 +1070,11 @@ public class BajaCliente extends javax.swing.JFrame {
      
     }
     
+    /**
+     * Metodo encargado de dar de baja el cliente
+     * @param op opción para dar la baja según si el cliente ha sido
+     * introducido por id o seleccionando la direccion
+     */
     private void bajaCliente(boolean op){
         try {
         
@@ -1079,6 +1098,9 @@ public class BajaCliente extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Comprueba si el cliente seleccionado se encuentra en la BD
+     */
     private void buscaClienteCod(){
         if(txtCodCliente.getText().equals("")){
             borrarTexto();

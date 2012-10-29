@@ -8,7 +8,14 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author carranza
+ * Formulario principal de la aplicación
+ * 
+ * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
+ * @version 1.0
+ * 
+ * Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
+ * 
  */
 public class Principal extends javax.swing.JFrame {
     static ConexionBD cbd =null;

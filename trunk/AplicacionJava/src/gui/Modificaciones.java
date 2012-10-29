@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import aplicacionjava.Cliente;
@@ -20,7 +16,14 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author carranza
+ * Formulario de modificacines
+ * 
+ * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
+ * @version 1.0
+ * 
+ * Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
+ * 
  */
 public class Modificaciones extends javax.swing.JFrame {
     ResultSet conjuntoResultados = null;
@@ -308,6 +311,9 @@ public class Modificaciones extends javax.swing.JFrame {
     private javax.swing.JTextField txtNuevoNombre;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Metodo encargado de mostrar el formulario
+     */
     public void Mostrar(){
         setVisible(true);
         
@@ -321,7 +327,7 @@ public class Modificaciones extends javax.swing.JFrame {
     /**
      * Rellena el combo de Provincias
      */
-    public void rellenaProvincias() {
+    private void rellenaProvincias() {
         //Borra el combobox
         comboProvincia.removeAll();
 
@@ -384,7 +390,7 @@ public class Modificaciones extends javax.swing.JFrame {
      * Extrae el código de la provincia seleccionada segun el indice del
      * combobox
      */
-    public String extraerCodigoProvinciaSeleccinada() {
+    private String extraerCodigoProvinciaSeleccinada() {
 
         Provincia pAux = listaProvincias.get(comboProvincia.getSelectedIndex());
 
@@ -396,7 +402,7 @@ public class Modificaciones extends javax.swing.JFrame {
      * Extrae el código de la poblacion seleccionada segun el indice del
      * combobox
      */
-    public String extraerCodigoPoblacionSeleccinada() {
+    private String extraerCodigoPoblacionSeleccinada() {
         Poblacion pAux = listaPoblaciones.get(comboPoblacion.getSelectedIndex());
         pobActual = pAux.getNombrePob();
         return pAux.getCodPoblacion();
@@ -407,7 +413,7 @@ public class Modificaciones extends javax.swing.JFrame {
      *
      * @return
      */
-    public String extraerCodigoCalleSeleccinada() {
+    private String extraerCodigoCalleSeleccinada() {
 
         
         callespoblaciones cAux = listaCalles.get(comboCalle.getSelectedIndex());
@@ -420,7 +426,7 @@ public class Modificaciones extends javax.swing.JFrame {
     /**
      * Metodo encargado de rellenar el combo de poblacion
      */
-    public void rellenaPoblacion() {
+    private void rellenaPoblacion() {
 
         //Borra el combobox
         comboPoblacion.removeAllItems();
@@ -504,7 +510,7 @@ public class Modificaciones extends javax.swing.JFrame {
     /**
      * Rellena el combo de la calle
      */
-    public void rellenaCalle() {
+    private void rellenaCalle() {
         String op = null;
 
         try {

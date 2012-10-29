@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import java.sql.ResultSet;
@@ -10,7 +6,14 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author carranza
+ * Formulario de inserción de nueva provincia
+ * 
+ * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
+ * @version 1.0
+ * 
+ * Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
+ * 
  */
 public class NuevaProvincia extends javax.swing.JFrame {
     ResultSet conjuntoResultados=null;

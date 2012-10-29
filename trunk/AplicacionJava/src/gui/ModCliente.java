@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import aplicacionjava.Cliente;
@@ -19,7 +15,14 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author carranza
+ * Formulario de modificación del cliente
+ * 
+ * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
+ * @version 1.0
+ * 
+ * Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
+ * 
  */
 public class ModCliente extends javax.swing.JFrame {
     ResultSet conjuntoResultados = null;
@@ -650,22 +653,21 @@ public class ModCliente extends javax.swing.JFrame {
     private javax.swing.JTextField txtProv1;
     // End of variables declaration//GEN-END:variables
 
- public void Mostrar() {
+    /**
+     * Metodo encargado de mostrar
+     */
+    public void Mostrar() {
         setVisible(true);
 
         setLocationRelativeTo(null);
-        
+
         panelZona.setVisible(false);
-        
+
         ocultarPanel();
-        
-      
-        
+
         int seleccion = JOptionPane.showOptionDialog(this, "Como desea localizar el cliente?",
                 "Seleccione una opción", JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Número ID", "Lista por Zona"}, null);
-        
-       
         
         if (seleccion != -1) {
             if ((seleccion + 1) == 1) {
@@ -681,14 +683,12 @@ public class ModCliente extends javax.swing.JFrame {
             }            
         }
         
-        
-        
     }
 
     /**
      * Rellena el combo de Provincias
      */
-    public void rellenaProvincias() {
+    private void rellenaProvincias() {
         
         //Borra el combobox
         if(cambioDireccion){
@@ -760,7 +760,7 @@ public class ModCliente extends javax.swing.JFrame {
      * Extrae el código de la provincia seleccionada segun el indice del
      * combobox
      */
-    public String extraerCodigoProvinciaSeleccinada() {
+    private String extraerCodigoProvinciaSeleccinada() {
         Provincia pAux;
         
         if(cambioDireccion){
@@ -776,7 +776,7 @@ public class ModCliente extends javax.swing.JFrame {
      * Extrae el código de la poblacion seleccionada segun el indice del
      * combobox
      */
-    public String extraerCodigoPoblacionSeleccinada() {
+    private String extraerCodigoPoblacionSeleccinada() {
         Poblacion pAux;
         
         if(cambioDireccion){
@@ -794,7 +794,7 @@ public class ModCliente extends javax.swing.JFrame {
      *
      * @return
      */
-    public String extraerCodigoCalleSeleccinada() {
+    private String extraerCodigoCalleSeleccinada() {
         callespoblaciones cAux;
         
         if(cambioDireccion){
@@ -810,7 +810,7 @@ public class ModCliente extends javax.swing.JFrame {
     /**
      * Metodo encargado de rellenar el combo de poblacion
      */
-    public void rellenaPoblacion() {
+    private void rellenaPoblacion() {
 
         //Borra el combobox
         if(cambioDireccion){
@@ -908,7 +908,7 @@ public class ModCliente extends javax.swing.JFrame {
     /**
      * Rellena el combo de la calle
      */
-    public void rellenaCalle() {
+    private void rellenaCalle() {
         String op = null;
 
         try {
@@ -1045,7 +1045,7 @@ public class ModCliente extends javax.swing.JFrame {
      * Metodo encargado de rellenar la lista de clientes
      *
      */
-    public void rellenaClientes() {
+    private void rellenaClientes() {
 
         borrarTexto();
         
@@ -1163,12 +1163,19 @@ public class ModCliente extends javax.swing.JFrame {
 
     }
 
-    public Cliente extraeClienteDeLista() {
+    /**
+     * Extrae el cliente de la lista seleccionado
+     * @return 
+     */
+    private Cliente extraeClienteDeLista() {
         int indice = lista.getSelectedIndex();
         return listaClientes.get(indice);
     }
 
-    public void rellenaTexto() {
+    /**
+     * Rellena las cajas de texto con los datos del cliente
+     */
+    private void rellenaTexto() {
   
         if (!listaClientes.isEmpty()) {
             Cliente cli = extraeClienteDeLista();
@@ -1191,6 +1198,9 @@ public class ModCliente extends javax.swing.JFrame {
         
     }
     
+    /**
+     * Borra las cajas de texto de los datos del cliente
+     */
     private void borrarTexto(){
             txtNombre1.setText("");
             txtApellido1.setText("");
@@ -1206,6 +1216,9 @@ public class ModCliente extends javax.swing.JFrame {
      
     }
     
+    /**
+     * Busca el cliente según el código introducido
+     */
      private void buscaClienteCod(){
         if(txtCodCliente.getText().equals("")){
             borrarTexto();
@@ -1259,6 +1272,9 @@ public class ModCliente extends javax.swing.JFrame {
         }
      }
     
+     /**
+      * Oculta el panel con los combos para seleccionar por dirección
+      */
     private void ocultarPanel(){
         ComboPobla3.setEnabled(false);
         ComboProv3.setEnabled(false);
@@ -1266,6 +1282,10 @@ public class ModCliente extends javax.swing.JFrame {
         btCancPanel.setEnabled(false);
         cambioDireccion=false;
     }
+    
+    /**
+      * Muestra el panel con los combos para seleccionar por dirección
+      */
     private void mostrarPanel(){
         ComboPobla3.setEnabled(true);
         ComboProv3.setEnabled(true);
@@ -1274,12 +1294,19 @@ public class ModCliente extends javax.swing.JFrame {
         cambioDireccion=true;
     }
      
-     public boolean comprobarCambios(){
+    /**
+     * Comprueba si se realizan cambios o no en las cajas de texto
+     * @return 
+     */
+     private boolean comprobarCambios(){
          return (!txtNombre1.getText().equals(nombreAux) || !txtApellido1.getText().equals(apellAux) || !txtApellido3.getText().equals(apell3Aux)
            || !txtNumero1.getText().equals(numAux) || !txtPiso1.getText().equals(pisoAux) || !txtMetros1.getText().equals(metroAux) || cambioDireccion==true);
         
     }
      
+    /**
+     * Metodo encargado de modificar los clientes en la base de datos
+     */ 
     private void modificar(){
         if(!txtCodCliente.getText().equals("")){
         if(comprobarCambios()){
