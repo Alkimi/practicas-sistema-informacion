@@ -1,12 +1,15 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package aplicacionjava;
 
 /**
  *
- * @author carranza
+ * Clase auxiliar para manejar la lista de cliente
+ * 
+ * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
+ * @version 1.0
+ * 
+ * Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
+ * 
  */
 public class Poblacion {
     String CodProvincia;
@@ -42,7 +45,4 @@ public class Poblacion {
     public String getNombrePob() {
         return NombrePob;
     }
-    
-    
-    
 }

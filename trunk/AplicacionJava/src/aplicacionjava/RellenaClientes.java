@@ -6,10 +6,15 @@ import java.sql.SQLException;
 import java.util.Random;
 
 /**
- * Esta clase esta destinada a la creaccion de los clientes en la base de datos
+ *
+ * Clase auxiliar para manejar la lista de cliente
  * 
- * @author Enrique Miguel y Salul Carranza
+ * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
  * @version 1.0
+ * 
+ * Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
+ * 
  */
 public class RellenaClientes {
         private  ConexionBD conexionBD=null;
@@ -169,8 +174,6 @@ public class RellenaClientes {
                  conexionBD.consultaUpdate(cadenaaux);
 
                  ////////////creamos las mediciones
-                 // cogemos los identificadores de clientes
-                 // realizamos la consulta
                  consulta=conexionBD.consultaSelect("select Codigo from clientes"); 
                  int[] clientes;
                  //creamos un vector de todos los clientes
