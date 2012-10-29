@@ -1,4 +1,4 @@
-package aplicacionjava;
+package utilidades;
 
 /**
  *
@@ -16,20 +16,25 @@ public class Cliente {
     private String nombre;
     private String apellido;
     private String apellido2;
-    private String calle;
     private String numero;
     private String piso;
-    private String metros;
 
-    public Cliente(String codigo, String nombre, String apellido, String apellido2, String calle, String numero, String piso, String metros) {
+    /**
+     * Constructor general
+     * @param codigo
+     * @param nombre
+     * @param apellido
+     * @param apellido2
+     * @param numero
+     * @param piso 
+     */
+    public Cliente(String codigo, String nombre, String apellido, String apellido2, String numero, String piso) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.apellido = apellido;
         this.apellido2 = apellido2;
-        this.calle = calle;
         this.numero = numero;
         this.piso = piso;
-        this.metros = metros;
     }
 
     public String getApellido() {
@@ -40,9 +45,6 @@ public class Cliente {
         return apellido2;
     }
 
-    public String getCalle() {
-        return calle;
-    }
 
     public String getCodigo() {
         return codigo;
@@ -50,10 +52,6 @@ public class Cliente {
 
     public String getNombre() {
         return nombre;
-    }
-
-    public String getMetros() {
-        return metros;
     }
 
     public String getNumero() {
@@ -72,16 +70,8 @@ public class Cliente {
         this.apellido2 = apellido2;
     }
 
-    public void setCalle(String calle) {
-        this.calle = calle;
-    }
-
     public void setCodigo(String codigo) {
         this.codigo = codigo;
-    }
-
-    public void setMetros(String metros) {
-        this.metros = metros;
     }
 
     public void setNombre(String nombre) {

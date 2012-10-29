@@ -1,31 +1,31 @@
-/*
- * Factorial.java
- *
- * Created on 15 de mayo de 2008, 19:16
- */
 package aplicacionapplet;
 
 /**
  *
- * @author carranza
+ * Applet para la inserción de mediciones de consumo de clientes
+ * 
+ * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
+ * @version 1.0
+ * 
+ * Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
+ * 
  */
+import utilidades.Poblacion;
+import utilidades.Cliente;
+import utilidades.Provincia;
+import utilidades.callespoblaciones;
 import java.net.URL;
 import java.net.*;
 import java.io.*;
 import java.sql.ResultSet;
-//import java.sql.ResultSetMetaData;
-//import java.sql.SQLException;
 import java.util.*;
 import javax.swing.JOptionPane;
-import aplicacionapplet.clases.*;
-//import java.sql.Time;
-//import java.text.DateFormat;
-//import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.swing.DefaultListModel;
 
-public class nuevo extends javax.swing.JApplet {
+public class Practica_1 extends javax.swing.JApplet {
 
     ResultSet conjuntoResultados = null;
     List<Provincia> listaProvincias = new ArrayList<>();
@@ -36,10 +36,9 @@ public class nuevo extends javax.swing.JApplet {
     String codigoPoblacionAux;
     String codigoCalleAux;
     String codigoCliAux=null;
-    //aplicacionjava.Conversion conAux = new aplicacionjava.Conversion();
 
     /**
-     * Initializes the applet Factorial
+     * Inicializa el applet
      */
     public void init() {
         try {
@@ -50,6 +49,7 @@ public class nuevo extends javax.swing.JApplet {
             });
             this.setSize(750, 600);
             peticionGet("true", 1);
+            panelTexto.setVisible(false);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -63,6 +63,7 @@ public class nuevo extends javax.swing.JApplet {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        txtNombre3 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -80,6 +81,17 @@ public class nuevo extends javax.swing.JApplet {
         txtConsumo = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        panelTexto = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
+        txtApellido = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        txtApellido2 = new javax.swing.JTextField();
+        txtNumero = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        txtPiso = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setText("INGRESAR MEDICIONES");
@@ -133,30 +145,125 @@ public class nuevo extends javax.swing.JApplet {
             }
         });
 
+        jLabel9.setText("Nombre");
+
+        txtNombre.setEditable(false);
+
+        txtApellido.setEditable(false);
+
+        jLabel10.setText("Apellido");
+
+        jLabel11.setText("Apellido 2");
+
+        txtApellido2.setEditable(false);
+
+        txtNumero.setEditable(false);
+
+        jLabel12.setText("Piso");
+
+        txtPiso.setEditable(false);
+
+        jLabel13.setText("Numero");
+
+        javax.swing.GroupLayout panelTextoLayout = new javax.swing.GroupLayout(panelTexto);
+        panelTexto.setLayout(panelTextoLayout);
+        panelTextoLayout.setHorizontalGroup(
+            panelTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTextoLayout.createSequentialGroup()
+                .addContainerGap(27, Short.MAX_VALUE)
+                .addGroup(panelTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTextoLayout.createSequentialGroup()
+                        .addGroup(panelTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10))
+                        .addGroup(panelTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelTextoLayout.createSequentialGroup()
+                                .addGap(37, 37, 37)
+                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTextoLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTextoLayout.createSequentialGroup()
+                            .addComponent(jLabel13)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel12)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelTextoLayout.createSequentialGroup()
+                            .addComponent(jLabel11)
+                            .addGap(25, 25, 25)
+                            .addComponent(txtApellido2, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
+        );
+        panelTextoLayout.setVerticalGroup(
+            panelTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTextoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(txtApellido2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)
+                    .addComponent(txtPiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(66, 66, 66)
+                .addComponent(jLabel2)
+                .addContainerGap(408, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel4))
+                                .addGap(26, 26, 26)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(111, 111, 111)
+                                        .addComponent(jButton2))
+                                    .addComponent(comboProvincias, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comboCalle, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboPoblaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(panelTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(558, 558, 558)
+                                .addComponent(jButton1)
+                                .addGap(28, 28, 28))
                             .addComponent(jScrollPane1)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(comboPoblaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel7)
@@ -164,44 +271,34 @@ public class nuevo extends javax.swing.JApplet {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(txtFecha)
-                                            .addComponent(txtConsumo, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)))
-                                    .addComponent(jLabel5)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel1)
-                                            .addComponent(jLabel4))
-                                        .addGap(26, 26, 26)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(comboCalle, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(comboProvincias, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(0, 227, Short.MAX_VALUE)))))
-                .addGap(28, 28, 28))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(243, 243, 243)
-                .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addComponent(txtConsumo, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(comboProvincias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(comboPoblaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(comboCalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
+                .addGap(57, 57, 57)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(comboProvincias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(comboPoblaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(comboCalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5))
+                    .addComponent(panelTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
@@ -214,14 +311,16 @@ public class nuevo extends javax.swing.JApplet {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txtConsumo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         insertar();
+        txtConsumo.setText("");
+        txtFecha.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void comboProvinciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboProvinciasActionPerformed
@@ -233,15 +332,28 @@ public class nuevo extends javax.swing.JApplet {
     }//GEN-LAST:event_comboPoblacionesActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        panelTexto.setVisible(false);
+        borraTexto();
+        
         peticionGet("true", 4);
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void listaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaMouseClicked
-        codigoCliAux=extraeCodigoCliente();
+        if(!listaClientes.isEmpty()){
+            codigoCliAux=extraeCodigoCliente();
+            panelTexto.setVisible(true);
+            rellenaTexto();
+        }        
     }//GEN-LAST:event_listaMouseClicked
 
-    // enviamos por get la petición
-    String peticionGet(String mensaje, int opt) {
+    /**
+     * Metodo encargado de la comunicación con el servlet, 
+     * @param mensaje
+     * @param opt
+     * @return
+     */
+    private String peticionGet(String mensaje, int opt) {
         URL miurl = null;
         String cadenaaux = null;
         String cadenaretorno = "";
@@ -275,15 +387,10 @@ public class nuevo extends javax.swing.JApplet {
             BufferedReader bufferreader = new BufferedReader(new InputStreamReader(buffer));
 
             while ((cadenaaux = bufferreader.readLine()) != null) {
-                System.out.println("Esperando respuesta del servidor: ");
                 cadenaretorno += cadenaaux;
-                System.out.println(cadenaretorno);
             }
             
             switch(opt){
-                case 0:
-                    //peticion = "http://localhost:8080/AplicacionWeb/Practica1?PeticionInicio=" + URLEncoder.encode(mensaje);
-                    break;
                 case 1:
                     rellenaProvincias(cadenaretorno);
                     break;
@@ -298,8 +405,6 @@ public class nuevo extends javax.swing.JApplet {
                     rellenaClientes(cadenaretorno);
                     break;
             }
-            
-            
 
             buffer.close();
         } catch (Exception e) {
@@ -315,6 +420,10 @@ public class nuevo extends javax.swing.JApplet {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -322,16 +431,25 @@ public class nuevo extends javax.swing.JApplet {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList lista;
+    private javax.swing.JPanel panelTexto;
+    private javax.swing.JTextField txtApellido;
+    private javax.swing.JTextField txtApellido2;
     private javax.swing.JTextField txtConsumo;
     private javax.swing.JTextField txtFecha;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtNombre3;
+    private javax.swing.JTextField txtNumero;
+    private javax.swing.JTextField txtPiso;
     // End of variables declaration//GEN-END:variables
 
     /**
      * Rellena el combo de Provincias
+     * @param cad la cadena contiene la respuesta del servlet
      */
-    public void rellenaProvincias(String cad) {
+    private void rellenaProvincias(String cad) {
         //Borra el combobox
         comboProvincias.removeAll();
 
@@ -363,7 +481,7 @@ public class nuevo extends javax.swing.JApplet {
      * Extrae el código de la provincia seleccionada segun el indice del
      * combobox
      */
-    public String extraerCodigoProvinciaSeleccinada() {
+    private String extraerCodigoProvinciaSeleccinada() {
 
         Provincia pAux = listaProvincias.get(comboProvincias.getSelectedIndex());
 
@@ -371,7 +489,11 @@ public class nuevo extends javax.swing.JApplet {
 
     }
     
-    public String extraerCodigoPoblacionSeleccinada() {
+   /**
+     * Extrae el código de la población seleccionada segun el indice del
+     * combobox
+     */
+    private String extraerCodigoPoblacionSeleccinada() {
 
         Poblacion pAux = listaPoblaciones.get(comboPoblaciones.getSelectedIndex());
 
@@ -379,7 +501,11 @@ public class nuevo extends javax.swing.JApplet {
 
     }
 
-    public String extraerCodigoCalleSeleccinada() {
+    /**
+     * Extrae el código de la calle seleccionada segun el indice del
+     * combobox
+     */
+    private String extraerCodigoCalleSeleccinada() {
 
         callespoblaciones pAux = listaCalles.get(comboCalle.getSelectedIndex());
 
@@ -390,16 +516,14 @@ public class nuevo extends javax.swing.JApplet {
     
     /**
      * Rellena el combo de Poblaciones
+     * @param cad la cadena contiene la respuesta del servlet
      */
-    public void rellenaPoblaciones(String cad) {
+    private void rellenaPoblaciones(String cad) {
         //Borra el combobox
         comboPoblaciones.removeAllItems();
         listaPoblaciones.clear();
 
         String[] split = cad.split(";");
-
-        
-
             for (int x = 0; x <= split.length - 1; x++) {
                 String aux = split[x];
 
@@ -410,9 +534,8 @@ public class nuevo extends javax.swing.JApplet {
                 Poblacion auxPob = new Poblacion(cod, nom);
                 listaPoblaciones.add(auxPob);
             }
-
-            Iterator iterador = listaPoblaciones.listIterator(); //Le solicito a la lista que me devuelva un iterador con todos los elementos contenidos en ella
-
+            //Le solicito a la lista que me devuelva un iterador con todos los elementos contenidos en ella
+            Iterator iterador = listaPoblaciones.listIterator(); 
            
         while (iterador.hasNext()) {
             Poblacion pr = (Poblacion) iterador.next();
@@ -424,8 +547,9 @@ public class nuevo extends javax.swing.JApplet {
     
     /**
      * Rellena el combo de Calles
+     * @param cad la cadena contiene la respuesta del servlet 
      */
-    public void rellenaCalles(String cad) {
+    private void rellenaCalles(String cad) {
         //Borra el combobox
         comboCalle.removeAllItems();
         listaCalles.clear();
@@ -444,8 +568,9 @@ public class nuevo extends javax.swing.JApplet {
                 callespoblaciones auxCall = new callespoblaciones(cod, nom);
                 listaCalles.add(auxCall);
             }
-
-        Iterator iterador = listaCalles.listIterator(); //Le solicito a la lista que me devuelva un iterador con todos los elementos contenidos en ella
+            
+        //Le solicito a la lista que me devuelva un iterador con todos los elementos contenidos en ella
+        Iterator iterador = listaCalles.listIterator(); 
            
         while (iterador.hasNext()) {
             callespoblaciones pr = (callespoblaciones) iterador.next();
@@ -457,8 +582,9 @@ public class nuevo extends javax.swing.JApplet {
     
     /**
      * Rellana la lista de clientes
+     * @param cad la cadena contiene la respuesta del servlet 
      */
-     public void rellenaClientes(String cad){
+     private void rellenaClientes(String cad){
          
          DefaultListModel listaAux = new DefaultListModel();
          
@@ -467,10 +593,7 @@ public class nuevo extends javax.swing.JApplet {
 
          lista.setModel(listaAux);
          
-         
          String[] split = cad.split(";");
-
-
 
          for (int x = 0; x <= split.length - 1; x++) {
              String aux = split[x];
@@ -495,19 +618,25 @@ public class nuevo extends javax.swing.JApplet {
              listaAux.addElement("Cod: " + cli.getCodigo() + ", --> " + cli.getNombre() + ", " + cli.getApellido() + " " + cli.getApellido2()
                      + " ,Piso: " + cli.getPiso() + " Nº: " + cli.getNumero());
          }
-
+         
          lista.setModel(listaAux);
-     
      }
      
+     /**
+      * Extra el codigo del cliente a través del indice del combo seleccionado
+      * @return identificador de cliente
+      */
      private String extraeCodigoCliente(){
          try{
              return listaClientes.get(lista.getSelectedIndex()).getCodigo();
          }catch (ArrayIndexOutOfBoundsException asd) {
-             return null;
+             return "";
          }
      }
      
+     /**
+      * Metodo encargado de insertar las mediciones a través del Servlet
+      */
      private void insertar(){
          boolean error=false;
          String fecha;
@@ -539,9 +668,14 @@ public class nuevo extends javax.swing.JApplet {
                     }
              }
          }
-
      }
      
+     /**
+      * Genera la petición para realizar la llamada al servlet
+      * @param codCliente codigo del cliente
+      * @param fecha fecha de la medición
+      * @param kw consumo total de la medición
+      */
      private void peticionGet2(String codCliente, String fecha ,String kw) {
         URL miurl = null;
         String cadenaaux = null;
@@ -558,8 +692,9 @@ public class nuevo extends javax.swing.JApplet {
             BufferedReader bufferreader = new BufferedReader(new InputStreamReader(buffer));
 
             while ((cadenaaux = bufferreader.readLine()) != null) {
-                System.out.println(cadenaaux);
-                JOptionPane.showMessageDialog(null, "Inserción realizada");
+                if(cadenaaux.equals("Insercion realizada")){
+                    JOptionPane.showMessageDialog(null, "Inserción realizada");
+                }
             }
 
             buffer.close();
@@ -568,6 +703,11 @@ public class nuevo extends javax.swing.JApplet {
         }
     }
      
+     /**
+      * Metodo encargado si la fecha es válida
+      * @param fecha cadena a evaluar si es una fecha correcta
+      * @return true si la cadena es correcta
+      */
      private static boolean isFechaValida(String fecha) {
         try {
             SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
@@ -577,5 +717,31 @@ public class nuevo extends javax.swing.JApplet {
                 return false;
         }
         return true;
+     }
+     
+     /**
+      * Rellena las cajas de texto con los datos del cliente seleccionado
+      */
+     private void rellenaTexto(){
+         Cliente aux = listaClientes.get(lista.getSelectedIndex());
+         
+         txtNombre.setText(aux.getNombre());
+         txtApellido.setText(aux.getApellido());
+         txtApellido2.setText(aux.getApellido2());
+         txtNumero.setText(aux.getNumero());
+         txtPiso.setText(aux.getPiso());
+         
+     }
+     
+     /**
+      * Borra las cajas de texto de los datos del cliente
+      */
+      private void borraTexto(){
+         txtNombre.setText("");
+         txtApellido.setText("");
+         txtApellido2.setText("");
+         txtNumero.setText("");
+         txtPiso.setText("");
+         
      }
 }

@@ -36,7 +36,14 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Alkimi
+ * Servlet encargado de la comunicación con el applet y la base de datos
+ * 
+ * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
+ * @version 1.0
+ * 
+ * Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
+ * 
  */
 public class Practica1 extends HttpServlet {
 
@@ -126,8 +133,6 @@ public class Practica1 extends HttpServlet {
         }  finally {            
             out.close();
         }
-        
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -235,7 +240,6 @@ public class Practica1 extends HttpServlet {
             }
         }
         } catch (SQLException ex) {
-           // Logger.getLogger(Practica1.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
         return cadena;
