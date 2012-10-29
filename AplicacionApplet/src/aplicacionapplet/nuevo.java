@@ -114,7 +114,7 @@ public class nuevo extends javax.swing.JApplet {
 
         jLabel8.setText("KiloWatios Consumidos:");
 
-        jButton1.setText("Aceptar");
+        jButton1.setText("Insertar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -216,7 +216,7 @@ public class nuevo extends javax.swing.JApplet {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        aceptar();
+        insertar();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void comboProvinciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboProvinciasActionPerformed
@@ -481,25 +481,17 @@ public class nuevo extends javax.swing.JApplet {
              Cliente auxCli = new Cliente(cod, nom, apell1, apell2, num, piso);
              listaClientes.add(auxCli);
          }
-
          
-         
-         
-
          //Le solicito a la lista que me devuelva un iterador con todos los el elementos contenidos en ella
          Iterator iterador = listaClientes.listIterator();
          
-
-
          while (iterador.hasNext()) {
              Cliente cli = (Cliente) iterador.next();
              listaAux.addElement("Cod: " + cli.getCodigo() + ", --> " + cli.getNombre() + ", " + cli.getApellido() + " " + cli.getApellido2()
                      + " ,Piso: " + cli.getPiso() + " Nº: " + cli.getNumero());
          }
 
-
          lista.setModel(listaAux);
-
      
      }
      
@@ -511,12 +503,42 @@ public class nuevo extends javax.swing.JApplet {
          }
      }
      
-     private void aceptar(){
+     private void insertar(){
          if(codigoCliAux==null){
              JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente");
          }else{
-             JOptionPane.showMessageDialog(null, "esto es que la cosa va palante");
+             if(txtFecha.getText().equals("") || txtConsumo.getText().equals("")){
+                   JOptionPane.showMessageDialog(null, "Debe introducir una fecha y un consumo");
+             }else{
+                 peticionGet2(codigoCliAux,txtFecha.getText(),txtConsumo.getText());
+             }
          }
          
      }
+     
+     private void peticionGet2(String codCliente, String fecha ,String kw) {
+        URL miurl = null;
+        String cadenaaux = null;
+        String peticion = null;
+
+        try {
+            String host = this.getCodeBase().getHost();
+
+            peticion = "http://localhost:8080/AplicacionWeb/Practica1?InsertaMedicion=true;";
+                    //"Cliente="+codigoCliAux+";Fecha="+URLEncoder.encode(fecha)+";KW="+kw;
+
+            miurl = new URL(getCodeBase(), peticion);
+            InputStream buffer = miurl.openStream();
+            BufferedReader bufferreader = new BufferedReader(new InputStreamReader(buffer));
+
+            while ((cadenaaux = bufferreader.readLine()) != null) {
+                System.out.println(cadenaaux);
+                JOptionPane.showMessageDialog(null, "Inserción realizada");
+            }
+
+            buffer.close();
+        } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "error --> " + e.getMessage());
+        }
+    }
 }
