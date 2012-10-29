@@ -13,11 +13,16 @@ import java.net.URL;
 import java.net.*;
 import java.io.*;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
+//import java.sql.ResultSetMetaData;
+//import java.sql.SQLException;
 import java.util.*;
 import javax.swing.JOptionPane;
 import aplicacionapplet.clases.*;
+//import java.sql.Time;
+//import java.text.DateFormat;
+//import java.text.Format;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import javax.swing.DefaultListModel;
 
 public class nuevo extends javax.swing.JApplet {
@@ -504,16 +509,37 @@ public class nuevo extends javax.swing.JApplet {
      }
      
      private void insertar(){
+         boolean error=false;
+         String fecha;
+         
          if(codigoCliAux==null){
              JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente");
          }else{
              if(txtFecha.getText().equals("") || txtConsumo.getText().equals("")){
                    JOptionPane.showMessageDialog(null, "Debe introducir una fecha y un consumo");
              }else{
-                 peticionGet2(codigoCliAux,txtFecha.getText(),txtConsumo.getText());
+                    if (!isFechaValida(txtFecha.getText())){
+                        error=true;
+                    }
+                    try{
+                        float aux=Float.parseFloat(txtConsumo.getText());
+                    }catch (NumberFormatException ex){
+                        error=true;
+                    }
+                    if (!error){
+                        // conseguimos la hora actual formateada
+                        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+                        //si estamos aqui es que la fecha es correcta asi que se suma a la hora
+                        fecha= txtFecha.getText()+" "+ formatter.format(new Date());
+                        //realizamos la consulta
+                        peticionGet2(codigoCliAux,fecha, txtConsumo.getText());
+                        
+                    }else{
+                         JOptionPane.showMessageDialog(null, "El forma de la fecha o la medicion no tienen el formato correcto");
+                    }
              }
          }
-         
+
      }
      
      private void peticionGet2(String codCliente, String fecha ,String kw) {
@@ -524,8 +550,8 @@ public class nuevo extends javax.swing.JApplet {
         try {
             String host = this.getCodeBase().getHost();
 
-            peticion = "http://localhost:8080/AplicacionWeb/Practica1?InsertaMedicion=true;";
-                    //"Cliente="+codigoCliAux+";Fecha="+URLEncoder.encode(fecha)+";KW="+kw;
+            peticion = "http://localhost:8080/AplicacionWeb/Practica1?InsertaMedicion=true&"
+                    +"Cliente="+codCliente+"&Fecha="+URLEncoder.encode(fecha)+"&KW="+kw;
 
             miurl = new URL(getCodeBase(), peticion);
             InputStream buffer = miurl.openStream();
@@ -541,4 +567,15 @@ public class nuevo extends javax.swing.JApplet {
                 JOptionPane.showMessageDialog(null, "error --> " + e.getMessage());
         }
     }
+     
+     private static boolean isFechaValida(String fecha) {
+        try {
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+            formatoFecha.setLenient(false);// para que de error en el formato sino traga con casi todo
+            formatoFecha.parse(fecha);
+        } catch (ParseException e) {
+                return false;
+        }
+        return true;
+     }
 }
