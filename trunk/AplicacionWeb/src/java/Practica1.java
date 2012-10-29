@@ -108,6 +108,11 @@ public class Practica1 extends HttpServlet {
             }
             
             if (Boolean.parseBoolean(request.getParameter("InsertaMedicion"))){
+                
+                
+                System.out.print("estoy dentro");
+                
+                
                 int cliente;
                 String fecha;
                 float kw;
@@ -115,7 +120,7 @@ public class Practica1 extends HttpServlet {
                 fecha=request.getParameter("Fecha");
                 kw=Float.parseFloat(request.getParameter("KW"));
                 realizaMedicion(cliente, fecha, kw);
-                cadena="Insercion realizada";
+                cadena="Insercion realizada\n";
             }
             if (cadena!=null){
                 out.println(cadena);
