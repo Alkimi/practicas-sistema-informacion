@@ -1,18 +1,25 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package aplicacionjava;
 
 import java.util.Date;
 
 /**
  *
- * @author Alkimi
+ * Clase auxiliar para manejar la lista de cliente
+ * 
+ * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
+ * @version 1.0
+ * 
+ * Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
+ * 
  */
 public class Conversion {
     private Date fecha;
     private int[] diasPorMes= {0,31,28,31,30,31,30,31,31,30,31,30,31};
+    
+    /**
+     * Constructor que obtiene la fecha actual
+     */
     public Conversion(){
       fecha = new Date();
     }
@@ -112,5 +119,5 @@ public class Conversion {
 	} catch (NumberFormatException nfe){
 		return false;
 	}
-}
+    }
 }

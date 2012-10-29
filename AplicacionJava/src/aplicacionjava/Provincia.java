@@ -1,16 +1,19 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package aplicacionjava;
 
 /**
  *
- * @author carranza
+ * Clase auxiliar para manejar la lista de cliente
+ * 
+ * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
+ * @version 1.0
+ * 
+ * Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
+ * 
  */
 public class Provincia {
-    String CodigoProvincia;
-    String Provincia;
+    private String CodigoProvincia;
+    private String Provincia;
 
     public Provincia(String CodigoProvincia, String Provincia) {
         this.CodigoProvincia = CodigoProvincia;
@@ -37,5 +40,4 @@ public class Provincia {
     public String toString() {
         return super.toString();
     }
-    
 }

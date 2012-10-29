@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -87,8 +82,6 @@ public class Practica1 extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String cadena =null;
-        
-        
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         String provincia;
@@ -176,6 +169,10 @@ public class Practica1 extends HttpServlet {
         return "Short description";
     }// </editor-fold>
     
+    /**
+     * Realiza la consulta de las provincias 
+     * @return las provincias
+     */
     private String consultaProvincias(){
         try {
             return convierte( conexion.consultaSelect("Select * from provincias"));
@@ -185,6 +182,11 @@ public class Practica1 extends HttpServlet {
         
     }
     
+    /**
+     * Realiza la consulta de las ciudades de una provicincia
+     * @param provincia el identificador de la provincia
+     * @return  las ciudades de esa provincia
+     */
     private String consultaCiudades(String provincia){
         try {
             return convierte( conexion.consultaSelect("Select CodigoPoblacion, Poblacion from poblaciones where CodigoProvincia="
@@ -194,6 +196,11 @@ public class Practica1 extends HttpServlet {
         }
     }
     
+    /**
+     * Realiza la peticion de todas las calles de una ciudad
+     * @param ciudad el identificador de ciudad
+     * @return las calles de una ciudad
+     */
     private String consultaCalles(String ciudad){
          try {
             return convierte( conexion.consultaSelect("Select idCalle, Nombre from callespoblaciones where CodPoblacion='"
@@ -203,6 +210,11 @@ public class Practica1 extends HttpServlet {
         }
     }
     
+    /**
+     * Realiza la consulta para obtener los clientes de una calle
+     * @param calle la calle a buscar
+     * @return todo los clientes de esa calle
+     */
     private String consultaClientes(String calle){
         try {
             return convierte( conexion.consultaSelect("Select Codigo, Nombre, Apellido, Apellido2, Numero, Piso from clientes "
@@ -211,16 +223,26 @@ public class Practica1 extends HttpServlet {
             return null;
         }
     }
-    
+   
+    /**
+     * Realiza la consutla sql para la insercicon de la medicion
+     * @param cliente
+     * @param fecha
+     * @param kw 
+     */
     private void realizaMedicion(int cliente,String fecha, float kw){
         try {
             conexion.consultaUpdate("insert into mediciones (Cliente,FechaHora,KW) values("+cliente+",'"+fecha+"',"+kw+");");
         } catch (SQLException ex) {
-            //Logger.getLogger(Practica1.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    public String convierte(ResultSet consulta){
+    /**
+     * Tranforma una consulta en una cadena de texto serpardo por - los campos y por ; las filas
+     * @param consulta consutla realizada de sql
+     * @return  la cadena formateada
+     */
+    private String convierte(ResultSet consulta){
           String cadena="";
     
         int columnas;
@@ -232,7 +254,6 @@ public class Practica1 extends HttpServlet {
                 cadena=cadena+consulta.getObject(i).toString();
                 if (i==columnas){
                     cadena=cadena+";";
-                    
                 }
                 else {
                     cadena=cadena+"-";
