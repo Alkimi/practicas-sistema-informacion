@@ -2,6 +2,7 @@ package gui;
 
 import aplicacionjava.ConexionBD;
 import aplicacionjava.RellenaClientes;
+import aplicacionjava.UsuarioLogin;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -20,6 +21,7 @@ import javax.swing.JOptionPane;
 public class Principal extends javax.swing.JFrame {
     static ConexionBD cbd =null;
     ResultSet consulta=null;
+    static public boolean logueo = true;
 
     /**
      * Creates new form Principal
@@ -30,41 +32,7 @@ public class Principal extends javax.swing.JFrame {
         //Para que se inicie la pantalla en el centro
         setLocationRelativeTo(null);
    
-        //Lanzar consulta si hay cliente, sino hay clientes lanza pregunta.
-       {
-           RellenaClientes rellenaClientes = new RellenaClientes();
-           
-           if (!rellenaClientes.hayClientes()){
-              int seleccion = JOptionPane.showOptionDialog(this,"Desea añadir los clientes a la Base de Datos?", 
-                                                        "Seleccione una opción", JOptionPane.YES_NO_CANCEL_OPTION,
-                                                         JOptionPane.QUESTION_MESSAGE,null,new Object[] { "Si", "No"},"Si");
-              
-                 if (seleccion != -1){
-                    if((seleccion + 1)==1)
-                    {
-                             // PRESIONO SI
-                                 rellenaClientes.creaClientes(20000);
-                    }
-                    else
-                    {
-                    //PRESIONO QUE NO
-                        System.out.println("Salida del programa");
-                        System.exit(2);
-                    }
-                } 
-               
-           }
-       }
-           
-        //Establece conexión con BD
-        try {
-            cbd = new ConexionBD("root", "toor", "consumoelectrico");
-        } catch (ClassNotFoundException ex) {
-            
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No se ha podido conectar con la Base de Datos");
-            System.exit(1);
-        }  
+
     }
 
     /**
@@ -215,4 +183,57 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
+
+    public void mostrar(UsuarioLogin ul){
+        setVisible(true);
+        
+        logueo=true;
+        
+        
+        //Lanzar consulta si hay cliente, sino hay clientes lanza pregunta.
+        {
+            RellenaClientes rellenaClientes = new RellenaClientes(ul);
+
+            if (logueo) {
+                if (!rellenaClientes.hayClientes()) {
+                    int seleccion = JOptionPane.showOptionDialog(this, "Desea añadir los clientes a la Base de Datos?",
+                            "Seleccione una opción", JOptionPane.YES_NO_CANCEL_OPTION,
+                            JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Si", "No"}, "Si");
+
+                    if (seleccion != -1) {
+                        if ((seleccion + 1) == 1) {
+                            // PRESIONO SI
+                            rellenaClientes.creaClientes(20000);
+                        } else {
+                            //PRESIONO QUE NO
+                            System.out.println("Salida del programa");
+                            System.exit(2);
+                        }
+                    }
+                }
+            }
+        }
+
+       if(logueo){
+        //Establece conexión con BD
+        try {
+            //cbd = new ConexionBD("root", "toor", "consumoelectrico", "localhost");
+            cbd = new ConexionBD(ul.getNombre(), ul.getPassword(), ul.getBaseDeDatos(), ul.getServidor());
+        } catch (ClassNotFoundException ex) {
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se ha podido conectar con la Base de Datos \no los datos de login son incorrectos");
+            System.exit(1);
+        }
+       }
+       else{
+            JOptionPane.showMessageDialog(null, "Los datos de login son incorrectos");
+            
+            Login lo = new Login();
+            lo.mostrar();
+            
+            setVisible(false);        
+       }
+
+    }
+
 }
