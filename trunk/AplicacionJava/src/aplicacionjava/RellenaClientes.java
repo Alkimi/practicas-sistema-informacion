@@ -1,6 +1,7 @@
 package aplicacionjava;
 
 
+import gui.Principal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Random;
@@ -24,15 +25,16 @@ public class RellenaClientes {
         /**
          * Constructor de la clase, simplemente realiza la conexion a la base de datos
          */
-    public RellenaClientes(){
+    public RellenaClientes(UsuarioLogin ul){
         try {
-           conexionBD = new ConexionBD("root","toor","consumoelectrico");
+            conexionBD = new ConexionBD(ul.getNombre(), ul.getPassword(), ul.getBaseDeDatos(), ul.getServidor());
         } catch (ClassNotFoundException ex){
-            System.out.println("Error al conectar con la base de datos");
+            System.out.println("Error al conectar con la base de datos" + ex.getMessage());
             System.exit(500);
         } catch( SQLException ex){
-            System.out.println("Error al conectar con la base de datos");
-            System.exit(1);
+            //System.out.println("Error al conectar con la base de datos" + ex.getMessage());
+            //System.exit(1);
+            Principal.logueo = false;
         }
     }
     

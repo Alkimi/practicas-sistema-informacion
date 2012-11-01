@@ -47,13 +47,13 @@ public class ConexionBD {
      * datos
      */ 
     
-    public ConexionBD(String Usuario, String Password, String BaseDatos) throws ClassNotFoundException, SQLException {
+    /*public ConexionBD(String Usuario, String Password, String BaseDatos) throws ClassNotFoundException, SQLException {
         userName = Usuario;
         password = Password;
         baseDatos = BaseDatos;
         servidor = "localhost";
         inicializa();
-    }
+    }*/
 
     /**
      * Constuctor parametrizado para conectarse a una base de dato en el servidor

@@ -41,6 +41,7 @@ public class Consultas extends javax.swing.JFrame {
     String pobActual = null;
     boolean porCodigo=false;
     int opt=0;
+    int mesAnio=1;
     
 
     /**
@@ -810,7 +811,7 @@ public class Consultas extends javax.swing.JFrame {
                     break;
                
         }
-        
+        mesAnio=1;
         activaBtConsulta(true);
     }
     
@@ -836,7 +837,7 @@ public class Consultas extends javax.swing.JFrame {
                     break;
         
         }
-        
+        mesAnio=2;
         activaBtConsulta(true);
         
     }
@@ -1545,10 +1546,44 @@ public class Consultas extends javax.swing.JFrame {
             if(!cadena.first()){
                 listaAux.addElement("No existen mediciones");
             }else{
+                String seleccion=null;
+                String seleccion2=null;
+                
+                switch (mesAnio) {
+                    case 1:
+                        seleccion2 = " en el año actual";
+                        break;
+                    case 2:
+                        switch (opt) {
+                            case 0:
+                                seleccion2 = " en el mes " + comboMesPob.getSelectedItem().toString();
+                                break;
+                            case 1:
+                                seleccion2 = " en el mes " + comboMesPro.getSelectedItem().toString();
+                                break;
+                            case 2:
+                                seleccion2 = " en el mes " + comboMesCli.getSelectedItem().toString();
+                                break;
+                        }
+                        break;
+                }
+         
+                switch (opt) {
+                    case 0:
+                        seleccion="El consumo de la Poblacion " + comboPobPob.getSelectedItem().toString() + seleccion2 +" es: ";
+                        break;
+                    case 1:
+                        seleccion="El consumo de la Provincia " + comboProvProv.getSelectedItem().toString() + seleccion2+" es: " ;
+                        break;
+                    case 2:
+                        seleccion="El consumo del Cliente " + txtNombre1.getText() + " " + txtApellido1.getText() + seleccion2+ " es:";
+                        break;
+                }
+                
                 if (!cadena.getObject(1).toString().equals("")) {
-                    listaAux.addElement("El consumo del campo seleccionado es:");
+                    listaAux.addElement(seleccion);
                     listaAux.addElement("***************************");
-                    listaAux.addElement("**** \t" + cadena.getObject(1).toString() + " kw ");
+                    listaAux.addElement("****  " + cadena.getObject(1).toString() + " kw");
                     listaAux.addElement("***************************");
                 }
             }
