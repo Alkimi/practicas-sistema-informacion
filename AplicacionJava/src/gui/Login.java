@@ -174,6 +174,7 @@ public class Login extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Login().setVisible(true);
+                //new Login().aceptar(); // para pruebas
             }
         });
     }
@@ -198,13 +199,13 @@ public class Login extends javax.swing.JFrame {
         } else {
 
             UsuarioLogin ul = new UsuarioLogin(txtUsuario.getText(), txtContrasenia.getText(), txtBaseDeDatos.getText(), txtServidor.getText());
-
+           // UsuarioLogin ul = new UsuarioLogin("root", "toor","consumoelectrico","localhost");    // para pruebas.
             Principal p = new Principal();
 
             p.mostrar(ul);
             
             setVisible(false);
-        }
+       }
         
     }
     
