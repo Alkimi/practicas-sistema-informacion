@@ -1082,10 +1082,12 @@ public class BajaCliente extends javax.swing.JFrame {
             Cliente cli = extraeClienteDeLista();
         
             Principal.cbd.consultaUpdate("DELETE FROM clientes WHERE Codigo="+cli.getCodigo());
+            Principal.cbd.consultaUpdate("DELETE FROM mediciones WHERE Cliente="+cli.getCodigo());
             
             rellenaClientes();
         }else{
             Principal.cbd.consultaUpdate("DELETE FROM clientes WHERE Codigo="+txtCodCliente.getText());
+            Principal.cbd.consultaUpdate("DELETE FROM mediciones WHERE Cliente="+txtCodCliente.getText());
         }
             
             JOptionPane.showMessageDialog(null, "Cliente eliminado correctamente");
