@@ -67,7 +67,6 @@ import javax.swing.JOptionPane;
         btAceptar = new javax.swing.JButton();
 
         setTitle("Baja Poblacion");
-        setAlwaysOnTop(true);
 
         jLabel1.setText("Provincia");
 
@@ -408,25 +407,33 @@ import javax.swing.JOptionPane;
    /**
     * Metodo al que se llama cuando se pulsa aceptar
     * 
-    */
-   private void Aceptar(){
-       // control de qu hay una poblacion seleccionada
-       codigoPoblacionAux=extraerCodigoPoblacionSeleccinada();
-        try {
-             //borramos la ciudad
-             Principal.cbd.consultaUpdate("DELETE FROM poblaciones WHERE CodigoPoblacion='"+codigoPoblacionAux+"'");
-             //borramos la calles
-             Principal.cbd.consultaUpdate("DELETE from callespoblaciones WHERE CodPoblacion='"+codigoPoblacionAux+"'");
-             //borramos las mediciones
-             Principal.cbd.consultaUpdate("DELETE FROM mediciones WHERE Cliente in (Select Codigo from clientes where CodigoPoblacion='"+codigoPoblacionAux+"')" );
-             // borramos los clientes
-             Principal.cbd.consultaUpdate("DELETE FROM clientes WHERE CodigoPoblacion='"+codigoPoblacionAux+"'");
-             
-             JOptionPane.showMessageDialog(null, "Se ha eliminado todas las mediciones, clientes de la calle,"+
-                     "\nlas calles de la poblacion " + pobActual);
-             
-        }catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos" + ex.getMessage());
+  
+     */
+    private void Aceptar() {
+        if (ComboPoblacion.getSelectedItem().toString().equals("--Vacío--")) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar al menos una población");
+        } else {
+
+
+            // control de qu hay una poblacion seleccionada
+            codigoPoblacionAux = extraerCodigoPoblacionSeleccinada();
+            try {
+                //borramos la ciudad
+                Principal.cbd.consultaUpdate("DELETE FROM poblaciones WHERE CodigoPoblacion='" + codigoPoblacionAux + "'");
+                //borramos la calles
+                Principal.cbd.consultaUpdate("DELETE from callespoblaciones WHERE CodPoblacion='" + codigoPoblacionAux + "'");
+                //borramos las mediciones
+                Principal.cbd.consultaUpdate("DELETE FROM mediciones WHERE Cliente in (Select Codigo from clientes where CodigoPoblacion='" + codigoPoblacionAux + "')");
+                // borramos los clientes
+                Principal.cbd.consultaUpdate("DELETE FROM clientes WHERE CodigoPoblacion='" + codigoPoblacionAux + "'");
+
+                JOptionPane.showMessageDialog(null, "Se ha eliminado todas las mediciones, clientes de la calle,"
+                        + "\nlas calles de la poblacion " + pobActual);
+                this.setVisible(false);
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos" + ex.getMessage());
+            }
         }
-   }
+    }
 }

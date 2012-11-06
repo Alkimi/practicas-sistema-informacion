@@ -61,7 +61,6 @@ import javax.swing.JOptionPane;
         btAceptar = new javax.swing.JButton();
 
         setTitle("Baja Provincia");
-        setAlwaysOnTop(true);
 
         jLabel1.setText("Provincia");
 
@@ -305,7 +304,7 @@ import javax.swing.JOptionPane;
              
              JOptionPane.showMessageDialog(null, "Se ha eliminado todas las mediciones, clientes de la calle, calles de las ciudades"+
                      "\n ciudades de la provincia y la provincia seleccionada");
-             
+             this.setVisible(false);
         }catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos" + ex.getMessage());
         }
