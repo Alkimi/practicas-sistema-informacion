@@ -92,6 +92,7 @@ public class Practica_1 extends javax.swing.JApplet {
         jLabel12 = new javax.swing.JLabel();
         txtPiso = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setText("INGRESAR MEDICIONES");
@@ -222,6 +223,15 @@ public class Practica_1 extends javax.swing.JApplet {
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
+        jButton5.setBackground(new java.awt.Color(0, 0, 255));
+        jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setText("?");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -229,7 +239,8 @@ public class Practica_1 extends javax.swing.JApplet {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(66, 66, 66)
                 .addComponent(jLabel2)
-                .addContainerGap(408, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton5))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -272,14 +283,17 @@ public class Practica_1 extends javax.swing.JApplet {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(txtFecha)
                                             .addComponent(txtConsumo, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(0, 247, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2))
+                    .addComponent(jButton5))
                 .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -347,6 +361,11 @@ public class Practica_1 extends javax.swing.JApplet {
         }        
     }//GEN-LAST:event_listaMouseClicked
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        Ayuda ay = new Ayuda();
+        ay.mostrar();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
     /**
      * Metodo encargado de la comunicación con el servlet, 
      * @param mensaje
@@ -363,21 +382,26 @@ public class Practica_1 extends javax.swing.JApplet {
             String host = this.getCodeBase().getHost();
             switch (opt) {
                 case 0:
+                    //peticion = "http://158.49.92.68:8080/AplicacionWeb/Practica1?PeticionInicio=" + URLEncoder.encode(mensaje);
                     peticion = "http://localhost:8080/AplicacionWeb/Practica1?PeticionInicio=" + URLEncoder.encode(mensaje);
                     break;
                 case 1:
+                    //peticion = "http://158.49.92.68:8080/AplicacionWeb/Practica1?PeticionInicio=" + URLEncoder.encode(mensaje);
                     peticion = "http://localhost:8080/AplicacionWeb/Practica1?PeticionInicio=" + URLEncoder.encode(mensaje);
                     break;
                 case 2:
                     codigoProvinciaAux=extraerCodigoProvinciaSeleccinada();
+                    //peticion = "http://158.49.92.68:8080/AplicacionWeb/Practica1?PeticionCiudad="+ codigoProvinciaAux;
                     peticion = "http://localhost:8080/AplicacionWeb/Practica1?PeticionCiudad="+ codigoProvinciaAux;
                     break;
                 case 3:
                     codigoPoblacionAux=extraerCodigoPoblacionSeleccinada();
+                    //peticion = "http://158.49.92.68:8080/AplicacionWeb/Practica1?PeticionCalle="+ codigoPoblacionAux;
                     peticion = "http://localhost:8080/AplicacionWeb/Practica1?PeticionCalle="+ codigoPoblacionAux;
                     break;
                 case 4:
                     codigoCalleAux=extraerCodigoCalleSeleccinada();
+                    //peticion = "http://158.49.92.68:8080/AplicacionWeb/Practica1?PeticionCliente="+ codigoCalleAux;
                     peticion = "http://localhost:8080/AplicacionWeb/Practica1?PeticionCliente="+ codigoCalleAux;
                     break;
             }
@@ -419,6 +443,7 @@ public class Practica_1 extends javax.swing.JApplet {
     private javax.swing.JComboBox comboProvincias;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
