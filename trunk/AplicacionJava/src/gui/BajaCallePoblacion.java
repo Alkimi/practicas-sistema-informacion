@@ -71,7 +71,6 @@ import javax.swing.JOptionPane;
         ComboCalle = new javax.swing.JComboBox();
 
         setTitle("Baja Calle");
-        setAlwaysOnTop(true);
 
         jLabel1.setText("Provincia");
 
@@ -535,13 +534,6 @@ import javax.swing.JOptionPane;
                         }
                     }
 
-                    codigoCalleAux = extraerCodigoCalleSeleccinada();
-                }
-
-                //Controla problema de duplicidad comboBox
-                if (pobActual.equals(op)) {
-                    ComboCalle.removeAllItems();
-                    ComboCalle.addItem("--Vacío--");
                 }
 
             } catch (SQLException ex) {
@@ -558,21 +550,26 @@ import javax.swing.JOptionPane;
     * 
     */
    private void Aceptar(){
-       // control de qu hay una calle seleccionada
-       codigoCalleAux=extraerCodigoCalleSeleccinada();
-        try {
-             //borramos la calle
-             Principal.cbd.consultaUpdate("DELETE from callsepoblaciones WHERE idCalle="+codigoCalleAux);
-             //borramos las mediciones
-             Principal.cbd.consultaUpdate("DELETE FROM mediciones WHERE Cliente in (Select Codigo from clientes where calle="+codigoCalleAux+")" );
-             // borramos los clientes
-             Principal.cbd.consultaUpdate("DELETE FROM clientes WHERE calle="+codigoCalleAux);
-             
-             JOptionPane.showMessageDialog(null, "Se ha eliminado todas las mediciones, clientes de la calle"+ 
-                     "\n Y se ha borrado la calle");
-             
-        }catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos" + ex.getMessage());
+        if (ComboCalle.getSelectedItem().toString().equals("--Vacío--")) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una calle");
+        } else {
+            // control de qu hay una calle seleccionada
+            codigoCalleAux = extraerCodigoCalleSeleccinada();
+            try {
+                //borramos la calle
+                Principal.cbd.consultaUpdate("DELETE from callespoblaciones WHERE idCalle=" + codigoCalleAux);
+                //borramos las mediciones
+                Principal.cbd.consultaUpdate("DELETE FROM mediciones WHERE Cliente in (Select Codigo from clientes where calle=" + codigoCalleAux + ")");
+                // borramos los clientes
+                Principal.cbd.consultaUpdate("DELETE FROM clientes WHERE calle=" + codigoCalleAux);
+
+                JOptionPane.showMessageDialog(null, "Se ha eliminado todas las mediciones, clientes de la calle"
+                        + "\n Y se ha borrado la calle");
+                this.setVisible(false);
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos" + ex.getMessage());
+            }
         }
-   }
+    }
 }
