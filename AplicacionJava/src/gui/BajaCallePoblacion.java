@@ -559,16 +559,16 @@ import javax.swing.JOptionPane;
     */
    private void Aceptar(){
        // control de qu hay una calle seleccionada
-       
+       codigoCalleAux=extraerCodigoCalleSeleccinada();
         try {
              //borramos la calle
-             Principal.cbd.consultaUpdate("DELETE from callepoblaciones WHERE idCalle="+codigoCalleAux);
+             Principal.cbd.consultaUpdate("DELETE from callsepoblaciones WHERE idCalle="+codigoCalleAux);
              //borramos las mediciones
              Principal.cbd.consultaUpdate("DELETE FROM mediciones WHERE Cliente in (Select Codigo from clientes where calle="+codigoCalleAux+")" );
              // borramos los clientes
              Principal.cbd.consultaUpdate("DELETE FROM clientes WHERE calle="+codigoCalleAux);
              
-             JOptionPane.showMessageDialog(null, "Se ha eliminado todas las mediciones, clientes de la calle "+codigoCalleAux+
+             JOptionPane.showMessageDialog(null, "Se ha eliminado todas las mediciones, clientes de la calle"+ 
                      "\n Y se ha borrado la calle");
              
         }catch (SQLException ex) {

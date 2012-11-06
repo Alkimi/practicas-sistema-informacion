@@ -411,19 +411,19 @@ import javax.swing.JOptionPane;
     */
    private void Aceptar(){
        // control de qu hay una poblacion seleccionada
-       
+       codigoPoblacionAux=extraerCodigoPoblacionSeleccinada();
         try {
              //borramos la ciudad
-             Principal.cbd.consultaUpdate("DELETE FROM poblaciones WHERE CodPoblacion='"+codigoPoblacionAux+"'");
+             Principal.cbd.consultaUpdate("DELETE FROM poblaciones WHERE CodigoPoblacion='"+codigoPoblacionAux+"'");
              //borramos la calles
-             Principal.cbd.consultaUpdate("DELETE from callepoblaciones WHERE CodPoblacion='"+codigoPoblacionAux+"'");
+             Principal.cbd.consultaUpdate("DELETE from callespoblaciones WHERE CodPoblacion='"+codigoPoblacionAux+"'");
              //borramos las mediciones
              Principal.cbd.consultaUpdate("DELETE FROM mediciones WHERE Cliente in (Select Codigo from clientes where CodigoPoblacion='"+codigoPoblacionAux+"')" );
              // borramos los clientes
              Principal.cbd.consultaUpdate("DELETE FROM clientes WHERE CodigoPoblacion='"+codigoPoblacionAux+"'");
              
              JOptionPane.showMessageDialog(null, "Se ha eliminado todas las mediciones, clientes de la calle,"+
-                     "\nlas calles de la poblacion" + codigoPoblacionAux);
+                     "\nlas calles de la poblacion " + pobActual);
              
         }catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos" + ex.getMessage());

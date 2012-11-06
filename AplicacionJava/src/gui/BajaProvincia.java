@@ -287,15 +287,16 @@ import javax.swing.JOptionPane;
     */
    private void Aceptar(){
        // control de qu hay una provincia selecionada
+       codigoProvinciaAux=extraerCodigoProvinciaSeleccinada();
        
         try {
              //borramos la pronvicia
              Principal.cbd.consultaUpdate("DELETE from provincias WHERE CodigoProvincia="+codigoProvinciaAux);
              
              //borramos todas las calles de todas las ciudades de esa provincia
-             Principal.cbd.consultaUpdate("DELETE FROM callepoblaciones WHERE CodPoblacion in (Select CodigoPoblacion from poblaciones where CodigoProvincia="+codigoProvinciaAux+")" );
+             Principal.cbd.consultaUpdate("DELETE FROM callespoblaciones WHERE CodPoblacion in (Select CodigoPoblacion from poblaciones where CodigoProvincia="+codigoProvinciaAux+")" );
              //borramos todas las ciudades de esa provincia
-             Principal.cbd.consultaUpdate("DELETE FROM poblaciones WHERE CodigoProvincia="+codigoProvinciaAux+")" );
+             Principal.cbd.consultaUpdate("DELETE FROM poblaciones WHERE CodigoProvincia="+codigoProvinciaAux );
              
              //borramos las mediciones
              Principal.cbd.consultaUpdate("DELETE FROM mediciones WHERE Cliente in (Select Codigo from clientes where CodigoProvincia="+codigoProvinciaAux+")" );
