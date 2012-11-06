@@ -218,7 +218,7 @@ public class Practica1 extends HttpServlet {
     private String consultaClientes(String calle){
         try {
             return convierte( conexion.consultaSelect("Select Codigo, Nombre, Apellido, Apellido2, Numero, Piso from clientes "
-                    +"where Calle="+calle));
+                    +"where Calle="+calle+" order by Numero ASC, Piso ASC"));
         } catch (SQLException ex) {
             return null;
         }

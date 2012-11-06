@@ -47,7 +47,7 @@ public class Practica_1 extends javax.swing.JApplet {
                     initComponents();
                 }
             });
-            this.setSize(750, 600);
+            this.setSize(750, 630);
             peticionGet("true", 1);
             panelTexto.setVisible(false);
         } catch (Exception ex) {
@@ -248,7 +248,7 @@ public class Practica_1 extends javax.swing.JApplet {
                                     .addComponent(comboCalle, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(comboPoblaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -313,7 +313,7 @@ public class Practica_1 extends javax.swing.JApplet {
                     .addComponent(txtConsumo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -384,7 +384,7 @@ public class Practica_1 extends javax.swing.JApplet {
 
             miurl = new URL(getCodeBase(), peticion);
             InputStream buffer = miurl.openStream();
-            BufferedReader bufferreader = new BufferedReader(new InputStreamReader(buffer));
+            BufferedReader bufferreader = new BufferedReader(new InputStreamReader(buffer, "UTF8"));
 
             while ((cadenaaux = bufferreader.readLine()) != null) {
                 cadenaretorno += cadenaaux;
@@ -730,6 +730,8 @@ public class Practica_1 extends javax.swing.JApplet {
          txtApellido2.setText(aux.getApellido2());
          txtNumero.setText(aux.getNumero());
          txtPiso.setText(aux.getPiso());
+         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+         txtFecha.setText(formatoFecha.format(new Date()));
          
      }
      
@@ -742,6 +744,7 @@ public class Practica_1 extends javax.swing.JApplet {
          txtApellido2.setText("");
          txtNumero.setText("");
          txtPiso.setText("");
+         txtFecha.setText("");
          
      }
 }
