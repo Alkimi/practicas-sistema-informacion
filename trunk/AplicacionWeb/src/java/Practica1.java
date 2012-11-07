@@ -33,11 +33,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * Servlet encargado de la comunicación con el applet y la base de datos
  * 
+ * <br/><br/>Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
+ * 
  * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
  * @version 1.0
- * 
- * Sistemas de Información -  Grado Ingeniería Informática T.I. 
- * Curso 2012/13
  * 
  */
 public class Practica1 extends HttpServlet {

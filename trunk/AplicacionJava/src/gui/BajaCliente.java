@@ -19,14 +19,13 @@ import java.util.logging.Logger;
  *
  * Formulario de bajas para los clientes
  * 
+ * <br/><br/>Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
+ * 
  * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
  * @version 1.0
  * 
- * Sistemas de Información -  Grado Ingeniería Informática T.I. 
- * Curso 2012/13
- * 
  */
-
 public class BajaCliente extends javax.swing.JFrame {
 
     ResultSet conjuntoResultados = null;
@@ -706,7 +705,7 @@ public class BajaCliente extends javax.swing.JFrame {
     /**
      * Extrae el codigo de la calle seleccionada el combo
      *
-     * @return
+     * @return codigo de la calle
      */
     private String extraerCodigoCalleSeleccinada() {
         

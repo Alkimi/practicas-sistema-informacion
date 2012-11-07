@@ -1,25 +1,23 @@
 package gui;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
- *
- * Formulario de altas
+ * Formulario de baja 
+ * 
+ * <br/><br/>Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
  * 
  * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
  * @version 1.0
  * 
- * Sistemas de Información -  Grado Ingeniería Informática T.I. 
- * Curso 2012/13
- * 
  */
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 
 public class Bajas extends javax.swing.JFrame {
 
     /**
-     * Creates new form Altas
+     * Creates new form Bajas
      */
     public Bajas() {
         initComponents();

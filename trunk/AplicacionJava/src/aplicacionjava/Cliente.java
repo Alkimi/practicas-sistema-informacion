@@ -4,11 +4,11 @@ package aplicacionjava;
  *
  * Clase auxiliar para manejar la lista de cliente
  * 
+ * <br/><br/>Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
+ * 
  * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
  * @version 1.0
- * 
- * Sistemas de Información -  Grado Ingeniería Informática T.I. 
- * Curso 2012/13
  * 
  */
 public class Cliente {
@@ -21,6 +21,17 @@ public class Cliente {
     private String piso;
     private String metros;
 
+    /**
+     * Constructor del cliente recibe por parametro todos los datos del cliente
+     * @param codigo
+     * @param nombre
+     * @param apellido
+     * @param apellido2
+     * @param calle
+     * @param numero
+     * @param piso
+     * @param metros 
+     */
     public Cliente(String codigo, String nombre, String apellido, String apellido2, String calle, String numero, String piso, String metros) {
         this.codigo = codigo;
         this.nombre = nombre;

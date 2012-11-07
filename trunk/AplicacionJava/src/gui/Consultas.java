@@ -21,11 +21,11 @@ import java.util.logging.Logger;
  *
  * Formulario de consultas. Presenta los tipos de consultas por pestañas
  * 
+ * <br/><br/>Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
+ * 
  * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
  * @version 1.0
- * 
- * Sistemas de Información -  Grado Ingeniería Informática T.I. 
- * Curso 2012/13
  * 
  */
 
@@ -1004,7 +1004,7 @@ public class Consultas extends javax.swing.JFrame {
     /**
      * Extrae el codigo de la calle seleccionada el combo
      *
-     * @return
+     * @return codigo de la calle
      */
     private String extraerCodigoCalleSeleccinada() {
 
@@ -1366,7 +1366,7 @@ public class Consultas extends javax.swing.JFrame {
 
     /**
      * Extrae el cliente de la lista seleccinado
-     * @return 
+     * @return  indice del cliente
      */
     private Cliente extraeClienteDeLista() {
         int indice = listaCli.getSelectedIndex();

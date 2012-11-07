@@ -17,11 +17,11 @@ import javax.swing.JOptionPane;
  *
  * Formulario de modificación del cliente
  * 
+ * <br/><br/>Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
+ * 
  * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
  * @version 1.0
- * 
- * Sistemas de Información -  Grado Ingeniería Informática T.I. 
- * Curso 2012/13
  * 
  */
 public class ModCliente extends javax.swing.JFrame {
@@ -792,7 +792,7 @@ public class ModCliente extends javax.swing.JFrame {
     /**
      * Extrae el codigo de la calle seleccionada en el combo
      *
-     * @return
+     * @return codigo de la calle
      */
     private String extraerCodigoCalleSeleccinada() {
         callespoblaciones cAux;
@@ -1165,7 +1165,7 @@ public class ModCliente extends javax.swing.JFrame {
 
     /**
      * Extrae el cliente de la lista seleccionado
-     * @return 
+     * @return codigo cliente
      */
     private Cliente extraeClienteDeLista() {
         int indice = lista.getSelectedIndex();
@@ -1296,7 +1296,7 @@ public class ModCliente extends javax.swing.JFrame {
      
     /**
      * Comprueba si se realizan cambios o no en las cajas de texto
-     * @return 
+     * @return true si hay cambios, false si no
      */
      private boolean comprobarCambios(){
          return (!txtNombre1.getText().equals(nombreAux) || !txtApellido1.getText().equals(apellAux) || !txtApellido3.getText().equals(apell3Aux)

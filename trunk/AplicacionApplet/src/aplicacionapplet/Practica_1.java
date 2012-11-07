@@ -1,16 +1,6 @@
 package aplicacionapplet;
 
-/**
- *
- * Applet para la inserción de mediciones de consumo de clientes
- * 
- * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
- * @version 1.0
- * 
- * Sistemas de Información -  Grado Ingeniería Informática T.I. 
- * Curso 2012/13
- * 
- */
+
 import utilidades.Poblacion;
 import utilidades.Cliente;
 import utilidades.Provincia;
@@ -24,7 +14,16 @@ import javax.swing.JOptionPane;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.swing.DefaultListModel;
-
+/**
+ *
+ * Applet para la inserción de mediciones de consumo de clientes
+ * 
+ * <br/><br/>Sistemas de Información -  Grado Ingeniería Informática T.I. -
+ * Curso 2012/13
+ * 
+ * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
+ * @version 1.0
+ */
 public class Practica_1 extends javax.swing.JApplet {
 
     ResultSet conjuntoResultados = null;
@@ -368,9 +367,9 @@ public class Practica_1 extends javax.swing.JApplet {
 
     /**
      * Metodo encargado de la comunicación con el servlet, 
-     * @param mensaje
-     * @param opt
-     * @return
+     * @param mensaje mensaje a enviar
+     * @param opt metodo de operacion
+     * @return la cadena obtenida dle servlet
      */
     private String peticionGet(String mensaje, int opt) {
         URL miurl = null;
