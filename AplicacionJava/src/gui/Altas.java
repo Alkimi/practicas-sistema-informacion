@@ -15,7 +15,16 @@ package gui;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
+/**
+ * Formulario de altas
+ *  
+ * <br/><br/>Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
+ * 
+ * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
+ * @version 1.0
+ * 
+ */
 public class Altas extends javax.swing.JFrame {
 
     /**

@@ -6,11 +6,11 @@ import java.util.Date;
  *
  * Clase auxiliar para manejar la lista de cliente
  * 
+ * <br/><br/>Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
+ * 
  * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
  * @version 1.0
- * 
- * Sistemas de Información -  Grado Ingeniería Informática T.I. 
- * Curso 2012/13
  * 
  */
 public class Conversion {
@@ -110,7 +110,7 @@ public class Conversion {
     /**
      * Devuelve true o false si la cadena es numerica o no
      * @param cadena
-     * @return 
+     * @return true si es numerica false si no
      */
     public boolean esNumerico(String cadena){
 	try {

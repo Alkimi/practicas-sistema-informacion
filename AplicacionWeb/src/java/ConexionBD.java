@@ -7,7 +7,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+/*
+ * Clase general para la conexion a la base de dato
+ * 
+ * <br/><br/>Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
+ * 
+ * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
+ * @version 1.0
+ * 
+ */
 public class ConexionBD {
     private String userName;
     private String password;
@@ -22,9 +31,9 @@ public class ConexionBD {
      * local es decir LOCALHOST, se le pasa por parametro el usuario, la contraseña
      * y el nombre de la base de datos, puede lanzar excepciones
      * 
-     * @param Usuario, nombre del usuario con acceso a la base de datos
-     * @param Password, contraseña del usuario con acceso a la base de datos
-     * @param BaseDatos, nombre de la base de datos,
+     * @param Usuario  nombre del usuario con acceso a la base de datos
+     * @param Password  contraseña del usuario con acceso a la base de datos
+     * @param BaseDatos  nombre de la base de datos,
      * @throws ClassNotFoundException, lanza esta excepcion si no esta el conector jdbc
      * @throws SQLException, lanza esta excepcion si no conecta con la base de datos
      */
@@ -41,10 +50,10 @@ public class ConexionBD {
      * local es decir LOCALHOST, se le pasa por parametro el usuario, la contraseña
      * la url donde esta el servidor y el nombre de la base de datos, puede lanzar excepciones
      * 
-     * @param Usuario, nombre del usuario con acceso a la base de datos
-     * @param Password, contraseña del usuario con acceso a la base de datos
-     * @param BaseDatos, nombre de la base de datos,
-     * @param url, direcion url de donde esta la base de datos
+     * @param Usuario  nombre del usuario con acceso a la base de datos
+     * @param Password  contraseña del usuario con acceso a la base de datos
+     * @param BaseDatos  nombre de la base de datos,
+     * @param url  direcion url de donde esta la base de datos
      * @throws ClassNotFoundException, lanza esta excepcion si no esta el conector jdbc
      * @throws SQLException, lanza esta excepcion si no conecta con la base de datos
      */
@@ -72,7 +81,7 @@ public class ConexionBD {
     * Devuelve una consulta del tipo SELECT formateada  o una excepcion si la 
     * consulta es invalida
     * 
-    * @param Cadena, cadena ha de contener el selec de la consulta SQL
+    * @param Cadena cadena ha de contener el selec de la consulta SQL
     * 
     * @return la consulta formateada
     * @throws SQLException, se produce la excepcion si la consulta no es correcta
@@ -105,7 +114,7 @@ public class ConexionBD {
     * Realiza una consulta del tipo SELECT a la base de datos, lanza una expcepcion
     * si la consulta es invalida
     * 
-    * @param Cadena, la cadena que contiene la consulta en SQL
+    * @param Cadena la cadena que contiene la consulta en SQL
     * 
     * @return la consulta realizda en la base de datos en un resulSet
     * @throws SQLException, se produce la excepcion si la consulta no es correcta
@@ -124,7 +133,7 @@ public class ConexionBD {
     * DELETE, INSERT, CREATE TABLE, UPDATE, DROP, lanza un expcecion si
     * la consulta es invalida
     * 
-    * @param Cadena, la cadena que contiene la consulta en SQL
+    * @param Cadena  la cadena que contiene la consulta en SQL
     * 
     * @return o bien el numero de filas  para declaraciones SQL Data Manipulation Language (DML) 
     * y 0  para las sentencias de SQL que no devuelven nada

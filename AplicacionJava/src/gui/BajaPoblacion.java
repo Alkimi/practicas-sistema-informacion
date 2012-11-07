@@ -16,15 +16,16 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * Formulario para insertar una nueva calle o una población
+ * Formulario para dar de baja una poblacion
+ * 
+ * <br/><br/>Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
  * 
  * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
  * @version 1.0
  * 
- * Sistemas de Información -  Grado Ingeniería Informática T.I. 
- * Curso 2012/13
- * 
- */public class BajaPoblacion extends javax.swing.JFrame {
+ */
+public class BajaPoblacion extends javax.swing.JFrame {
     //Declaración de variables
     ResultSet conjuntoResultados=null;
     List<Provincia> listaProvincias = new ArrayList<>();

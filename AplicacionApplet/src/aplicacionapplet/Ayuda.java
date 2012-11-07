@@ -5,9 +5,16 @@
 package aplicacionapplet;
 
 /**
- *
- * @author carranza
+ * Mensaje de ayuda
+ * 
+ * <br/><br/>Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
+ * 
+ * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
+ * @version 1.0
+ * 
  */
+
 public class Ayuda extends javax.swing.JFrame {
 
     /**
@@ -145,6 +152,9 @@ public class Ayuda extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * muesta el panel de la ayuda
+     */
     public void mostrar(){
         setVisible(true);
         

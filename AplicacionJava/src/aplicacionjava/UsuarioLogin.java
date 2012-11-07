@@ -7,8 +7,12 @@ package aplicacionjava;
 /**
  * Clase auxiliar para el manejo del login
  * 
- * @author Enrique Miguel y Salul Carranza
+ * <br/><br/>Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
+ * 
+ * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
  * @version 1.0
+ * 
  */
 public class UsuarioLogin {
     private String nombre;
@@ -16,10 +20,19 @@ public class UsuarioLogin {
     private String baseDeDatos;
     private String servidor;
 
+    /**
+     * Constuctoro por defecto
+     */ 
     public UsuarioLogin() {
     }
     
-
+    /**
+     * Constructor sobrecargado que crea los datos de conexion , recibe por paremetro los datos de la conexion
+     * @param nombre
+     * @param password
+     * @param baseDeDatos
+     * @param servidor 
+     */
     public UsuarioLogin(String nombre, String password, String baseDeDatos, String servidor) {
         this.nombre = nombre;
         this.password = password;

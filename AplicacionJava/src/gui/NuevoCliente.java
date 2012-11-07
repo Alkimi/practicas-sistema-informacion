@@ -17,11 +17,11 @@ import javax.swing.JOptionPane;
  *
  * Formulario de creación de nuevo cliente
  * 
+ * <br/><br/>Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
+ * 
  * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
  * @version 1.0
- * 
- * Sistemas de Información -  Grado Ingeniería Informática T.I. 
- * Curso 2012/13
  * 
  */
 public class NuevoCliente extends javax.swing.JFrame {
@@ -426,7 +426,7 @@ public class NuevoCliente extends javax.swing.JFrame {
    
    /**
     * Extrae el codigo de la calle seleccionada el combo
-    * @return 
+    * @return codigo de la calle
     */
    private String extraerCodigoCalleSeleccinada(){
        
