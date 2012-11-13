@@ -47,7 +47,6 @@ import net.sf.jasperreports.engine.export.ooxml.JRPptxExporter; //pptx
  */
 public class ReporteFactura {
 
-
     /**
      * Constructor del reporte de facturas de clientes
      * @param id identificador puede ser el cliente o la ciudad segun TIPO
@@ -78,7 +77,7 @@ public class ReporteFactura {
     
         ClienteDatasource datasource = new ClienteDatasource(); 
         //realizamos las consultas para obtener lo datos
-        ClienteReporte cliente = new ClienteReporte();
+        
         try {
             
             resultado=Principal.cbd.consultaSelect("Select t3.Codigo, t3.Nombre, t3.apellido, t3.apellido2, t3.Calle, t3.numero, t3.piso, t3.CodPostal,t4.KW, t4.mes"
@@ -102,6 +101,8 @@ public class ReporteFactura {
             * 3 seg
              */
             while (resultado.next()){
+                ClienteReporte cliente = new ClienteReporte();
+                
                 cliente.setIdCliente(resultado.getInt(1));
                 cliente.setNombre(resultado.getString(2));
                 cliente.setApellido1(resultado.getString(3));
@@ -117,7 +118,6 @@ public class ReporteFactura {
                 
                 // añadimos el cliente
                 datasource.addCliente(cliente);
-
             }
             
             
@@ -125,12 +125,12 @@ public class ReporteFactura {
             Logger.getLogger(ReporteFactura.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        JasperReport reporte = (JasperReport) JRLoader.loadObject("factura.jasper");  
+        JasperReport reporte = (JasperReport) JRLoader.loadObject("report_muchos_cliente.jasper");  
         JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, datasource);  
 
         JRExporter exporter = new JRPdfExporter();  
         exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint); 
-        exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("Fac"+idPoblacion+cliente.getMesFactura()+".pdf")); 
+        exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("Fac"+idPoblacion+".pdf")); 
         exporter.exportReport();  
         
     }
@@ -182,7 +182,8 @@ public class ReporteFactura {
         // añadimos el cliente
          datasource.addCliente(cliente);
         
-        JasperReport reporte = (JasperReport) JRLoader.loadObject("factura.jasper");  
+         JasperReport reporte = (JasperReport) JRLoader.loadObject("report_cliente.jasper");  
+        //JasperReport reporte = (JasperReport) JRLoader.loadObject("factura.jasper");  
         JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, datasource);  
 
         JRExporter exporter = new JRPdfExporter();  
