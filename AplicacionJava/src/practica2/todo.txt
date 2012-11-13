@@ -1,0 +1,37 @@
+SET lc_time_names = 'es_ES'; para nombres de fecha en español.
+
+factura de un cliente:
+1º consulta al cliente ¿por id?
+2º consulta a provincias para sacar el nombre de la provincia
+3º consulta a localidades para sacar el nombre de la localidad
+4º consulta a mediciones con el id cliente y el mes para obtener los kilovatios
+5º generar factura.
+
+factura de clientes de una ciudad:
+1º combo de provincias y ciudades y asi obtener los id de provincia y ciudad y sus nombres
+2º consulta clientes por idpoblacion.
+3º bucle??
+    leer un cliente del resulset anterior
+    consulta a mediciones con el id cliente y el mes para obtener los kilowatios
+    generar factura
+    incrementar resultset
+
+informe diagrama de barras
+1º combo de provincias y ciudades asi obtener los id ciudad y su nombre
+2º pedir año
+3º realizar consulta
+
+	SELECT sum( kw ) as suma , MONTHNAME(FechaHora) as mes FROM mediciones WHERE Cliente IN (
+		SELECT Codigo FROM Clientes WHERE CodigoProvincia=36)
+	AND FechaHora BETWEEN '2012-01-01 00:00:00' AND '2012-12-31 23:59:59' GROUP BY MONTH( FechaHora)
+
+4º generar informe
+
+informe por poblaciones año actual
+1º compbo provincias para obtener id provincia y nombre
+2º pedir tiempo??
+3º realizar consulta
+4º generar informe
+
+informe por porcentaje no lo entiendo.
+

@@ -19,8 +19,8 @@ import javax.swing.JOptionPane;
  * 
  */
 public class Principal extends javax.swing.JFrame {
-    static ConexionBD cbd =null;
-    ResultSet consulta=null;
+    public static ConexionBD cbd =null;
+    public static ResultSet consulta=null;
     static public boolean logueo = true;
 
     /**
