@@ -1,5 +1,7 @@
 package gui;
 
+import practica2.HiloConsultasClientesPoblacion;
+import practica2.HiloConsultasProvincias;
 import aplicacionjava.Provincia;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -33,6 +35,10 @@ import practica2.ReporteCiudades;
     int opcionSeleccionada=-1;
     String pobActual = null;
     aplicacionjava.Conversion conAux = new aplicacionjava.Conversion();
+    
+    static String provincia;
+    static int codProvincia;
+    
 
     /**
      * Creates new form NuevaCallePoblacion
@@ -59,8 +65,9 @@ import practica2.ReporteCiudades;
 
         jLabel1 = new javax.swing.JLabel();
         ComboProvincia = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
+        btCancelar = new javax.swing.JButton();
         btAceptar = new javax.swing.JButton();
+        lbCargando = new javax.swing.JLabel();
 
         setTitle("Informe Provincia");
 
@@ -72,10 +79,10 @@ import practica2.ReporteCiudades;
             }
         });
 
-        jButton1.setText("Cancelar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btCancelar.setText("Cancelar");
+        btCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btCancelarActionPerformed(evt);
             }
         });
 
@@ -99,10 +106,13 @@ import practica2.ReporteCiudades;
                         .addComponent(ComboProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(56, 56, 56)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btAceptar)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbCargando)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btCancelar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btAceptar)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,9 +121,11 @@ import practica2.ReporteCiudades;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(ComboProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addComponent(lbCargando)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btCancelar)
                     .addComponent(btAceptar))
                 .addGap(29, 29, 29))
         );
@@ -125,9 +137,9 @@ import practica2.ReporteCiudades;
      * Cierra el formulario
      * @param evt 
      */
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
         setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btCancelarActionPerformed
 
     /**
      * Llama al metodo de rellenar el combo de poblaciones
@@ -180,9 +192,10 @@ import practica2.ReporteCiudades;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox ComboProvincia;
-    private javax.swing.JButton btAceptar;
-    private javax.swing.JButton jButton1;
+    private static javax.swing.JButton btAceptar;
+    private static javax.swing.JButton btCancelar;
     private javax.swing.JLabel jLabel1;
+    private static javax.swing.JLabel lbCargando;
     // End of variables declaration//GEN-END:variables
 
     /**
@@ -278,14 +291,28 @@ import practica2.ReporteCiudades;
     * 
     */
    private void Aceptar(){
-         try {
-             // control de qu hay una provincia selecionada
-             codigoProvinciaAux=extraerCodigoProvinciaSeleccinada();
-             new ReporteCiudades(Integer.parseInt(codigoProvinciaAux), ComboProvincia.getSelectedItem().toString());
-             JOptionPane.showMessageDialog(null,"Consumo de las ciudades de las provincias generado correctamente");
-         } catch (JRException ex) {
-             Logger.getLogger(InformeProvincias.class.getName()).log(Level.SEVERE, null, ex);
-         }
+        
+       provincia = ComboProvincia.getSelectedItem().toString();
+       codProvincia = Integer.parseInt(extraerCodigoProvinciaSeleccinada());
   
+       HiloConsultasProvincias mh = new HiloConsultasProvincias();
+
+       lbCargando.setText("Generando informes, espera...");
+       btAceptar.setEnabled(false);
+       btCancelar.setEnabled(false);
+
+       mh.start();
    }
+   
+   public static void consultas(){
+       try {
+            new ReporteCiudades(codProvincia, provincia);
+            JOptionPane.showMessageDialog(null, "Informes generados correctamente");
+            lbCargando.setText("");
+            btAceptar.setEnabled(true);
+            btCancelar.setEnabled(true);
+        } catch (JRException ex) {
+            Logger.getLogger(InformeProvincias.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
