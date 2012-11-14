@@ -49,3 +49,18 @@ informe por poblaciones año actual
 
 informe por porcentaje no lo entiendo.
 
+select sum(suma), t2.CodigoProvincia from 
+(select sum(kw) as suma,Cliente from mediciones Where FechaHora BETWEEN '2012-01-01 00:00:00' AND '2012-12-31 23:59:59' group by Cliente) as t1
+inner join (Select CodigoProvincia, Codigo from clientes Where CodigoProvincia =36) as t2 where t1.Cliente=t2.Codigo group by CodigoProvincia
+10 seg
+
+select sum(kw) from mediciones inner join clientes where CodigoProvincia=36 and Cliente=Codigo and  FechaHora BETWEEN '2012-01-01 00:00:00' AND '2012-12-31 23:59:59'
+2852959.94 57 seg
+
+
+select sum(suma), t2.CodigoProvincia from 
+(select sum(kw) as suma,Cliente from mediciones Where FechaHora BETWEEN '2012-01-01 00:00:00' AND '2012-12-31 23:59:59' group by Cliente) as t1
+inner join (Select CodigoProvincia, Codigo from clientes Where CodigoProvincia in (15, 32, 36)) as t2 where t1.Cliente=t2.Codigo group by CodigoProvincia
+100 seg
+
+ 
