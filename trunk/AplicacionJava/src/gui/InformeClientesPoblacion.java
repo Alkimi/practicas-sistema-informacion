@@ -42,6 +42,7 @@ import practica2.ReporteFactura;
      */
     public InformeClientesPoblacion() {
         initComponents();
+        Lmensaje.setVisible(false);
         
         setLocationRelativeTo(null);
         
@@ -67,6 +68,7 @@ import practica2.ReporteFactura;
         ComboPoblacion = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
         btAceptar = new javax.swing.JButton();
+        Lmensaje = new javax.swing.JLabel();
 
         setTitle("Informe Clientes por Poblacion");
 
@@ -101,26 +103,33 @@ import practica2.ReporteFactura;
             }
         });
 
+        Lmensaje.setText("Generando las facturas, esto requiere tiempo, espere por favor.");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(lbPob1))
-                        .addGap(44, 44, 44)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(ComboProvincia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ComboPoblacion, 0, 184, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(btAceptar)))
-                .addContainerGap(46, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(lbPob1))
+                                .addGap(44, 44, 44)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(ComboProvincia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(ComboPoblacion, 0, 184, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btAceptar))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(Lmensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,11 +142,13 @@ import practica2.ReporteFactura;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ComboPoblacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbPob1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(btAceptar))
-                .addGap(29, 29, 29))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Lmensaje, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -164,7 +175,10 @@ import practica2.ReporteFactura;
      * @param evt 
      */
     private void btAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAceptarActionPerformed
+       Lmensaje.setVisible(true);
+       this.repaint();
        Aceptar();
+       Lmensaje.setVisible(false);
     }//GEN-LAST:event_btAceptarActionPerformed
 
     private void ComboPoblacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboPoblacionActionPerformed
@@ -207,6 +221,7 @@ import practica2.ReporteFactura;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox ComboPoblacion;
     private javax.swing.JComboBox ComboProvincia;
+    private javax.swing.JLabel Lmensaje;
     private javax.swing.JButton btAceptar;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -403,8 +418,10 @@ import practica2.ReporteFactura;
         int cp = Integer.parseInt(codPob);
         
         try {
-            JOptionPane.showMessageDialog(null,"Generando informes, espere por favor");
+            new practica2.MensajePopUp("Generando informes, espere por favor").start();
+
             new ReporteFactura(cp , ComboProvincia.getSelectedItem().toString(),ComboPoblacion.getSelectedItem().toString(),false);
+
             JOptionPane.showMessageDialog(null,"Facturas generadas correctamente");
         } catch (JRException ex) {
             System.out.print("Error al generar el informe " + ex.getMessage());

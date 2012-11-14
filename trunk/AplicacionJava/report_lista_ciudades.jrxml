@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report_lista_ciudades" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8dc54266-c26b-4be0-b95f-d0369ca83625">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="consumo" class="java.lang.Double"/>
+	<field name="nombre" class="java.lang.String"/>
+	<variable name="Suma_consumo" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{consumo}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="abd63107-3330-4b1a-a367-e62fc427835c" x="41" y="17" width="432" height="41"/>
+				<textElement>
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Consumo ciudades de una provincia]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="54" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="5cc0e902-45f5-4fd8-ac39-c6ca88a711a0" x="6" y="3" width="226" height="20"/>
+				<textElement>
+					<font size="15"/>
+				</textElement>
+				<text><![CDATA[Consumo de la poblacion en KW]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9ad90124-fd3e-4777-b517-fcbdd803238d" x="396" y="3" width="129" height="20"/>
+				<textElement>
+					<font size="15"/>
+				</textElement>
+				<text><![CDATA[Poblacion]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="36" splitType="Stretch">
+			<textField>
+				<reportElement uuid="2a4d7c43-330d-4132-892b-c3aada7fe296" x="6" y="0" width="226" height="32"/>
+				<textElement>
+					<font size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{consumo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5761af93-8003-47a0-8281-32f5a7de23ae" x="383" y="0" width="165" height="32"/>
+				<textElement>
+					<font size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="24" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement uuid="d16d63ee-5ea2-463c-806e-b5e910a32c12" x="461" y="5" width="20" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d4fd8eb2-ea49-4cda-9314-dbe04a597a9e" x="526" y="5" width="31" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="7293d115-4e1c-4de3-90a8-f0ec572d9b7e" x="396" y="5" width="49" height="20"/>
+				<textElement/>
+				<text><![CDATA[Pagina :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="906419dc-200b-43fa-b464-ccabdd9e8148" x="487" y="5" width="22" height="20"/>
+				<textElement/>
+				<text><![CDATA[De]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement uuid="aa61cb7a-dc14-4e90-a603-de7691e6551f" x="0" y="12" width="226" height="20"/>
+				<textElement>
+					<font size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Suma_consumo}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="fb8d36ed-ec98-4cde-b16e-850421ea6d5c" x="0" y="0" width="226" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="515bcaf7-b5dd-47ea-b24f-d26549875d30" x="240" y="10" width="100" height="20"/>
+				<textElement>
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[KW]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
