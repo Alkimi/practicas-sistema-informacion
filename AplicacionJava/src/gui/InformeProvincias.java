@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import practica2.ReporteCiudades;
 
 
 /**
@@ -276,8 +278,14 @@ import javax.swing.JOptionPane;
     * 
     */
    private void Aceptar(){
-       // control de qu hay una provincia selecionada
-       codigoProvinciaAux=extraerCodigoProvinciaSeleccinada();
+         try {
+             // control de qu hay una provincia selecionada
+             codigoProvinciaAux=extraerCodigoProvinciaSeleccinada();
+             new ReporteCiudades(Integer.parseInt(codigoProvinciaAux), ComboProvincia.getSelectedItem().toString());
+             JOptionPane.showMessageDialog(null,"Consumo de las ciudades de las provincias generado correctamente");
+         } catch (JRException ex) {
+             Logger.getLogger(InformeProvincias.class.getName()).log(Level.SEVERE, null, ex);
+         }
   
    }
 }

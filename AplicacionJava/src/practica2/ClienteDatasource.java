@@ -45,7 +45,7 @@ public class ClienteDatasource implements JRDataSource {
                 valor = listaClientes.get(indiceClientesActual).getApellido1();
                 break;
             case "apellido2":
-                valor = listaClientes.get(indiceClientesActual).getApellido2();
+                valor =listaClientes.get(indiceClientesActual).getApellido2();
                 break;
             case "calle":
                 valor = listaClientes.get(indiceClientesActual).getCalle();

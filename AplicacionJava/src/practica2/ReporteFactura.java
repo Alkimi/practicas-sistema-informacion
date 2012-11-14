@@ -73,13 +73,13 @@ public class ReporteFactura {
      */
     private void MuchosClientes(int idPoblacion, String Provincia,String Poblacion) throws JRException{
         ResultSet resultado=null;
-        int aux;
     
         ClienteDatasource datasource = new ClienteDatasource(); 
         //realizamos las consultas para obtener lo datos
-        
+
+
         try {
-            
+           
             resultado=Principal.cbd.consultaSelect("Select t3.Codigo, t3.Nombre, t3.apellido, t3.apellido2, t3.Calle, t3.numero, t3.piso, t3.CodPostal,t4.KW, t4.mes"
                     +" from (Select t1.Codigo, t1.Nombre, t1.apellido, t1.apellido2, t2.Nombre as Calle, t1.numero, t1.piso, t2.CodPostal"
                     +" From (Select * from clientes where CodigoPoblacion ="+idPoblacion+") as t1 inner join"
@@ -101,7 +101,7 @@ public class ReporteFactura {
             * 3 seg
              */
             while (resultado.next()){
-                ClienteReporte cliente = new ClienteReporte();
+                 ClienteReporte cliente = new ClienteReporte();
                 
                 cliente.setIdCliente(resultado.getInt(1));
                 cliente.setNombre(resultado.getString(2));
@@ -117,22 +117,25 @@ public class ReporteFactura {
                 cliente.setProvincia(Provincia);
                 
                 // añadimos el cliente
-                datasource.addCliente(cliente);
+               datasource.addCliente(cliente);                
+
+
             }
+            JasperReport reporte = (JasperReport) JRLoader.loadObject("report_muchos_cliente.jasper");
             
-            
+
+            JRExporter exporter = new JRPdfExporter();
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, datasource);
+
+
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("Fac" + idPoblacion + ".pdf"));
+            exporter.exportReport();
+
         } catch (SQLException ex) {
             Logger.getLogger(ReporteFactura.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        JasperReport reporte = (JasperReport) JRLoader.loadObject("report_muchos_cliente.jasper");  
-        JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, null, datasource);  
 
-        JRExporter exporter = new JRPdfExporter();  
-        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint); 
-        exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("Fac"+idPoblacion+".pdf")); 
-        exporter.exportReport();  
-        
     }
     
     /**
@@ -171,7 +174,7 @@ public class ReporteFactura {
             cliente.setCodPostal(resultado.getInt(2));
             
             //consulta a mediciones
-            resultado=Principal.cbd.consultaSelect("Select KW, MONTHNAME(FechaHora) From mediciones where Cliente="+idCliente+" Order By FechaHora Desc Limit 1");
+            resultado=Principal.cbd.consultaSelect("Select KW, Monthname(max(FechaHora)) From mediciones where Cliente="+idCliente);
             resultado.next();
             cliente.setConsumo(resultado.getDouble(1));
             cliente.setMesFactura(resultado.getString(2));
