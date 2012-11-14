@@ -1,17 +1,23 @@
 package gui;
 
+import practica2.HiloConsultasClientesPoblacion;
 import aplicacionjava.Poblacion;
 import aplicacionjava.Provincia;
 import aplicacionjava.callespoblaciones;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.ProgressMonitor;
+import javax.swing.Timer;
 import net.sf.jasperreports.engine.JRException;
 import practica2.ReporteFactura;
 
@@ -27,6 +33,8 @@ import practica2.ReporteFactura;
  * Curso 2012/13
  * 
  */public class InformeClientesPoblacion extends javax.swing.JFrame {
+
+
     //Declaración de variables
     ResultSet conjuntoResultados=null;
     List<Provincia> listaProvincias = new ArrayList<>();
@@ -36,13 +44,17 @@ import practica2.ReporteFactura;
     int opcionSeleccionada=-1;
     String pobActual = null;
     aplicacionjava.Conversion conAux = new aplicacionjava.Conversion();
+    String codPob = null;
+    static int cp = -1;
+    static String pobla = null;
+    static String provi = null;
 
+ 
     /**
      * Creates new form NuevaCallePoblacion
      */
     public InformeClientesPoblacion() {
         initComponents();
-        Lmensaje.setVisible(false);
         
         setLocationRelativeTo(null);
         
@@ -66,9 +78,9 @@ import practica2.ReporteFactura;
         lbPob1 = new javax.swing.JLabel();
         ComboProvincia = new javax.swing.JComboBox();
         ComboPoblacion = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
+        btCancelar = new javax.swing.JButton();
         btAceptar = new javax.swing.JButton();
-        Lmensaje = new javax.swing.JLabel();
+        lbCargando = new javax.swing.JLabel();
 
         setTitle("Informe Clientes por Poblacion");
 
@@ -89,10 +101,10 @@ import practica2.ReporteFactura;
             }
         });
 
-        jButton1.setText("Cancelar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btCancelar.setText("Cancelar");
+        btCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btCancelarActionPerformed(evt);
             }
         });
 
@@ -103,33 +115,31 @@ import practica2.ReporteFactura;
             }
         });
 
-        Lmensaje.setText("Generando las facturas, esto requiere tiempo, espere por favor.");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(121, Short.MAX_VALUE)
+                .addComponent(btCancelar)
+                .addGap(18, 18, 18)
+                .addComponent(btAceptar)
+                .addGap(37, 37, 37))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(133, 133, 133)
+                        .addComponent(lbCargando))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(lbPob1))
-                                .addGap(44, 44, 44)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(ComboProvincia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(ComboPoblacion, 0, 184, Short.MAX_VALUE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btAceptar))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(Lmensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                            .addComponent(jLabel1)
+                            .addComponent(lbPob1))
+                        .addGap(44, 44, 44)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(ComboProvincia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ComboPoblacion, 0, 184, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,11 +153,11 @@ import practica2.ReporteFactura;
                     .addComponent(ComboPoblacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbPob1))
                 .addGap(18, 18, 18)
+                .addComponent(lbCargando)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btCancelar)
                     .addComponent(btAceptar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Lmensaje, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -158,9 +168,9 @@ import practica2.ReporteFactura;
      * Cierra el formulario
      * @param evt 
      */
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
         setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btCancelarActionPerformed
 
     /**
      * Llama al metodo de rellenar el combo de poblaciones
@@ -175,10 +185,11 @@ import practica2.ReporteFactura;
      * @param evt 
      */
     private void btAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAceptarActionPerformed
-       Lmensaje.setVisible(true);
-       this.repaint();
-       Aceptar();
-       Lmensaje.setVisible(false);
+         try {
+             Aceptar();
+         } catch (InterruptedException ex) {
+             Logger.getLogger(InformeClientesPoblacion.class.getName()).log(Level.SEVERE, null, ex);
+         }
     }//GEN-LAST:event_btAceptarActionPerformed
 
     private void ComboPoblacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboPoblacionActionPerformed
@@ -221,14 +232,13 @@ import practica2.ReporteFactura;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox ComboPoblacion;
     private javax.swing.JComboBox ComboProvincia;
-    private javax.swing.JLabel Lmensaje;
-    private javax.swing.JButton btAceptar;
-    private javax.swing.JButton jButton1;
+    private static javax.swing.JButton btAceptar;
+    private static javax.swing.JButton btCancelar;
     private javax.swing.JLabel jLabel1;
+    private static javax.swing.JLabel lbCargando;
     private javax.swing.JLabel lbPob1;
     // End of variables declaration//GEN-END:variables
 
-    
     /**
      * Muestra el formulario en la opcion de introducir calles
      * 
@@ -406,27 +416,37 @@ import practica2.ReporteFactura;
       
    }
    
-    
-   
    /**
     * Metodo al que se llama cuando se pulsa aceptar
     * 
   
      */
-    private void Aceptar() {
-        String codPob = extraerCodigoPoblacionSeleccinada();
-        int cp = Integer.parseInt(codPob);
-        
+    private void Aceptar() throws InterruptedException {
+       
+      codPob = this.extraerCodigoPoblacionSeleccinada();
+      cp = Integer.parseInt(codPob);
+      pobla = ComboPoblacion.getSelectedItem().toString();
+      provi = ComboProvincia.getSelectedItem().toString();
+      
+      HiloConsultasClientesPoblacion mh = new HiloConsultasClientesPoblacion();
+      
+      lbCargando.setText("Generando facturas, espera...");
+      btAceptar.setEnabled(false);
+      btCancelar.setEnabled(false);
+      
+      mh.start();
+
+    }
+    
+    public static void consultas(){  
         try {
-            new practica2.MensajePopUp("Generando informes, espere por favor").start();
-
-            new ReporteFactura(cp , ComboProvincia.getSelectedItem().toString(),ComboPoblacion.getSelectedItem().toString(),false);
-
-            JOptionPane.showMessageDialog(null,"Facturas generadas correctamente");
+            new ReporteFactura(cp, provi, pobla, false);
+            JOptionPane.showMessageDialog(null, "Facturas generadas correctamente");
+            lbCargando.setText("");
+            btAceptar.setEnabled(true);
+            btCancelar.setEnabled(true);
         } catch (JRException ex) {
             System.out.print("Error al generar el informe " + ex.getMessage());
         }
-        }
     }
-    
-
+ }

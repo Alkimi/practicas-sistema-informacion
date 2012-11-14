@@ -1,5 +1,6 @@
 package gui;
 
+import practica2.HiloInformeBarras;
 import aplicacionjava.Poblacion;
 import aplicacionjava.Provincia;
 import aplicacionjava.callespoblaciones;
@@ -14,6 +15,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import practica2.ReporteConsumos;
 
 
 /**
@@ -36,6 +39,9 @@ import javax.swing.JOptionPane;
     int opcionSeleccionada=-1;
     String pobActual = null;
     aplicacionjava.Conversion conAux = new aplicacionjava.Conversion();
+    static int cp;
+    static String pobla = null;
+    static int anio;
 
     /**
      * Creates new form NuevaCallePoblacion
@@ -65,10 +71,11 @@ import javax.swing.JOptionPane;
         lbPob1 = new javax.swing.JLabel();
         ComboProvincia = new javax.swing.JComboBox();
         ComboPoblacion = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
+        btCancelar = new javax.swing.JButton();
         btAceptar = new javax.swing.JButton();
         lbPob2 = new javax.swing.JLabel();
         ComboAnio = new javax.swing.JComboBox();
+        lbCargando = new javax.swing.JLabel();
 
         setTitle("Consumo Total Poblacion");
 
@@ -89,10 +96,10 @@ import javax.swing.JOptionPane;
             }
         });
 
-        jButton1.setText("Cancelar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btCancelar.setText("Cancelar");
+        btCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btCancelarActionPerformed(evt);
             }
         });
 
@@ -117,22 +124,27 @@ import javax.swing.JOptionPane;
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(lbPob1)
-                            .addComponent(lbPob2))
-                        .addGap(44, 44, 44)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(ComboProvincia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ComboPoblacion, 0, 209, Short.MAX_VALUE)
-                            .addComponent(ComboAnio, 0, 209, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(btAceptar)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(lbPob1)
+                                    .addComponent(lbPob2))
+                                .addGap(44, 44, 44)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(ComboProvincia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(ComboPoblacion, 0, 209, Short.MAX_VALUE)
+                                    .addComponent(ComboAnio, 0, 209, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btCancelar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btAceptar))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(84, 84, 84)
+                        .addComponent(lbCargando)))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -150,9 +162,11 @@ import javax.swing.JOptionPane;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ComboAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbPob2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(lbCargando)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btCancelar)
                     .addComponent(btAceptar))
                 .addContainerGap())
         );
@@ -164,9 +178,9 @@ import javax.swing.JOptionPane;
      * Cierra el formulario
      * @param evt 
      */
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
         setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btCancelarActionPerformed
 
     /**
      * Llama al metodo de rellenar el combo de poblaciones
@@ -230,9 +244,10 @@ import javax.swing.JOptionPane;
     private javax.swing.JComboBox ComboAnio;
     private javax.swing.JComboBox ComboPoblacion;
     private javax.swing.JComboBox ComboProvincia;
-    private javax.swing.JButton btAceptar;
-    private javax.swing.JButton jButton1;
+    private static javax.swing.JButton btAceptar;
+    private static javax.swing.JButton btCancelar;
     private javax.swing.JLabel jLabel1;
+    private static javax.swing.JLabel lbCargando;
     private javax.swing.JLabel lbPob1;
     private javax.swing.JLabel lbPob2;
     // End of variables declaration//GEN-END:variables
@@ -416,32 +431,6 @@ import javax.swing.JOptionPane;
        return pAux.getCodPoblacion();
       
    }
-   
-    
-   
-   /**
-    * Metodo al que se llama cuando se pulsa aceptar
-    * 
-  
-     */
-    private void Aceptar() {
-        if (ComboPoblacion.getSelectedItem().toString().equals("--Vacío--")) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar al menos una población");
-        } else {
-            if (ComboAnio.getSelectedItem().toString().equals("--Vacío--")) {
-                JOptionPane.showMessageDialog(null, "Debe seleccionar al menos un Año");
-            } else {
-                // control de qu hay una poblacion seleccionada
-                /*codigoPoblacionAux = extraerCodigoPoblacionSeleccinada();
-                try {
-                    
-
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos" + ex.getMessage());
-                }*/
-            }
-        }
-    }
     
     /**
      * Rellena el combo con los años desde el actual.
@@ -467,6 +456,46 @@ import javax.swing.JOptionPane;
                 ComboAnio.addItem(anioInt);
                 anioInt--;
             }   
+        }
+    }
+    
+    /**
+    * Metodo al que se llama cuando se pulsa aceptar
+    * 
+  
+     */
+    private void Aceptar() {
+        if (ComboPoblacion.getSelectedItem().toString().equals("--Vacío--")) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar al menos una población");
+        } else {
+            if (ComboAnio.getSelectedItem().toString().equals("--Vacío--")) {
+                JOptionPane.showMessageDialog(null, "Debe seleccionar al menos un Año");
+            } else {
+                anio = Integer.parseInt(ComboAnio.getSelectedItem().toString());
+                pobla = ComboPoblacion.getSelectedItem().toString();
+                cp = Integer.parseInt(extraerCodigoPoblacionSeleccinada());
+
+                HiloInformeBarras mh = new HiloInformeBarras();
+
+                lbCargando.setText("Generando informes, espera...");
+                btAceptar.setEnabled(false);
+                btCancelar.setEnabled(false);
+
+                mh.start();
+
+            }
+        }
+    }
+    
+    public static void consultas(){
+        try {
+            new ReporteConsumos(cp,pobla,anio);
+            JOptionPane.showMessageDialog(null, "Informes generados correctamente");
+            lbCargando.setText("");
+            btAceptar.setEnabled(true);
+            btCancelar.setEnabled(true);
+        } catch (JRException ex) {
+            System.out.print("Error al generar el informe " + ex.getMessage());
         }
     }
 }
