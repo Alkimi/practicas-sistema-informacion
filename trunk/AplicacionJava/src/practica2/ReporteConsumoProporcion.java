@@ -68,18 +68,24 @@ public class ReporteConsumoProporcion {
                 + " group by Cliente) as t1 inner join (Select CodigoProvincia, Codigo from clientes Where CodigoProvincia ="
                 + idProvincia[i]+") as t2 where t1.Cliente=t2.Codigo group by CodigoProvincia");
                 
-                resultado.next();
                 ProvinciaReporte provincia= new ProvinciaReporte();
-                //////
-                provincia.setConsumo(resultado.getDouble(1));
-                //////
-                provincia.setNombre(Provincia[i]);
-                provincia.setProvincia(resultado.getInt(2));
+                if (Principal.cbd.totalFilas()>0){
+                    resultado.next();
+                    provincia.setConsumo(resultado.getDouble(1));
+
+                    provincia.setNombre(Provincia[i]);
+                    provincia.setProvincia(resultado.getInt(2));
+                }
+                else {
+                    provincia.setConsumo(0.0);
+                    provincia.setNombre(Provincia[i]);
+                    provincia.setProvincia(idProvincia[i]);
+                }
                 datasource.addProvincia(provincia);
             }
             
 
-            JasperReport reporte = (JasperReport) JRLoader.loadObject("report_proporcion_provincias.jasper");
+            JasperReport reporte = (JasperReport) JRLoader.loadObject("report_proporcion_provincia.jasper");
             
 
             JRExporter exporter = new JRPdfExporter();
