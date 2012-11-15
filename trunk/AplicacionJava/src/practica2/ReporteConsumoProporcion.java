@@ -70,7 +70,9 @@ public class ReporteConsumoProporcion {
                 
                 resultado.next();
                 ProvinciaReporte provincia= new ProvinciaReporte();
+                //////
                 provincia.setConsumo(resultado.getDouble(1));
+                //////
                 provincia.setNombre(Provincia[i]);
                 provincia.setProvincia(resultado.getInt(2));
                 datasource.addProvincia(provincia);
