@@ -1,120 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="informe_barras" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6607b37c-d68b-43df-ab03-2f9a08ef4529">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report_proporcion_provincia" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43e9f6c1-c380-4c7e-81da-bf811a91c51f">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<parameter name="provincia" class="java.lang.Integer">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
-	<parameter name="Fecha1" class="java.sql.Timestamp">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
-	<parameter name="Fecha2" class="java.sql.Timestamp">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
-	<parameter name="NombreProvincia" class="java.lang.String"/>
-	<queryString>
-		<![CDATA[SELECT
-     sum(kw) AS suma,
-     MONTHNAME(FechaHora) AS mes
-FROM
-     mediciones
-WHERE
-     Cliente IN ( SELECT Codigo FROM Clientes WHERE CodigoProvincia = $P{provincia} )
- AND FechaHora BETWEEN  $P{Fecha1} AND $P{Fecha2}
-GROUP BY
-     MONTH ( FechaHora)]]>
-	</queryString>
+	<property name="ireport.y" value="144"/>
 	<field name="consumo" class="java.lang.Double"/>
+	<field name="nombre" class="java.lang.String"/>
 	<field name="mes" class="java.lang.String"/>
-	<group name="grafico">
-		<groupExpression><![CDATA[$F{suma}]]></groupExpression>
-	</group>
 	<background>
-		<band/>
+		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="72">
-			<frame>
-				<reportElement uuid="22efc153-7522-469c-95e3-c1ec5d6e95a9" mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699"/>
-				<staticText>
-					<reportElement uuid="8a62fc8c-c671-4782-8390-213ac0e3363c" x="395" y="43" width="180" height="20" forecolor="#FFFFFF"/>
-					<textElement textAlignment="Right">
-						<font size="14" isBold="false"/>
-					</textElement>
-					<text><![CDATA[Add a description here]]></text>
-				</staticText>
-				<textField>
-					<reportElement uuid="de3e21a2-dde6-4249-a802-1993ef2ee329" x="31" y="23" width="276" height="40"/>
-					<textElement>
-						<font size="24" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$P{NombreProvincia}]]></textFieldExpression>
-				</textField>
-			</frame>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="2bfb263c-b4a5-4f9a-9dd0-193d25511b40" x="101" y="33" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Titulo]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="13"/>
+		<band height="35" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="21">
-			<line>
-				<reportElement uuid="cf07dc1f-2162-470f-9a2a-967304d799e8" x="-20" y="20" width="595" height="1" forecolor="#666666"/>
-			</line>
+		<band height="33" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="452ae7f5-cba6-436a-a6ea-9f7e4bdd00d2" mode="Opaque" x="0" y="0" width="277" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
-				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[suma]]></text>
+				<reportElement uuid="923dc69b-b161-4f39-8e7d-0cba9d7fa133" x="412" y="2" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[consumo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="38d18b50-9670-4991-b0e6-bd0b194f4a01" mode="Opaque" x="277" y="0" width="277" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
-				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
-				</textElement>
+				<reportElement uuid="9869cb04-5081-461f-a756-08fe1a51cd3f" x="0" y="0" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="10b3838a-30a6-486d-a32c-599a6aeb1ad6" x="218" y="2" width="100" height="20"/>
+				<textElement/>
 				<text><![CDATA[mes]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="41">
-			<textField>
-				<reportElement uuid="0445c002-e884-4739-901a-4a914d1fe9af" x="59" y="0" width="100" height="20"/>
+		<band height="24" splitType="Stretch">
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement uuid="1d7c9104-e4ef-4703-a766-cbff358a104a" x="412" y="0" width="123" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{consumo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="a4d09fab-62bb-4745-9f4b-f674c38c586b" x="375" y="0" width="100" height="20"/>
+				<reportElement uuid="2bb3549c-2482-41cb-8139-212e2d938232" x="1" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="53c495d3-b7aa-4cc3-9444-1f7de9d16125" x="218" y="0" width="100" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{mes}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band/>
+		<band height="45" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="17">
-			<textField>
-				<reportElement uuid="e5d0e258-c057-42a7-94e9-119dc97d318f" mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report">
-				<reportElement uuid="a39c0e9b-28f8-422d-98de-5cdc5291f0e7" mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement uuid="824c1abd-0dc0-4929-ae01-1db65a69bdda" x="0" y="4" width="100" height="13"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
-		</band>
+		<band height="28" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band/>
+		<band height="430" splitType="Stretch">
+			<bar3DChart>
+				<chart>
+					<reportElement uuid="507303a7-6f76-4db9-ac2a-70d4b8d7d0af" x="0" y="0" width="555" height="325"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Consumo mensual de " + $F{nombre}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{mes}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{consumo}]]></valueExpression>
+						<labelExpression><![CDATA[$F{mes}]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot>
+					<plot/>
+					<itemLabel/>
+				</bar3DPlot>
+			</bar3DChart>
+		</band>
 	</summary>
 </jasperReport>
