@@ -62,6 +62,11 @@ public class Informes extends javax.swing.JFrame {
         });
 
         jButton5.setText("Comparativas de Provincias");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setText("Informes");
@@ -125,6 +130,11 @@ public class Informes extends javax.swing.JFrame {
         InformeProvincias ip = new InformeProvincias();
         ip.Mostrar();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        InformeTartaProvincias tp = new InformeTartaProvincias();
+        tp.mostrar();
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
