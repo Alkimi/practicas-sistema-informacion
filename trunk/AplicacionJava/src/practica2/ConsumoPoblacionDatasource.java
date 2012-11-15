@@ -41,7 +41,7 @@ public class ConsumoPoblacionDatasource implements JRDataSource {
              case "consumo":
                 valor = listaConsumos.get(indiceClientesActual).getConsumo();
                 break;
-             case "provincia":
+             case "mes":
                 valor = listaConsumos.get(indiceClientesActual).getMes();
                 break;
          }
