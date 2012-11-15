@@ -6,72 +6,322 @@
 	<field name="idCliente" class="java.lang.Integer"/>
 	<field name="nombre" class="java.lang.String"/>
 	<field name="consumo" class="java.lang.Double"/>
+	<field name="fechaFactura" class="java.util.Date"/>
+	<field name="apellido1" class="java.lang.String"/>
+	<field name="apellido2" class="java.lang.String"/>
+	<field name="calle" class="java.lang.String"/>
+	<field name="numero" class="java.lang.Integer"/>
+	<field name="piso" class="java.lang.Integer"/>
+	<field name="codPostal" class="java.lang.Integer"/>
+	<field name="poblacion" class="java.lang.String"/>
+	<field name="provincia" class="java.lang.String"/>
+	<variable name="precioConsumo" class="java.lang.Double"/>
+	<variable name="subtotal" class="java.lang.Double"/>
+	<variable name="iva" class="java.lang.Double"/>
+	<variable name="consumoTotal" class="java.lang.Double"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
-	<title>
-		<band height="149" splitType="Stretch">
+	<pageHeader>
+		<band height="168" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="ccb29acc-a4b9-4764-9a89-bee6c415253d" x="0" y="0" width="291" height="40"/>
-				<textElement>
-					<font size="28"/>
+				<reportElement uuid="d664b12f-fd54-45f6-8240-d254d418285e" mode="Opaque" x="519" y="107" width="21" height="20" backcolor="#CCCCCC"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Factura Electricidad]]></text>
+				<text><![CDATA[ €]]></text>
+			</staticText>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="08d7dd7b-9e4c-4869-b805-a626b9d0190c" mode="Opaque" x="414" y="107" width="105" height="20" backcolor="#CCCCCC"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(($F{consumo}*0.15)*0.21)+($F{consumo}*0.15)]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d664b12f-fd54-45f6-8240-d254d418285e" mode="Opaque" x="300" y="107" width="114" height="20" backcolor="#CCCCCC"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IMPORTE A PAGAR]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="e5f33a5c-9583-4632-b93e-1cca78bf7910" x="0" y="59" width="100" height="20"/>
+				<reportElement uuid="4cffbc7c-064a-47ed-8483-1a96aec3b5ca" x="300" y="0" width="219" height="21"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FACTURA DE ELECTRICIDAD]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="08a0e8dd-5095-4a74-8cd8-5566da0ae20f" x="300" y="31" width="240" height="64"/>
+				<graphicElement>
+					<pen lineWidth="1.5" lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="e5f33a5c-9583-4632-b93e-1cca78bf7910" x="314" y="45" width="100" height="20"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Codigo Cliente]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="a572c805-bfee-4e48-9cdd-1f8640efec5a" x="100" y="59" width="100" height="20"/>
+				<reportElement uuid="a572c805-bfee-4e48-9cdd-1f8640efec5a" x="414" y="45" width="100" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{idCliente}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="79af1f33-ccbf-411d-bacb-f29dba931863" x="0" y="84" width="100" height="20"/>
+				<reportElement uuid="7e69b6b5-be63-485c-a70f-5a31374fbed0" x="314" y="65" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Factura]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="089c2fe9-a695-48b4-96d1-43de835f2e68" x="414" y="65" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fechaFactura}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement uuid="5ba69275-4c44-42b5-82c4-0111aa71da4d" x="0" y="0" width="197" height="85"/>
+				<imageExpression><![CDATA["img/imgFactura.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="141" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="ec34a229-8dbd-4bee-93c1-2c32446cfacb" x="14" y="14" width="183" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATOS DEL CONTRATO]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="702d5ad4-fe68-4161-bca2-6ab8541c686f" x="100" y="38" width="124" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e2406fa6-9ecd-4d28-8ac3-b32922a9f6dd" x="100" y="58" width="124" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{apellido1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1a9ec970-d7be-424d-a207-d7d6c49fae60" x="100" y="78" width="124" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{apellido2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a226f0bd-bd0f-41d2-9b7e-e0c5564565e8" x="324" y="38" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{calle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2e283a53-595c-4507-81fe-7ed06b22db77" x="291" y="58" width="23" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="267be247-5007-4fe2-9856-9b0f2ac23a30" x="352" y="58" width="61" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{piso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a36a1e48-46e2-4b05-a8b2-ace1fdaafda9" x="324" y="78" width="61" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{codPostal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ee5800c6-e8f0-45a3-b005-fa7d19929950" x="324" y="98" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{poblacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="99ea90b8-5557-4651-b5bb-594cd69c0150" x="324" y="118" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{provincia}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="f2f87fdc-a454-47a7-873b-0e6ef4e265ad" x="14" y="38" width="100" height="20"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nombre]]></text>
 			</staticText>
-			<textField>
-				<reportElement uuid="702d5ad4-fe68-4161-bca2-6ab8541c686f" x="100" y="84" width="100" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement uuid="d488d875-c892-475a-bcfa-6772178d5b9a" x="0" y="119" width="100" height="20"/>
+				<reportElement uuid="f2f87fdc-a454-47a7-873b-0e6ef4e265ad" x="14" y="58" width="86" height="20"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Consumo KW]]></text>
+				<text><![CDATA[1er Apellido]]></text>
 			</staticText>
-			<textField>
-				<reportElement uuid="08d7dd7b-9e4c-4869-b805-a626b9d0190c" x="100" y="119" width="100" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{consumo}]]></textFieldExpression>
-			</textField>
+			<staticText>
+				<reportElement uuid="efdc23d8-7b04-4fe5-b244-ea2fc182fb7b" x="14" y="78" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[2do Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="27e0421e-ce30-4db6-9863-3dc38086c11d" x="252" y="38" width="60" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Calle]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="70b067a3-6af2-4094-8e98-1dcc3ae66c06" x="252" y="58" width="34" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nº]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1da21b4f-aea7-4182-b6bc-a954d5ce90f2" x="324" y="58" width="33" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Piso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c6c50ab0-febc-46a7-8a93-ddd46479eb9d" x="252" y="78" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cod. Postal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="341beb96-f1a3-4d3d-b077-ad81fee17dee" x="252" y="98" width="72" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Poblacion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="04f5f71b-3ef9-446c-8598-4c7876e61622" x="252" y="118" width="72" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Provincia]]></text>
+			</staticText>
 		</band>
-	</title>
-	<pageHeader>
-		<band height="56" splitType="Stretch"/>
-	</pageHeader>
-	<columnHeader>
-		<band height="61" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="260" splitType="Stretch">
+			<textField>
+				<reportElement uuid="08d7dd7b-9e4c-4869-b805-a626b9d0190c" x="332" y="65" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{consumo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="ec34a229-8dbd-4bee-93c1-2c32446cfacb" x="14" y="45" width="183" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FACTURACIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d664b12f-fd54-45f6-8240-d254d418285e" x="154" y="65" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[1. Consumo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d664b12f-fd54-45f6-8240-d254d418285e" x="154" y="95" width="146" height="20"/>
+				<textElement/>
+				<text><![CDATA[2. Precio por KW (0.15€/KW)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d664b12f-fd54-45f6-8240-d254d418285e" x="440" y="65" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[KW]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3baaadc3-2b4d-4479-8d07-cb4a758ce02c" x="154" y="127" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[3. I.V.A. 21%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d664b12f-fd54-45f6-8240-d254d418285e" x="440" y="95" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[€]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d664b12f-fd54-45f6-8240-d254d418285e" mode="Opaque" x="440" y="164" width="100" height="20" backcolor="#CCCCCC"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[  €]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d664b12f-fd54-45f6-8240-d254d418285e" x="440" y="127" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[€]]></text>
+			</staticText>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="08d7dd7b-9e4c-4869-b805-a626b9d0190c" x="332" y="95" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{consumo}*0.15]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="08d7dd7b-9e4c-4869-b805-a626b9d0190c" x="332" y="127" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[($F{consumo}*0.15)*0.21]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="08d7dd7b-9e4c-4869-b805-a626b9d0190c" mode="Opaque" x="275" y="164" width="165" height="20" backcolor="#CCCCCC"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(($F{consumo}*0.15)*0.21)+($F{consumo}*0.15)]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d664b12f-fd54-45f6-8240-d254d418285e" mode="Opaque" x="154" y="164" width="121" height="20" backcolor="#CCCCCC"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL A PAGAR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cf530646-1ac5-4d17-ac6a-749f4983549c" mode="Opaque" x="-22" y="30" width="597" height="2" backcolor="#CCCCCC"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cf530646-1ac5-4d17-ac6a-749f4983549c" mode="Opaque" x="-22" y="-141" width="597" height="2" backcolor="#CCCCCC"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f2f87fdc-a454-47a7-873b-0e6ef4e265ad" x="-130" y="18" width="86" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[1er Apellido]]></text>
+			</staticText>
+		</band>
 	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch"/>
-	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="50">
+			<staticText>
+				<reportElement uuid="cf530646-1ac5-4d17-ac6a-749f4983549c" mode="Opaque" x="-22" y="25" width="597" height="10" backcolor="#006600"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a62a6ad0-ef5c-4bac-8747-88db3d912578" x="-14" y="35" width="289" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Informe de Clientes de la Aplicación Compañía Electrica ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a62a6ad0-ef5c-4bac-8747-88db3d912578" x="275" y="35" width="289" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Enrique Miguel Calvo - Saúl Carranza Gallardo]]></text>
+			</staticText>
+		</band>
 	</pageFooter>
-	<summary>
-		<band height="42" splitType="Stretch"/>
-	</summary>
 </jasperReport>

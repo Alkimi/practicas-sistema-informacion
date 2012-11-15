@@ -121,7 +121,7 @@ public class ReporteFactura {
 
 
             }
-            JasperReport reporte = (JasperReport) JRLoader.loadObject("report_muchos_cliente.jasper");
+            JasperReport reporte = (JasperReport) JRLoader.loadObject("report_cliente.jasper");
             
 
             JRExporter exporter = new JRPdfExporter();
