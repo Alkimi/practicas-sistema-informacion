@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report_cliente" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8a16a2bd-76c1-42bc-9a4b-92a1f3880071">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="idCliente" class="java.lang.Integer"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="consumo" class="java.lang.Double"/>
+	<field name="fechaFactura" class="java.util.Date"/>
+	<field name="apellido1" class="java.lang.String"/>
+	<field name="apellido2" class="java.lang.String"/>
+	<field name="calle" class="java.lang.String"/>
+	<field name="numero" class="java.lang.Integer"/>
+	<field name="piso" class="java.lang.Integer"/>
+	<field name="codPostal" class="java.lang.Integer"/>
+	<field name="poblacion" class="java.lang.String"/>
+	<field name="provincia" class="java.lang.String"/>
+	<variable name="precioConsumo" class="java.lang.Double"/>
+	<variable name="subtotal" class="java.lang.Double"/>
+	<variable name="iva" class="java.lang.Double"/>
+	<variable name="consumoTotal" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="126" splitType="Stretch">
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="60f4d272-fdde-4579-9653-0125355096df" mode="Opaque" x="414" y="95" width="105" height="20" forecolor="#000000" backcolor="#CCCCCC"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{consumoTotal}]]></textFieldExpression>
+				<patternExpression><![CDATA[$V{subtotal}+$V{iva}]]></patternExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d664b12f-fd54-45f6-8240-d254d418285e" mode="Opaque" x="519" y="95" width="21" height="20" backcolor="#CCCCCC"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ €]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="190d2ac4-2d0d-4900-af85-9408ba6743cb" positionType="FixRelativeToBottom" isPrintRepeatedValues="false" mode="Opaque" x="300" y="95" width="111" height="20" backcolor="#CCCCCC"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IMPORTE FACTURA]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="42ee6e2e-9d4c-43b2-9cd6-2ac03f2072f3" x="0" y="0" width="266" height="95"/>
+				<imageExpression><![CDATA["/home/carranza/NetBeansProjects/Practica 1 - SI/AplicacionJava/imgFactura.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="4cffbc7c-064a-47ed-8483-1a96aec3b5ca" x="300" y="0" width="219" height="21"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FACTURA DE ELECTRICIDAD]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="08a0e8dd-5095-4a74-8cd8-5566da0ae20f" x="300" y="31" width="240" height="64"/>
+				<graphicElement>
+					<pen lineWidth="1.5" lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="e5f33a5c-9583-4632-b93e-1cca78bf7910" x="314" y="45" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Codigo Cliente]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="a572c805-bfee-4e48-9cdd-1f8640efec5a" x="414" y="45" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{idCliente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="7e69b6b5-be63-485c-a70f-5a31374fbed0" x="314" y="65" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Factura]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="089c2fe9-a695-48b4-96d1-43de835f2e68" x="414" y="65" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fechaFactura}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="109" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="ec34a229-8dbd-4bee-93c1-2c32446cfacb" x="14" y="0" width="183" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATOS DEL CONTRATO]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="702d5ad4-fe68-4161-bca2-6ab8541c686f" x="14" y="20" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e2406fa6-9ecd-4d28-8ac3-b32922a9f6dd" x="97" y="20" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{apellido1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1a9ec970-d7be-424d-a207-d7d6c49fae60" x="175" y="20" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{apellido2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a226f0bd-bd0f-41d2-9b7e-e0c5564565e8" x="14" y="40" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{calle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2e283a53-595c-4507-81fe-7ed06b22db77" x="114" y="40" width="23" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="267be247-5007-4fe2-9856-9b0f2ac23a30" x="136" y="40" width="61" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{piso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a36a1e48-46e2-4b05-a8b2-ace1fdaafda9" x="14" y="60" width="61" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{codPostal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ee5800c6-e8f0-45a3-b005-fa7d19929950" x="75" y="60" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{poblacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="99ea90b8-5557-4651-b5bb-594cd69c0150" x="14" y="80" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{provincia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="175" splitType="Stretch">
+			<textField>
+				<reportElement uuid="08d7dd7b-9e4c-4869-b805-a626b9d0190c" x="332" y="20" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{consumo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="ec34a229-8dbd-4bee-93c1-2c32446cfacb" x="14" y="0" width="183" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FACTURACIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d664b12f-fd54-45f6-8240-d254d418285e" x="154" y="20" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[1. Consumo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d664b12f-fd54-45f6-8240-d254d418285e" x="154" y="50" width="146" height="20"/>
+				<textElement/>
+				<text><![CDATA[2. Precio por KW (0.15€/KW)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d664b12f-fd54-45f6-8240-d254d418285e" x="440" y="20" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[KW]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3baaadc3-2b4d-4479-8d07-cb4a758ce02c" x="154" y="113" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[4. I.V.A. 21%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d664b12f-fd54-45f6-8240-d254d418285e" x="440" y="50" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[€]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d664b12f-fd54-45f6-8240-d254d418285e" x="440" y="113" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[€]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="190d2ac4-2d0d-4900-af85-9408ba6743cb" positionType="FixRelativeToBottom" isPrintRepeatedValues="false" mode="Opaque" x="154" y="155" width="112" height="20" backcolor="#CCCCCC"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL A PAGAR:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d664b12f-fd54-45f6-8240-d254d418285e" mode="Opaque" x="440" y="155" width="100" height="20" backcolor="#CCCCCC"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[€]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d664b12f-fd54-45f6-8240-d254d418285e" x="440" y="82" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[€]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d664b12f-fd54-45f6-8240-d254d418285e" x="154" y="82" width="146" height="20"/>
+				<textElement/>
+				<text><![CDATA[3. Subtotal]]></text>
+			</staticText>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="e46b677a-1957-401a-b614-a7245a026218" x="332" y="50" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{precioConsumo}]]></textFieldExpression>
+				<patternExpression><![CDATA[$F{consumo}*0.15]]></patternExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="3a7a598b-51c8-47b0-b4fe-cfa02f494abe" x="332" y="82" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{subtotal}]]></textFieldExpression>
+				<patternExpression><![CDATA[$F{consumo}+$V{subtotal}]]></patternExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="32ae6ea7-0f20-482e-bf3e-b65e7eb359f1" x="332" y="113" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{iva}]]></textFieldExpression>
+				<patternExpression><![CDATA[$V{subtotal}*0.21]]></patternExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement uuid="60f4d272-fdde-4579-9653-0125355096df" mode="Opaque" x="266" y="155" width="174" height="20" forecolor="#000000" backcolor="#CCCCCC"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{consumoTotal}]]></textFieldExpression>
+				<patternExpression><![CDATA[$V{subtotal}+$V{iva}]]></patternExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
