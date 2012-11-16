@@ -10,12 +10,17 @@ import practica2.ReporteFactura;
  * Clase auxiliar que genera un hilo de ejecucion para poder mostrar mensaje de
  * espera
  *
- * <br/><br/>Sistemas de Información <br/> Practica 2<br/> Grado Ingeniería
- * Informática T.I. <br/> Curso 2012/13
- *
+ * Hilo que llama al metodo que realiza la consulta encargada
+ * de generar un informe con el consumo de cada mes de una población.
+ * Se genera de esta forma para generar la consulta en segun plano y
+ * poder mostrar contenidos en los formularios mientras tanto.
+ * 
  * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
- * @version 1.0
- *
+ * @version 2.0
+ * 
+ * Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
+ * 
  */
 public class HiloInformeBarras extends Thread {
 

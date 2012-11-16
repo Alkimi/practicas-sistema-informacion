@@ -23,6 +23,16 @@ import practica2.ReporteConsumoProporcion;
  * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
  * @version 1.0
  *
+ * Informe de Diagrama de Tarta. Realiza un informe de el consumo de determinadas
+ * provincias seleccionadas previamente, con un mínimo de 4 y muestra un diagrama de
+ * tarta para comparar el porcentaje de consumo entre ellas.
+ * 
+ * <br/><br/>Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
+ * 
+ * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
+ * @version 2.0
+ * 
  */
 public class InformeTartaProvincias extends javax.swing.JFrame {
 
@@ -56,6 +66,8 @@ public class InformeTartaProvincias extends javax.swing.JFrame {
         btAceptar = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
         lbCargando = new javax.swing.JLabel();
+
+        setTitle("Informe Provincias");
 
         jLabel1.setText("Seleccione provincias a añadir:");
 
@@ -277,11 +289,11 @@ public class InformeTartaProvincias extends javax.swing.JFrame {
         return pAux.getCodigoProvincia();
 
     }
-
+    
     /**
-     * añade una provincia a la lista auxiliar y la quita del combo
+     * Metodo encargado de añadir las provincias seleccionadas del combo a la lista.
      */
-    private void aniadir() {
+    private void aniadir(){
         Provincia pAux = listaProvincias.get(ComboProvincias.getSelectedIndex());
         listaProvinciasAux.add(pAux);
         listaProvincias.remove(ComboProvincias.getSelectedIndex());
@@ -294,19 +306,20 @@ public class InformeTartaProvincias extends javax.swing.JFrame {
         int cont = 1;
         while (iterador.hasNext()) {
             Provincia pro = (Provincia) iterador.next();
-            listaAux.addElement(cont + ". " + pro.getProvincia().toString() + " -->" + pro.getCodigoProvincia());
+            listaAux.addElement(cont + ". " +pro.getProvincia().toString());
             cont++;
         }
 
         txtLista.setModel(listaAux);
     }
-
+    
     /**
-     * al pulsar el boton aceptar se crea un nuevo hilo que realiza la consulta,
-     * se comprueba que esten 4 provincias seleccionadas almenos.
+     * Método al que se accede cuando se pulsa el botón generar consulta.
+     * Comprueba si el número de provincias es correcto, y llama al hilo encargado
+     * de realizar la consulta a parte.
      */
-    private void aceptar() {
-        if (listaProvinciasAux.size() < 4) {
+    private void aceptar(){
+        if(listaProvinciasAux.size()<4){
             JOptionPane.showMessageDialog(null, "Debe introducir 4 provincias como mínimo");
         } else {
             HiloInformeTartaProvincias mh = new HiloInformeTartaProvincias();
@@ -319,31 +332,22 @@ public class InformeTartaProvincias extends javax.swing.JFrame {
 
         }
     }
-
+    
     /**
-     * realiza la consulta
+     * Método encargado de realizar la consulta y mostrar si se realiza correctamente.
      */
-    public static void consultas() {
-        // esta funcion esta incompleta falta toda la parte del hilo
-        // tambien la generacion de los idProvincias no se si iria aqui o no
-        // si los nombres de provincias asociados a los idProvicias no se pueden obtener
-        // se modifica la consulta y lo saco por la consulta
+    public static void consultas(){
+       int aux=0;
 
-        int aux = 0;
-
-
-        try {
-            //// sustituir por la funcion que haga lo que dice el codigo este
-            aux = listaProvinciasAux.size();
-            ///
-            int[] idProvincia = new int[aux];
-            String[] Provincia = new String[aux];
-            for (int i = 0; i < aux; i++) {
-                /// sustituir por la funcion que haga lo que dice el codigo este
-                idProvincia[i] = Integer.parseInt(listaProvinciasAux.get(i).getCodigoProvincia());
-                Provincia[i] = listaProvinciasAux.get(i).getProvincia();
-                //////
-            }
+       try {
+           aux=listaProvinciasAux.size();
+          
+           int[] idProvincia = new int[aux];
+           String[] Provincia = new String[aux];
+           for (int i= 0; i<aux;i++){
+              idProvincia[i]=Integer.parseInt(listaProvinciasAux.get(i).getCodigoProvincia());
+              Provincia[i]=listaProvinciasAux.get(i).getProvincia();
+           }
             new ReporteConsumoProporcion(idProvincia, Provincia);
             JOptionPane.showMessageDialog(null, "Informes generados correctamente");
 

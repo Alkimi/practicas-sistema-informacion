@@ -195,19 +195,19 @@ public class Login extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void aceptar() {
-        if(txtUsuario.getText().equals("") || txtContrasenia.getText().equals("") || 
+        /*if(txtUsuario.getText().equals("") || txtContrasenia.getText().equals("") || 
          txtBaseDeDatos.getText().equals("") || txtServidor.getText().equals("")){
          JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios");
-         } else {
+         } else {*/
 
-         UsuarioLogin ul = new UsuarioLogin(txtUsuario.getText(), txtContrasenia.getText(), txtBaseDeDatos.getText(), txtServidor.getText());
-       // UsuarioLogin ul = new UsuarioLogin("root", "toor", "consumoelectrico", "localhost");    // para pruebas.
+        // UsuarioLogin ul = new UsuarioLogin(txtUsuario.getText(), txtContrasenia.getText(), txtBaseDeDatos.getText(), txtServidor.getText());
+       UsuarioLogin ul = new UsuarioLogin("root", "toor", "consumoelectrico", "localhost");    // para pruebas.
         Principal p = new Principal();
 
         p.mostrar(ul);
 
         setVisible(false);
-        }
+       // }
 
     }
 

@@ -25,11 +25,11 @@ import practica2.ReporteFactura;
  * Entorno grafico de los informes para el informe de generar todas las facturas de los
  * clientes de una poblacion
  *
- * <br/><br/>Sistemas de Información <br/> Practica 2<br/> Grado Ingeniería
- * Informática T.I. <br/> Curso 2012/13
- *
+ * Formulario en el que se selecciona un cliente en concreto para generar
+ * su correspondiente factura.
+ * 
  * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
- * @version 1.0
+ * @version 2.0
  *
  */
 public class InformeClientesPoblacion extends javax.swing.JFrame {
@@ -408,25 +408,24 @@ public class InformeClientesPoblacion extends javax.swing.JFrame {
         return pAux.getCodigoProvincia();
 
     }
-
-    /**
-     * Extrae el código de la poblacion seleccionada segun el indice del
-     * combobox
-     *
-     */
-    private String extraerCodigoPoblacionSeleccinada() {
-
-        Poblacion pAux = listaPoblaciones.get(ComboPoblacion.getSelectedIndex());
-        pobActual = pAux.getNombrePob();
-        return pAux.getCodPoblacion();
-
-    }
-
-    /**
-     * Metodo al que se llama cuando se pulsa aceptar
-     *
-     *
-     */
+    
+   
+   /**
+    * Extrae el código de la poblacion seleccionada segun el indice del combobox
+    * 
+    */
+   private String extraerCodigoPoblacionSeleccinada(){
+       
+       Poblacion pAux = listaPoblaciones.get(ComboPoblacion.getSelectedIndex());
+       pobActual = pAux.getNombrePob();
+       return pAux.getCodPoblacion();
+      
+   }
+   
+   /**
+    * Método que llama al hilo encargado de la consulta
+    * @throws InterruptedException 
+    */
     private void Aceptar() throws InterruptedException {
 
         codPob = this.extraerCodigoPoblacionSeleccinada();
@@ -443,11 +442,11 @@ public class InformeClientesPoblacion extends javax.swing.JFrame {
         mh.start();
 
     }
-
+    
     /**
-     * realiza la consulta y genera el informe
+     * Método encargado de realizar la consulta y mostrar si se realiza correctamente.
      */
-    public static void consultas() {
+    public static void consultas(){  
         try {
             new ReporteFactura(cp, provi, pobla, false);
             JOptionPane.showMessageDialog(null, "Facturas generadas correctamente");

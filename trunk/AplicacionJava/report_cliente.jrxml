@@ -302,21 +302,25 @@
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="50">
+		<band height="69">
+			<image>
+				<reportElement uuid="9f7e089f-ee08-480a-8707-2f0aaa7b985a" x="483" y="0" width="92" height="50"/>
+				<imageExpression><![CDATA["img/piePagina.gif"]]></imageExpression>
+			</image>
 			<staticText>
-				<reportElement uuid="cf530646-1ac5-4d17-ac6a-749f4983549c" mode="Opaque" x="-22" y="25" width="597" height="10" backcolor="#006600"/>
+				<reportElement uuid="cf530646-1ac5-4d17-ac6a-749f4983549c" mode="Opaque" x="-22" y="33" width="597" height="10" backcolor="#006600"/>
 				<textElement/>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a62a6ad0-ef5c-4bac-8747-88db3d912578" x="-14" y="35" width="289" height="15"/>
+				<reportElement uuid="a62a6ad0-ef5c-4bac-8747-88db3d912578" x="-14" y="53" width="289" height="15"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Informe de Clientes de la Aplicación Compañía Electrica ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a62a6ad0-ef5c-4bac-8747-88db3d912578" x="275" y="35" width="289" height="15"/>
+				<reportElement uuid="a62a6ad0-ef5c-4bac-8747-88db3d912578" x="275" y="53" width="289" height="15"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>

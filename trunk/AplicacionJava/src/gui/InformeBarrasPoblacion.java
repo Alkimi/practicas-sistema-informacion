@@ -22,11 +22,11 @@ import practica2.ReporteConsumos;
  * Entorno grafico de los informes para el informe barra del consumo mensual de
  * una poblacion
  *
- * <br/><br/>Sistemas de Información <br/> Practica 2<br/> Grado Ingeniería
- * Informática T.I. <br/> Curso 2012/13
- *
+ * Formulario en el cual se selecciona una población y un año determinado
+ * para mostrar el consumo por meses de las misma con un diagrama de barras.
+ * 
  * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
- * @version 1.0
+ * @version 2.0
  *
  */
 public class InformeBarrasPoblacion extends javax.swing.JFrame {
@@ -467,10 +467,10 @@ public class InformeBarrasPoblacion extends javax.swing.JFrame {
     }
 
     /**
-     * Metodo al que se llama cuando se pulsa aceptar
-     *
-     *
-     */
+    * Metodo al que se llama cuando se pulsa el botón generar informes.
+    * Llama al hilo que se encarga de lanzar la consulta
+    * 
+    */
     private void Aceptar() {
         if (ComboPoblacion.getSelectedItem().toString().equals("--Vacío--")) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar al menos una población");
@@ -493,11 +493,11 @@ public class InformeBarrasPoblacion extends javax.swing.JFrame {
             }
         }
     }
-
+    
     /**
-     * realiza la consulta y genera el informe
-     */
-    public static void consultas() {
+    * Realiza la consulta y muestra si la generación del informe ha sido correcto
+    */
+    public static void consultas(){
         try {
             new ReporteConsumos(cp, pobla, anio);
             JOptionPane.showMessageDialog(null, "Informes generados correctamente");
