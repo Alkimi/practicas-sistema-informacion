@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import aplicacionjava.UsuarioLogin;
@@ -9,15 +5,14 @@ import javax.swing.JOptionPane;
 
 /**
  * Login incial a la aplicacion
- *   
- * <br/><br/>Sistemas de Información -  Grado Ingeniería Informática T.I. 
- * Curso 2012/13
- * 
+ *
+ * <br/><br/>Sistemas de Información <br/> Practica 2<br/> Grado Ingeniería
+ * Informática T.I. <br/> Curso 2012/13
+ *
  * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
  * @version 1.0
- * 
+ *
  */
-
 public class Login extends javax.swing.JFrame {
 
     /**
@@ -25,10 +20,10 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
-        
+
         //Para que se inicie la pantalla en el centro
         setLocationRelativeTo(null);
-        
+
         btAceptar.requestFocusInWindow();
     }
 
@@ -180,7 +175,7 @@ public class Login extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               // new Login().setVisible(true);
+                // new Login().setVisible(true);
                 new Login().aceptar(); // para pruebas
             }
         });
@@ -199,24 +194,24 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 
-    private void aceptar(){
-        /*if(txtUsuario.getText().equals("") || txtContrasenia.getText().equals("") || 
-                txtBaseDeDatos.getText().equals("") || txtServidor.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios");
-        } else {*/
+    private void aceptar() {
+        if(txtUsuario.getText().equals("") || txtContrasenia.getText().equals("") || 
+         txtBaseDeDatos.getText().equals("") || txtServidor.getText().equals("")){
+         JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios");
+         } else {
 
-           // UsuarioLogin ul = new UsuarioLogin(txtUsuario.getText(), txtContrasenia.getText(), txtBaseDeDatos.getText(), txtServidor.getText());
-           UsuarioLogin ul = new UsuarioLogin("root", "toor","consumoelectrico","localhost");    // para pruebas.
-            Principal p = new Principal();
+         UsuarioLogin ul = new UsuarioLogin(txtUsuario.getText(), txtContrasenia.getText(), txtBaseDeDatos.getText(), txtServidor.getText());
+       // UsuarioLogin ul = new UsuarioLogin("root", "toor", "consumoelectrico", "localhost");    // para pruebas.
+        Principal p = new Principal();
 
-            p.mostrar(ul);
-            
-            setVisible(false);
-       //}
-        
+        p.mostrar(ul);
+
+        setVisible(false);
+        }
+
     }
-    
-    public void mostrar(){
+
+    public void mostrar() {
         setVisible(true);
     }
 }

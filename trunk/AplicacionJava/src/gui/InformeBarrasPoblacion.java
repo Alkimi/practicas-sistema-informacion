@@ -18,25 +18,26 @@ import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 import practica2.ReporteConsumos;
 
-
 /**
+ * Entorno grafico de los informes para el informe barra del consumo mensual de
+ * una poblacion
  *
- * Formulario para insertar una nueva calle o una población
- * 
+ * <br/><br/>Sistemas de Información <br/> Practica 2<br/> Grado Ingeniería
+ * Informática T.I. <br/> Curso 2012/13
+ *
  * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
  * @version 1.0
- * 
- * Sistemas de Información -  Grado Ingeniería Informática T.I. 
- * Curso 2012/13
- * 
- */public class InformeBarrasPoblacion extends javax.swing.JFrame {
+ *
+ */
+public class InformeBarrasPoblacion extends javax.swing.JFrame {
     //Declaración de variables
-    ResultSet conjuntoResultados=null;
+
+    ResultSet conjuntoResultados = null;
     List<Provincia> listaProvincias = new ArrayList<>();
     List<Poblacion> listaPoblaciones = new ArrayList<>();
     String codigoProvinciaAux;
     String codigoPoblacionAux;
-    int opcionSeleccionada=-1;
+    int opcionSeleccionada = -1;
     String pobActual = null;
     aplicacionjava.Conversion conAux = new aplicacionjava.Conversion();
     static int cp;
@@ -48,13 +49,13 @@ import practica2.ReporteConsumos;
      */
     public InformeBarrasPoblacion() {
         initComponents();
-        
+
         setLocationRelativeTo(null);
-        
+
         rellenaProvincias();
-        
-        codigoProvinciaAux=extraerCodigoProvinciaSeleccinada();
-        
+
+        codigoProvinciaAux = extraerCodigoProvinciaSeleccinada();
+
         rellenaPoblacion();
     }
 
@@ -176,7 +177,8 @@ import practica2.ReporteConsumos;
 
     /**
      * Cierra el formulario
-     * @param evt 
+     *
+     * @param evt
      */
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
         setVisible(false);
@@ -184,7 +186,8 @@ import practica2.ReporteConsumos;
 
     /**
      * Llama al metodo de rellenar el combo de poblaciones
-     * @param evt 
+     *
+     * @param evt
      */
     private void ComboProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboProvinciaActionPerformed
         rellenaPoblacion();
@@ -192,14 +195,14 @@ import practica2.ReporteConsumos;
 
     /**
      * Llama al metodo que controla cuando se pulsa el boton aceptar
-     * @param evt 
+     *
+     * @param evt
      */
     private void btAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAceptarActionPerformed
-       Aceptar();
+        Aceptar();
     }//GEN-LAST:event_btAceptarActionPerformed
 
     private void ComboPoblacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboPoblacionActionPerformed
-        
     }//GEN-LAST:event_ComboPoblacionActionPerformed
 
     private void ComboAnioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboAnioActionPerformed
@@ -252,198 +255,202 @@ import practica2.ReporteConsumos;
     private javax.swing.JLabel lbPob2;
     // End of variables declaration//GEN-END:variables
 
-    
     /**
      * Muestra el formulario en la opcion de introducir calles
-     * 
+     *
      */
-    public void Mostrar(){
+    public void Mostrar() {
         setVisible(true);
-        
-       opcionSeleccionada=2;
+
+        opcionSeleccionada = 2;
         btAceptar.requestFocusInWindow();
     }
-    
+
     /**
-     *Rellena el combo de Provincias
-     * 
+     * Rellena el combo de Provincias
+     *
      */
-    private void rellenaProvincias(){
+    private void rellenaProvincias() {
         //Borra el combobox
         ComboProvincia.removeAllItems();
-        
+
         //Hago una consulta que me devuelva todas la provincias con sus códigos y las almaceno en conjuntoResultados
         try {
-            conjuntoResultados=Principal.cbd.consultaSelect("SELECT * FROM  provincias");
+            conjuntoResultados = Principal.cbd.consultaSelect("SELECT * FROM  provincias");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
+            JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos");
         }
-        
-         int numeroDeColumnas=0;
-         ResultSetMetaData metaDatos = null;
-        
-         
-         try {
+
+        int numeroDeColumnas = 0;
+        ResultSetMetaData metaDatos = null;
+
+
+        try {
             metaDatos = conjuntoResultados.getMetaData();
             numeroDeColumnas = metaDatos.getColumnCount();
-            
+
             //creo el contador para ir pivotando entre las columnas de la tabla
-            int cont=0;
-            String cod=null;
-            String nom=null;
-            
+            int cont = 0;
+            String cod = null;
+            String nom = null;
+
             while (conjuntoResultados.next()) {
-            for (int i = 1; i <= numeroDeColumnas; i++) {
-                
-                switch(cont){
-                    case 0: cod=conjuntoResultados.getObject(i).toString();
-                            cont=1;
+                for (int i = 1; i <= numeroDeColumnas; i++) {
+
+                    switch (cont) {
+                        case 0:
+                            cod = conjuntoResultados.getObject(i).toString();
+                            cont = 1;
                             break;
-                    case 1: nom=conjuntoResultados.getObject(i).toString();
+                        case 1:
+                            nom = conjuntoResultados.getObject(i).toString();
                             //creo un objeto provincia, variable
-                            Provincia aux = new Provincia(cod,nom); 
+                            Provincia aux = new Provincia(cod, nom);
                             listaProvincias.add(aux);
-                            cont=0;
+                            cont = 0;
                             break;
+                    }
                 }
             }
-          }
             //Le solicito a la lista que me devuelva un iterador con todos los el elementos contenidos en ella
-            Iterator iterador = listaProvincias.listIterator(); 
- 
-            while( iterador.hasNext() ) {
-                Provincia pr=(Provincia) iterador.next();
-                
+            Iterator iterador = listaProvincias.listIterator();
+
+            while (iterador.hasNext()) {
+                Provincia pr = (Provincia) iterador.next();
+
                 ComboProvincia.addItem(pr.getProvincia());
-                
-                codigoProvinciaAux=extraerCodigoProvinciaSeleccinada();
-                }
-            
+
+                codigoProvinciaAux = extraerCodigoProvinciaSeleccinada();
+            }
+
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
+            JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos");
         }
     }
-    
+
     /**
      * Rellena el combo de Poblacion
-     * 
+     *
      */
-    private void rellenaPoblacion(){
-        
+    private void rellenaPoblacion() {
+
         //Borra el combobox
         ComboPoblacion.removeAllItems();
         //Borra la lista de poblaciones
         listaPoblaciones.clear();
         //Extrae el codigo de la provincia seleccionada
         codigoProvinciaAux = extraerCodigoProvinciaSeleccinada();
-    
+
         //Hago una consulta que me devuelva las poblaciones de la provincia seleccionada
         try {
-            conjuntoResultados=Principal.cbd.consultaSelect("SELECT CodigoProvincia,CodigoPoblacion,Poblacion FROM poblaciones WHERE CodigoProvincia="+codigoProvinciaAux);
+            conjuntoResultados = Principal.cbd.consultaSelect("SELECT CodigoProvincia,CodigoPoblacion,Poblacion FROM poblaciones WHERE CodigoProvincia=" + codigoProvinciaAux);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
+            JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos");
         }
-        
-         //Declaro algunas variables para poder rellenar el combo
-        int numeroDeColumnas=0;
+
+        //Declaro algunas variables para poder rellenar el combo
+        int numeroDeColumnas = 0;
         ResultSetMetaData metaDatos = null;
-        
-         
-         try {
+
+
+        try {
             metaDatos = conjuntoResultados.getMetaData();
             numeroDeColumnas = metaDatos.getColumnCount();
-            
+
             //Creo el contador para ir pivotando entre las columnas de la tabla
-            int cont=0;
+            int cont = 0;
             //Variables que almacenan los datos que se añaden al final del bucle
-            String codProv=null;
-            String codPob=null;
-            String nom=null;
-            
+            String codProv = null;
+            String codPob = null;
+            String nom = null;
+
             while (conjuntoResultados.next()) {
-            for (int i = 1; i <= numeroDeColumnas; i++) {
-                
-                switch(cont){
-                    case 0: codProv=conjuntoResultados.getObject(i).toString();
-                            cont=1;
+                for (int i = 1; i <= numeroDeColumnas; i++) {
+
+                    switch (cont) {
+                        case 0:
+                            codProv = conjuntoResultados.getObject(i).toString();
+                            cont = 1;
                             break;
-                    case 1: codPob=conjuntoResultados.getObject(i).toString();
-                            cont=2;
+                        case 1:
+                            codPob = conjuntoResultados.getObject(i).toString();
+                            cont = 2;
                             break;
-                    case 2: nom=conjuntoResultados.getObject(i).toString();
+                        case 2:
+                            nom = conjuntoResultados.getObject(i).toString();
                             //Creo un objeto poblacion y añado los datos que se han ido recogiendo el switch
-                            Poblacion aux = new Poblacion(codProv,codPob,nom); 
+                            Poblacion aux = new Poblacion(codProv, codPob, nom);
                             listaPoblaciones.add(aux);
-                            cont=0; //para que vuelva a rellenar desde el primer campo
+                            cont = 0; //para que vuelva a rellenar desde el primer campo
                             break;
+                    }
                 }
             }
-          }
-            
-         //Le solicito a la lista que me devuelva un iterador con todos los el elementos contenidos en ella
-         Iterator iterador = listaPoblaciones.listIterator();
-         
-         //En caso de no existir ninguna poblacion para la provincia muestro en el combo vacio, sino relleno el combo
-         if(listaPoblaciones.isEmpty()){
-             ComboPoblacion.addItem("--Vacío--");
-             
-             codigoPoblacionAux=null;
-         }
-         else
-         {
-             while( iterador.hasNext() ) {
-              Poblacion pr=(Poblacion) iterador.next();
-          
-               ComboPoblacion.addItem(pr.getNombrePob());
+
+            //Le solicito a la lista que me devuelva un iterador con todos los el elementos contenidos en ella
+            Iterator iterador = listaPoblaciones.listIterator();
+
+            //En caso de no existir ninguna poblacion para la provincia muestro en el combo vacio, sino relleno el combo
+            if (listaPoblaciones.isEmpty()) {
+                ComboPoblacion.addItem("--Vacío--");
+
+                codigoPoblacionAux = null;
+            } else {
+                while (iterador.hasNext()) {
+                    Poblacion pr = (Poblacion) iterador.next();
+
+                    ComboPoblacion.addItem(pr.getNombrePob());
                 }
-             
-             codigoPoblacionAux=extraerCodigoPoblacionSeleccinada();
-         }
-            
+
+                codigoPoblacionAux = extraerCodigoPoblacionSeleccinada();
+            }
+
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
+            JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos");
         }
-        
-         
-        rellenaAnio(); 
+
+
+        rellenaAnio();
     }
-    
-   /**
-    * Extrae el código de la provincia seleccionada segun el indice del combobox 
-    * 
-    */
-   private String extraerCodigoProvinciaSeleccinada(){
-       
-       Provincia pAux = listaProvincias.get(ComboProvincia.getSelectedIndex());
-       
-       return pAux.getCodigoProvincia();
-       
-   }
-   
-   /**
-    * Extrae el código de la poblacion seleccionada segun el indice del combobox
-    * 
-    */
-   private String extraerCodigoPoblacionSeleccinada(){
-       
-       Poblacion pAux = listaPoblaciones.get(ComboPoblacion.getSelectedIndex());
-       pobActual = pAux.getNombrePob();
-       return pAux.getCodPoblacion();
-      
-   }
-    
+
+    /**
+     * Extrae el código de la provincia seleccionada segun el indice del
+     * combobox
+     *
+     */
+    private String extraerCodigoProvinciaSeleccinada() {
+
+        Provincia pAux = listaProvincias.get(ComboProvincia.getSelectedIndex());
+
+        return pAux.getCodigoProvincia();
+
+    }
+
+    /**
+     * Extrae el código de la poblacion seleccionada segun el indice del
+     * combobox
+     *
+     */
+    private String extraerCodigoPoblacionSeleccinada() {
+
+        Poblacion pAux = listaPoblaciones.get(ComboPoblacion.getSelectedIndex());
+        pobActual = pAux.getNombrePob();
+        return pAux.getCodPoblacion();
+
+    }
+
     /**
      * Rellena el combo con los años desde el actual.
      */
-    private void rellenaAnio(){
-        
+    private void rellenaAnio() {
+
         ComboAnio.removeAllItems();
-        
-        if(ComboPoblacion.getSelectedItem().toString().equals("") || ComboPoblacion.getSelectedItem().toString().equals("--Vacío--")){
-            
+
+        if (ComboPoblacion.getSelectedItem().toString().equals("") || ComboPoblacion.getSelectedItem().toString().equals("--Vacío--")) {
+
             ComboAnio.addItem("");
             ComboAnio.setEnabled(false);
-        }else{
+        } else {
             ComboAnio.setEnabled(true);
             // conseguimos la hora actual formateada
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
@@ -451,18 +458,18 @@ import practica2.ReporteConsumos;
             String anio = formatter.format(new Date());
             //Pasa la cadena de texto a entero
             int anioInt = Integer.parseInt(anio);
-            
-            for(int i=0; i<10; i++){
+
+            for (int i = 0; i < 10; i++) {
                 ComboAnio.addItem(anioInt);
                 anioInt--;
-            }   
+            }
         }
     }
-    
+
     /**
-    * Metodo al que se llama cuando se pulsa aceptar
-    * 
-  
+     * Metodo al que se llama cuando se pulsa aceptar
+     *
+     *
      */
     private void Aceptar() {
         if (ComboPoblacion.getSelectedItem().toString().equals("--Vacío--")) {
@@ -486,10 +493,13 @@ import practica2.ReporteConsumos;
             }
         }
     }
-    
-    public static void consultas(){
+
+    /**
+     * realiza la consulta y genera el informe
+     */
+    public static void consultas() {
         try {
-            new ReporteConsumos(cp,pobla,anio);
+            new ReporteConsumos(cp, pobla, anio);
             JOptionPane.showMessageDialog(null, "Informes generados correctamente");
             lbCargando.setText("");
             btAceptar.setEnabled(true);

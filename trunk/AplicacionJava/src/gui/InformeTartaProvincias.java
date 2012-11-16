@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import aplicacionjava.Cliente;
@@ -19,15 +15,21 @@ import practica2.HiloInformeTartaProvincias;
 import practica2.ReporteConsumoProporcion;
 
 /**
+ * Entorno grafico de los informes para el informe de sectores o tarta
  *
- * @author carranza
+ * <br/><br/>Sistemas de Información <br/> Practica 2<br/> Grado Ingeniería
+ * Informática T.I. <br/> Curso 2012/13
+ *
+ * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
+ * @version 1.0
+ *
  */
 public class InformeTartaProvincias extends javax.swing.JFrame {
+
     ResultSet conjuntoResultados = null;
     List<Provincia> listaProvincias = new ArrayList<>();
     static List<Provincia> listaProvinciasAux = new ArrayList<>();
     String codigoProvinciaAux;
-    
 
     /**
      * Creates new form InformeTartaProvincias
@@ -137,7 +139,6 @@ public class InformeTartaProvincias extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtListaMouseClicked
-        
     }//GEN-LAST:event_txtListaMouseClicked
 
     private void btAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAnadirActionPerformed
@@ -197,12 +198,12 @@ public class InformeTartaProvincias extends javax.swing.JFrame {
     private javax.swing.JList txtLista;
     // End of variables declaration//GEN-END:variables
 
-    public void mostrar(){
+    public void mostrar() {
         setLocationRelativeTo(null);
         setVisible(true);
         listaProvinciasAux.clear();
     }
-    
+
     /**
      * Rellena el combo de Provincias
      */
@@ -265,7 +266,6 @@ public class InformeTartaProvincias extends javax.swing.JFrame {
         }
     }
 
-    
     /**
      * Extrae el código de la provincia seleccionada segun el indice del
      * combobox
@@ -277,72 +277,82 @@ public class InformeTartaProvincias extends javax.swing.JFrame {
         return pAux.getCodigoProvincia();
 
     }
-    
-    private void aniadir(){
+
+    /**
+     * añade una provincia a la lista auxiliar y la quita del combo
+     */
+    private void aniadir() {
         Provincia pAux = listaProvincias.get(ComboProvincias.getSelectedIndex());
         listaProvinciasAux.add(pAux);
         listaProvincias.remove(ComboProvincias.getSelectedIndex());
         ComboProvincias.removeItemAt(ComboProvincias.getSelectedIndex());
-        
-         DefaultListModel listaAux = new DefaultListModel();
-          
+
+        DefaultListModel listaAux = new DefaultListModel();
+
         Iterator iterador = listaProvinciasAux.listIterator();
-        
-        int cont=1;
+
+        int cont = 1;
         while (iterador.hasNext()) {
             Provincia pro = (Provincia) iterador.next();
-            listaAux.addElement(cont + ". " +pro.getProvincia().toString() + " -->" + pro.getCodigoProvincia());
+            listaAux.addElement(cont + ". " + pro.getProvincia().toString() + " -->" + pro.getCodigoProvincia());
             cont++;
         }
 
-         txtLista.setModel(listaAux);
+        txtLista.setModel(listaAux);
     }
-    
-    private void aceptar(){
-        if(listaProvinciasAux.size()<4){
+
+    /**
+     * al pulsar el boton aceptar se crea un nuevo hilo que realiza la consulta,
+     * se comprueba que esten 4 provincias seleccionadas almenos.
+     */
+    private void aceptar() {
+        if (listaProvinciasAux.size() < 4) {
             JOptionPane.showMessageDialog(null, "Debe introducir 4 provincias como mínimo");
-        }else{
+        } else {
             HiloInformeTartaProvincias mh = new HiloInformeTartaProvincias();
-            
+
             lbCargando.setText("Generando informes, espera...");
             btAceptar.setEnabled(false);
             btCancelar.setEnabled(false);
-            
+
             mh.start();
-            
+
         }
     }
-    
-    public static void consultas(){
-              // esta funcion esta incompleta falta toda la parte del hilo
+
+    /**
+     * realiza la consulta
+     */
+    public static void consultas() {
+        // esta funcion esta incompleta falta toda la parte del hilo
         // tambien la generacion de los idProvincias no se si iria aqui o no
         // si los nombres de provincias asociados a los idProvicias no se pueden obtener
         // se modifica la consulta y lo saco por la consulta
-        
-       int aux=0;
+
+        int aux = 0;
 
 
-       try {
-           //// sustituir por la funcion que haga lo que dice el codigo este
-           aux=listaProvinciasAux.size();
-           ///
-           int[] idProvincia = new int[aux];
-           String[] Provincia = new String[aux];
-           for (int i= 0; i<aux;i++){
-               /// sustituir por la funcion que haga lo que dice el codigo este
-              idProvincia[i]=Integer.parseInt(listaProvinciasAux.get(i).getCodigoProvincia());
-              Provincia[i]=listaProvinciasAux.get(i).getProvincia();
-              //////
-           }
+        try {
+            //// sustituir por la funcion que haga lo que dice el codigo este
+            aux = listaProvinciasAux.size();
+            ///
+            int[] idProvincia = new int[aux];
+            String[] Provincia = new String[aux];
+            for (int i = 0; i < aux; i++) {
+                /// sustituir por la funcion que haga lo que dice el codigo este
+                idProvincia[i] = Integer.parseInt(listaProvinciasAux.get(i).getCodigoProvincia());
+                Provincia[i] = listaProvinciasAux.get(i).getProvincia();
+                //////
+            }
             new ReporteConsumoProporcion(idProvincia, Provincia);
             JOptionPane.showMessageDialog(null, "Informes generados correctamente");
-            
+
             lbCargando.setText("");
             btAceptar.setEnabled(true);
             btCancelar.setEnabled(true);
-     
+
         } catch (JRException ex) {
-          JOptionPane.showMessageDialog(null, "Error al generar al informe " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al generar al informe " + ex.getMessage());
         }
     }
 }

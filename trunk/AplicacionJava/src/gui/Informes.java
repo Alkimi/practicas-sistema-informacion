@@ -1,12 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 /**
+ * Entorno grafico de los informes
  *
- * @author carranza
+ * <br/><br/>Sistemas de Información <br/> Practica 2<br/> Grado Ingeniería
+ * Informática T.I. <br/> Curso 2012/13
+ *
+ * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
+ * @version 1.0
+ *
  */
 public class Informes extends javax.swing.JFrame {
 
@@ -32,6 +34,8 @@ public class Informes extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+
+        setTitle("Informes");
 
         jButton1.setText("Facturas de un Cliente");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -179,6 +183,9 @@ public class Informes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
     
+    /**
+     * Llama a mostrar la interfaz
+     */
     public void mostrar(){
         setVisible(true);
         setLocationRelativeTo(null);
