@@ -15,15 +15,18 @@ import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 import practica2.ReporteCiudades;
 
-/**
+   
+   /**
  * Entorno grafico de los informes para el informe del consumo pro provincia
  *
- * <br/><br/>Sistemas de Información <br/> Practica 2<br/> Grado Ingeniería
- * Informática T.I. <br/> Curso 2012/13
- *
+ * Formulario para seleccionar la provincia de la que se quiere hacer un informe.
+ * 
  * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
- * @version 1.0
- *
+ * @version 2.0
+ * 
+ * Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
+ * 
  */
 public class InformeProvincias extends javax.swing.JFrame {
     //Declaración de variables
@@ -270,43 +273,42 @@ public class InformeProvincias extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos");
         }
     }
-
-    /**
-     * Extrae el código de la provincia seleccionada segun el indice del
-     * combobox
-     *
-     */
-    private String extraerCodigoProvinciaSeleccinada() {
-
-        Provincia pAux = listaProvincias.get(ComboProvincia.getSelectedIndex());
-
-        return pAux.getCodigoProvincia();
-
-    }
-
-    /**
-     * Metodo al que se llama cuando se pulsa aceptar
-     *
-     */
-    private void Aceptar() {
-
-        provincia = ComboProvincia.getSelectedItem().toString();
-        codProvincia = Integer.parseInt(extraerCodigoProvinciaSeleccinada());
-
-        HiloConsultasProvincias mh = new HiloConsultasProvincias();
-
-        lbCargando.setText("Generando informes, espera...");
-        btAceptar.setEnabled(false);
-        btCancelar.setEnabled(false);
+    
+ 
+   /**
+    * Extrae el código de la provincia seleccionada segun el indice del combobox 
+    * 
+    */
+   private String extraerCodigoProvinciaSeleccinada(){
+       
+       Provincia pAux = listaProvincias.get(ComboProvincia.getSelectedIndex());
+       
+       return pAux.getCodigoProvincia();
+       
+   }
+   
+  
+   
+   /**
+    * Metodo al que se llama cuando se pulsa el botón generar informes.
+    * Llama al hilo que se encarga de lanzar la consulta
+    * 
+    */
+   private void Aceptar(){
+        
+       provincia = ComboProvincia.getSelectedItem().toString();
+       codProvincia = Integer.parseInt(extraerCodigoProvinciaSeleccinada());
+  
+       HiloConsultasProvincias mh = new HiloConsultasProvincias();
 
         mh.start();
     }
 
-    /**
-     * realiza la consulta
-     */
-    public static void consultas() {
-        try {
+   /**
+    * Realiza la consulta y muestra si la generación del informe ha sido correcto
+    */
+   public static void consultas(){
+       try {
             new ReporteCiudades(codProvincia, provincia);
             JOptionPane.showMessageDialog(null, "Informes generados correctamente");
             lbCargando.setText("");
@@ -317,3 +319,5 @@ public class InformeProvincias extends javax.swing.JFrame {
         }
     }
 }
+
+    

@@ -1125,30 +1125,31 @@ public class InformeCliente extends javax.swing.JFrame {
     ;
     
     /**
-     * genera el informe, se ha de seleccionar primero un cliente
+     * Metódo encargado de generar la consulta y el informe cuando se pulse el 
+     * botón generar informes.
      */
-    private void generar() {
-
-        if (txtCodCliente.getText().toString().equals("")) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente para generar el informe");
-        } else {
-
-            String provincia = null;
-            String poblacion = null;
-
-            if (porCodigo) {
-                provincia = txtProv.getText().toString();
-                poblacion = txtPob.getText().toString();
-            } else {
-                provincia = ComboProv1.getSelectedItem().toString();
-                poblacion = ComboPobla1.getSelectedItem().toString();
-            }
-            try {
-                new ReporteFactura(codigoCliente, provincia, poblacion, true);
-                JOptionPane.showMessageDialog(null, "Factura generada correctamente");
-            } catch (JRException ex) {
-                System.out.print("Error al generar el informe " + ex.getMessage());
-            }
+    private void generar(){
+        
+        if(txtCodCliente.getText().toString().equals("")){
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente para generar el informe");    
+        }else{
+            
+        String provincia=null;
+        String poblacion=null;
+        
+        if(porCodigo){
+            provincia=txtProv.getText().toString();
+            poblacion=txtPob.getText().toString();
+        }else{
+                provincia=ComboProv1.getSelectedItem().toString();
+                poblacion=ComboPobla1.getSelectedItem().toString();
+        }
+        try {
+            new ReporteFactura(codigoCliente, provincia,poblacion,true);
+            JOptionPane.showMessageDialog(null,"Factura generada correctamente");
+        } catch (JRException ex) {
+            System.out.print("Error al generar el informe " + ex.getMessage());
+        }
         }
     }
 }

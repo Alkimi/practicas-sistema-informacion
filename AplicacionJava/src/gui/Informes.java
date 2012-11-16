@@ -9,6 +9,14 @@ package gui;
  * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
  * @version 1.0
  *
+ * Selección de Informes. Permite seleccionar el tipo de informe a realizar
+ * 
+ * <br/><br/>Sistemas de Información -  Grado Ingeniería Informática T.I. 
+ * Curso 2012/13
+ * 
+ * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
+ * @version 2.0
+ * 
  */
 public class Informes extends javax.swing.JFrame {
 
@@ -184,7 +192,7 @@ public class Informes extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     
     /**
-     * Llama a mostrar la interfaz
+     * Método encargado de mostrar el formulario
      */
     public void mostrar(){
         setVisible(true);

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report_proporcion_provincia" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43e9f6c1-c380-4c7e-81da-bf811a91c51f">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="258"/>
+	<property name="ireport.y" value="0"/>
 	<field name="provincia" class="java.lang.Integer"/>
 	<field name="consumo" class="java.lang.Double"/>
 	<field name="nombre" class="java.lang.String"/>
@@ -10,66 +10,121 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
+		<band height="106" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="2bfb263c-b4a5-4f9a-9dd0-193d25511b40" x="101" y="33" width="100" height="20"/>
+				<reportElement uuid="c7b8c4f5-0161-444a-aeb2-3f1451adc078" mode="Opaque" x="-18" y="91" width="595" height="14" forecolor="#006600" backcolor="#003333"/>
 				<textElement/>
-				<text><![CDATA[Titulo]]></text>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c7b8c4f5-0161-444a-aeb2-3f1451adc078" mode="Opaque" x="-18" y="25" width="595" height="14" forecolor="#006600" backcolor="#003333"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="9f7e089f-ee08-480a-8707-2f0aaa7b985a" x="2" y="0" width="171" height="105"/>
+				<imageExpression><![CDATA["img/piePagina.gif"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="c7b8c4f5-0161-444a-aeb2-3f1451adc078" mode="Opaque" x="-18" y="39" width="595" height="52" forecolor="#006600" backcolor="#336600"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="abd63107-3330-4b1a-a367-e62fc427835c" x="2" y="39" width="553" height="52" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Comparación Consumo de Provincias]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e2be5d67-355b-44f2-a3ee-968b6f09e667" mode="Opaque" x="557" y="25" width="20" height="80" backcolor="#003333"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e2be5d67-355b-44f2-a3ee-968b6f09e667" mode="Opaque" x="-19" y="25" width="20" height="80" backcolor="#003333"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
 			</staticText>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="14" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch">
+		<band height="33" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="16c3ec24-09be-439b-af72-9b7d480abe39" x="1" y="2" width="100" height="20"/>
+				<reportElement uuid="c7b8c4f5-0161-444a-aeb2-3f1451adc078" mode="Opaque" x="-20" y="26" width="595" height="2" forecolor="#006600" backcolor="#003333"/>
 				<textElement/>
-				<text><![CDATA[id provincia]]></text>
+				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="923dc69b-b161-4f39-8e7d-0cba9d7fa133" x="412" y="2" width="100" height="20"/>
-				<textElement/>
-				<text><![CDATA[consumo]]></text>
+				<reportElement uuid="5cc0e902-45f5-4fd8-ac39-c6ca88a711a0" x="326" y="6" width="163" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="15" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Consumo en KW]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="9869cb04-5081-461f-a756-08fe1a51cd3f" x="185" y="0" width="100" height="20"/>
-				<textElement/>
-				<text><![CDATA[nombre]]></text>
+				<reportElement uuid="9ad90124-fd3e-4777-b517-fcbdd803238d" x="67" y="6" width="129" height="20"/>
+				<textElement>
+					<font size="15" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Provincia]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="24" splitType="Stretch">
-			<textField>
-				<reportElement uuid="b800f0d7-a9e6-42c6-bb78-44819b78e56e" x="1" y="0" width="100" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{provincia}]]></textFieldExpression>
-			</textField>
+		<band height="33" splitType="Stretch">
 			<textField pattern="#,##0.00;-#,##0.00">
-				<reportElement uuid="1d7c9104-e4ef-4703-a766-cbff358a104a" x="389" y="0" width="123" height="20"/>
-				<textElement/>
+				<reportElement uuid="1d7c9104-e4ef-4703-a766-cbff358a104a" x="297" y="2" width="192" height="26"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{consumo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="2bb3549c-2482-41cb-8139-212e2d938232" x="185" y="0" width="100" height="20"/>
-				<textElement/>
+				<reportElement uuid="2bb3549c-2482-41cb-8139-212e2d938232" x="67" y="2" width="219" height="26"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch"/>
-	</columnFooter>
 	<pageFooter>
-		<band height="28" splitType="Stretch"/>
+		<band height="68" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="a62a6ad0-ef5c-4bac-8747-88db3d912578" x="1" y="50" width="289" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Informe Comparativo de Consumo de Provincias]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="9f7e089f-ee08-480a-8707-2f0aaa7b985a" x="484" y="0" width="92" height="50"/>
+				<imageExpression><![CDATA["img/piePagina.gif"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="a62a6ad0-ef5c-4bac-8747-88db3d912578" x="285" y="50" width="268" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Enrique Miguel Calvo - Saúl Carranza Gallardo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cf530646-1ac5-4d17-ac6a-749f4983549c" mode="Opaque" x="-24" y="33" width="597" height="10" backcolor="#006600"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
 	</pageFooter>
 	<summary>
-		<band height="430" splitType="Stretch">
+		<band height="349" splitType="Stretch">
 			<pie3DChart>
 				<chart>
-					<reportElement uuid="6af48e2f-0c86-4951-9b20-1d8c69315e04" mode="Transparent" x="0" y="0" width="555" height="307"/>
+					<reportElement uuid="6af48e2f-0c86-4951-9b20-1d8c69315e04" mode="Transparent" x="2" y="42" width="555" height="307"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend position="Left"/>
