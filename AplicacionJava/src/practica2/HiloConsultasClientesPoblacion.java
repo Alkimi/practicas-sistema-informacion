@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package practica2;
 
 import gui.InformeClientesPoblacion;
@@ -10,14 +6,22 @@ import net.sf.jasperreports.engine.JRException;
 import practica2.ReporteFactura;
 
 /**
+ * Clase auxiliar que genera un hilo de ejecucion para poder mostrar mensaje de
+ * espera
  *
- * @author carranza
+ * <br/><br/>Sistemas de Información <br/> Practica 2<br/> Grado Ingeniería
+ * Informática T.I. <br/> Curso 2012/13
+ *
+ * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
+ * @version 1.0
+ *
  */
-public class HiloConsultasClientesPoblacion extends Thread 
-{ 
-    public void run() 
-   { 
-      InformeClientesPoblacion.consultas();
-   } 
-};
+public class HiloConsultasClientesPoblacion extends Thread {
 
+    /**
+     * Lanza el nuevo hilo llamando a la consulta
+     */
+    public void run() {
+        InformeClientesPoblacion.consultas();
+    }
+};

@@ -15,42 +15,39 @@ import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 import practica2.ReporteCiudades;
 
-
 /**
+ * Entorno grafico de los informes para el informe del consumo pro provincia
  *
- * Formulario para insertar una nueva calle o una población
- * 
+ * <br/><br/>Sistemas de Información <br/> Practica 2<br/> Grado Ingeniería
+ * Informática T.I. <br/> Curso 2012/13
+ *
  * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
  * @version 1.0
- * 
- * Sistemas de Información -  Grado Ingeniería Informática T.I. 
- * Curso 2012/13
- * 
- */public class InformeProvincias extends javax.swing.JFrame {
+ *
+ */
+public class InformeProvincias extends javax.swing.JFrame {
     //Declaración de variables
-    ResultSet conjuntoResultados=null;
+
+    ResultSet conjuntoResultados = null;
     List<Provincia> listaProvincias = new ArrayList<>();
     String codigoProvinciaAux;
-
-    int opcionSeleccionada=-1;
+    int opcionSeleccionada = -1;
     String pobActual = null;
     aplicacionjava.Conversion conAux = new aplicacionjava.Conversion();
-    
     static String provincia;
     static int codProvincia;
-    
 
     /**
      * Creates new form NuevaCallePoblacion
      */
     public InformeProvincias() {
         initComponents();
-        
+
         setLocationRelativeTo(null);
-        
+
         rellenaProvincias();
-        
-        codigoProvinciaAux=extraerCodigoProvinciaSeleccinada();
+
+        codigoProvinciaAux = extraerCodigoProvinciaSeleccinada();
 
     }
 
@@ -135,7 +132,8 @@ import practica2.ReporteCiudades;
 
     /**
      * Cierra el formulario
-     * @param evt 
+     *
+     * @param evt
      */
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
         setVisible(false);
@@ -143,17 +141,19 @@ import practica2.ReporteCiudades;
 
     /**
      * Llama al metodo de rellenar el combo de poblaciones
-     * @param evt 
+     *
+     * @param evt
      */
     private void ComboProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboProvinciaActionPerformed
     }//GEN-LAST:event_ComboProvinciaActionPerformed
 
     /**
      * Llama al metodo que controla cuando se pulsa el boton aceptar
-     * @param evt 
+     *
+     * @param evt
      */
     private void btAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAceptarActionPerformed
-       Aceptar();
+        Aceptar();
     }//GEN-LAST:event_btAceptarActionPerformed
 
     /**
@@ -200,112 +200,113 @@ import practica2.ReporteCiudades;
 
     /**
      * Muestra el formulario en la opcion de introducir poblacion
-     * 
+     *
      */
-    public void Mostrar(){
+    public void Mostrar() {
         setVisible(true);
-        
-        opcionSeleccionada=1;
+
+        opcionSeleccionada = 1;
         btAceptar.requestFocusInWindow();
     }
-    
-   
-    
+
     /**
-     *Rellena el combo de Provincias
-     * 
+     * Rellena el combo de Provincias
+     *
      */
-    private void rellenaProvincias(){
+    private void rellenaProvincias() {
         //Borra el combobox
         ComboProvincia.removeAllItems();
-        
+
         //Hago una consulta que me devuelva todas la provincias con sus códigos y las almaceno en conjuntoResultados
         try {
-            conjuntoResultados=Principal.cbd.consultaSelect("SELECT * FROM  provincias");
+            conjuntoResultados = Principal.cbd.consultaSelect("SELECT * FROM  provincias");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
+            JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos");
         }
-        
-         int numeroDeColumnas=0;
-         ResultSetMetaData metaDatos = null;
-        
-         
-         try {
+
+        int numeroDeColumnas = 0;
+        ResultSetMetaData metaDatos = null;
+
+
+        try {
             metaDatos = conjuntoResultados.getMetaData();
             numeroDeColumnas = metaDatos.getColumnCount();
-            
+
             //creo el contador para ir pivotando entre las columnas de la tabla
-            int cont=0;
-            String cod=null;
-            String nom=null;
-            
+            int cont = 0;
+            String cod = null;
+            String nom = null;
+
             while (conjuntoResultados.next()) {
-            for (int i = 1; i <= numeroDeColumnas; i++) {
-                
-                switch(cont){
-                    case 0: cod=conjuntoResultados.getObject(i).toString();
-                            cont=1;
+                for (int i = 1; i <= numeroDeColumnas; i++) {
+
+                    switch (cont) {
+                        case 0:
+                            cod = conjuntoResultados.getObject(i).toString();
+                            cont = 1;
                             break;
-                    case 1: nom=conjuntoResultados.getObject(i).toString();
+                        case 1:
+                            nom = conjuntoResultados.getObject(i).toString();
                             //creo un objeto provincia, variable
-                            Provincia aux = new Provincia(cod,nom); 
+                            Provincia aux = new Provincia(cod, nom);
                             listaProvincias.add(aux);
-                            cont=0;
+                            cont = 0;
                             break;
+                    }
                 }
             }
-          }
             //Le solicito a la lista que me devuelva un iterador con todos los el elementos contenidos en ella
-            Iterator iterador = listaProvincias.listIterator(); 
- 
-            while( iterador.hasNext() ) {
-                Provincia pr=(Provincia) iterador.next();
-                
+            Iterator iterador = listaProvincias.listIterator();
+
+            while (iterador.hasNext()) {
+                Provincia pr = (Provincia) iterador.next();
+
                 ComboProvincia.addItem(pr.getProvincia());
-                
-                codigoProvinciaAux=extraerCodigoProvinciaSeleccinada();
-                }
-            
+
+                codigoProvinciaAux = extraerCodigoProvinciaSeleccinada();
+            }
+
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error en la conexión con la base de datos");
+            JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos");
         }
     }
-    
- 
-   /**
-    * Extrae el código de la provincia seleccionada segun el indice del combobox 
-    * 
-    */
-   private String extraerCodigoProvinciaSeleccinada(){
-       
-       Provincia pAux = listaProvincias.get(ComboProvincia.getSelectedIndex());
-       
-       return pAux.getCodigoProvincia();
-       
-   }
-   
-  
-   
-   /**
-    * Metodo al que se llama cuando se pulsa aceptar
-    * 
-    */
-   private void Aceptar(){
-        
-       provincia = ComboProvincia.getSelectedItem().toString();
-       codProvincia = Integer.parseInt(extraerCodigoProvinciaSeleccinada());
-  
-       HiloConsultasProvincias mh = new HiloConsultasProvincias();
 
-       lbCargando.setText("Generando informes, espera...");
-       btAceptar.setEnabled(false);
-       btCancelar.setEnabled(false);
+    /**
+     * Extrae el código de la provincia seleccionada segun el indice del
+     * combobox
+     *
+     */
+    private String extraerCodigoProvinciaSeleccinada() {
 
-       mh.start();
-   }
-   
-   public static void consultas(){
-       try {
+        Provincia pAux = listaProvincias.get(ComboProvincia.getSelectedIndex());
+
+        return pAux.getCodigoProvincia();
+
+    }
+
+    /**
+     * Metodo al que se llama cuando se pulsa aceptar
+     *
+     */
+    private void Aceptar() {
+
+        provincia = ComboProvincia.getSelectedItem().toString();
+        codProvincia = Integer.parseInt(extraerCodigoProvinciaSeleccinada());
+
+        HiloConsultasProvincias mh = new HiloConsultasProvincias();
+
+        lbCargando.setText("Generando informes, espera...");
+        btAceptar.setEnabled(false);
+        btCancelar.setEnabled(false);
+
+        mh.start();
+    }
+
+    /**
+     * realiza la consulta
+     */
+    public static void consultas() {
+        try {
             new ReporteCiudades(codProvincia, provincia);
             JOptionPane.showMessageDialog(null, "Informes generados correctamente");
             lbCargando.setText("");

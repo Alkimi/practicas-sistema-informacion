@@ -18,17 +18,15 @@ import net.sf.jasperreports.engine.JRException;
 import practica2.ReporteFactura;
 
 /**
+ * Entorno grafico de los informes para el informe de la factura del cliente
  *
- * Formulario de bajas para los clientes
- * 
+ * <br/><br/>Sistemas de Información <br/> Practica 2<br/> Grado Ingeniería
+ * Informática T.I. <br/> Curso 2012/13
+ *
  * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
  * @version 1.0
- * 
- * Sistemas de Información -  Grado Ingeniería Informática T.I. 
- * Curso 2012/13
- * 
+ *
  */
-
 public class InformeCliente extends javax.swing.JFrame {
 
     ResultSet conjuntoResultados = null;
@@ -40,9 +38,9 @@ public class InformeCliente extends javax.swing.JFrame {
     String codigoPoblacionAux;
     String codigoCalleAux;
     String pobActual = null;
-    boolean porCodigo=false;
+    boolean porCodigo = false;
     int codigoCliente = -1;
-    
+
     /**
      * Creates new form BajaCliente
      */
@@ -574,7 +572,7 @@ public class InformeCliente extends javax.swing.JFrame {
         setVisible(true);
 
         setLocationRelativeTo(null);
-        
+
         btCodigo.setVisible(false);
         btCalle.setVisible(false);
         lbProv2.setVisible(false);
@@ -584,13 +582,13 @@ public class InformeCliente extends javax.swing.JFrame {
         txtPob.setVisible(false);
         txtCalle.setVisible(false);
         lbPobla2.setVisible(false);
-        
+
         int seleccion = JOptionPane.showOptionDialog(this, "Como desea localizar el cliente?",
                 "Seleccione una opción", JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Número ID", "Lista por Zona"}, null);
-        
-       
-        
+
+
+
         if (seleccion != -1) {
             if ((seleccion + 1) == 1) {
                 // PRESIONA ID
@@ -602,7 +600,7 @@ public class InformeCliente extends javax.swing.JFrame {
                 lbCall.setVisible(false);
                 btCalle.setVisible(false);
                 btCodigo.setVisible(true);
-                porCodigo=true;
+                porCodigo = true;
                 lbProv2.setVisible(true);
                 lbPob2.setVisible(true);
                 lbCall2.setVisible(true);
@@ -616,7 +614,7 @@ public class InformeCliente extends javax.swing.JFrame {
                 rellenaProvincias();
                 btCodigo.setVisible(false);
                 btCalle.setVisible(true);
-                porCodigo=false;
+                porCodigo = false;
             }
 
             btBaja.requestFocusInWindow();
@@ -710,12 +708,12 @@ public class InformeCliente extends javax.swing.JFrame {
     /**
      * Extrae el codigo de la calle seleccionada el combo
      *
-     * @return
+     * @return el codigo de calle seleccionado
      */
     private String extraerCodigoCalleSeleccinada() {
-        
+
         callespoblaciones cAux = listaCalles.get(ComboCalle1.getSelectedIndex());
-        
+
         return cAux.getIdCalle();
     }
 
@@ -918,7 +916,7 @@ public class InformeCliente extends javax.swing.JFrame {
     private void rellenaClientes() {
 
         borrarTexto();
-        
+
         if (ComboCalle1.getSelectedItem().toString().equals("--Vacío--") && ComboPobla1.getSelectedItem().toString().equals("--Vacío--")) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar Provincia, Poblacion y Calle");
         } else {
@@ -1035,6 +1033,7 @@ public class InformeCliente extends javax.swing.JFrame {
 
     /**
      * Extrae el cliente de la lista que los muestra
+     *
      * @return un objeto cliente
      */
     private Cliente extraeClienteDeLista() {
@@ -1046,7 +1045,7 @@ public class InformeCliente extends javax.swing.JFrame {
      * Rellena las cajas de texto con el cliente seleccionado
      */
     private void rellenaTexto() {
-  
+
         if (!listaClientes.isEmpty()) {
             Cliente cli = extraeClienteDeLista();
             txtNombre1.setText(cli.getNombre());
@@ -1055,51 +1054,50 @@ public class InformeCliente extends javax.swing.JFrame {
             txtNumero1.setText(cli.getNumero());
             txtPiso1.setText(cli.getPiso());
             txtCodCliente.setText(cli.getCodigo());
-        }else{
+        } else {
             borrarTexto();
         }
-        
+
     }
-    
+
     /**
      * Borra el texto de las cajas de texto que muestran el cliente
      */
-    private void borrarTexto(){
-            txtNombre1.setText("");
-            txtApellido1.setText("");
-            txtApellido3.setText("");
-            txtNumero1.setText("");
-            txtPiso1.setText("");
-            txtCodCliente.setText("");
-     
+    private void borrarTexto() {
+        txtNombre1.setText("");
+        txtApellido1.setText("");
+        txtApellido3.setText("");
+        txtNumero1.setText("");
+        txtPiso1.setText("");
+        txtCodCliente.setText("");
+
     }
-    
-    
+
     /**
      * Comprueba si el cliente seleccionado se encuentra en la BD
      */
-    private void buscaClienteCod(){
-        if(txtCodCliente.getText().equals("")){
+    private void buscaClienteCod() {
+        if (txtCodCliente.getText().equals("")) {
             borrarTexto();
             JOptionPane.showMessageDialog(null, "Debe introducir un código de cliente");
-        }else{
+        } else {
             try {
                 ResultSet results = null;
 
-                results=Principal.cbd.consultaSelect("SELECT Codigo,Nombre,Apellido,Apellido2,Calle,Numero,Piso,CodigoProvincia,CodigoPoblacion FROM clientes WHERE Codigo=" + txtCodCliente.getText().toString());
-                
-                if(!results.next()){
+                results = Principal.cbd.consultaSelect("SELECT Codigo,Nombre,Apellido,Apellido2,Calle,Numero,Piso,CodigoProvincia,CodigoPoblacion FROM clientes WHERE Codigo=" + txtCodCliente.getText().toString());
+
+                if (!results.next()) {
                     JOptionPane.showMessageDialog(null, "El cliente no se encuentra en la BD");
-                }else{
+                } else {
                     txtNombre1.setText(results.getObject(2).toString());
                     txtApellido1.setText(results.getObject(3).toString());
                     txtApellido3.setText(results.getObject(4).toString());
                     txtNumero1.setText(results.getObject(6).toString());
                     txtPiso1.setText(results.getObject(7).toString());
-                    
-                    String pobAux=results.getObject(9).toString();
-                    String callAux=results.getObject(5).toString();
-                    
+
+                    String pobAux = results.getObject(9).toString();
+                    String callAux = results.getObject(5).toString();
+
                     //Recupera el  nombre de la provincia
                     ResultSet results2 = null;
                     results2 = Principal.cbd.consultaSelect("SELECT Provincia FROM provincias WHERE CodigoProvincia=" + results.getObject(8).toString());
@@ -1109,43 +1107,48 @@ public class InformeCliente extends javax.swing.JFrame {
                     ResultSet results3 = null;
                     results3 = Principal.cbd.consultaSelect("SELECT Poblacion FROM poblaciones WHERE CodigoPoblacion=" + pobAux);
                     results3.next();
-                    txtPob.setText(results3.getString(1)); 
+                    txtPob.setText(results3.getString(1));
                     //Recupera el  nombre de la calle
                     ResultSet results4 = null;
                     results4 = Principal.cbd.consultaSelect("SELECT Nombre FROM callespoblaciones WHERE idCalle=" + callAux);
                     results4.next();
                     txtCalle.setText(results4.getString(1));
-                    
+
                 }
-            
+
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos" + ex.getMessage());    
+                JOptionPane.showMessageDialog(null, "Error en la conexión con la base de datos" + ex.getMessage());
             }
         }
-    };
+    }
+
+    ;
     
-    private void generar(){
-        
-        if(txtCodCliente.getText().toString().equals("")){
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente para generar el informe");    
-        }else{
-            
-        String provincia=null;
-        String poblacion=null;
-        
-        if(porCodigo){
-            provincia=txtProv.getText().toString();
-            poblacion=txtPob.getText().toString();
-        }else{
-                provincia=ComboProv1.getSelectedItem().toString();
-                poblacion=ComboPobla1.getSelectedItem().toString();
-        }
-        try {
-            new ReporteFactura(codigoCliente, provincia,poblacion,true);
-            JOptionPane.showMessageDialog(null,"Factura generada correctamente");
-        } catch (JRException ex) {
-            System.out.print("Error al generar el informe " + ex.getMessage());
-        }
+    /**
+     * genera el informe, se ha de seleccionar primero un cliente
+     */
+    private void generar() {
+
+        if (txtCodCliente.getText().toString().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente para generar el informe");
+        } else {
+
+            String provincia = null;
+            String poblacion = null;
+
+            if (porCodigo) {
+                provincia = txtProv.getText().toString();
+                poblacion = txtPob.getText().toString();
+            } else {
+                provincia = ComboProv1.getSelectedItem().toString();
+                poblacion = ComboPobla1.getSelectedItem().toString();
+            }
+            try {
+                new ReporteFactura(codigoCliente, provincia, poblacion, true);
+                JOptionPane.showMessageDialog(null, "Factura generada correctamente");
+            } catch (JRException ex) {
+                System.out.print("Error al generar el informe " + ex.getMessage());
+            }
         }
     }
 }
