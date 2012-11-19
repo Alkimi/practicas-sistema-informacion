@@ -69,7 +69,7 @@
 				<textElement>
 					<font size="15" isBold="true" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[Consumo en KW]]></text>
+				<text><![CDATA[Consumo en MW]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="9ad90124-fd3e-4777-b517-fcbdd803238d" x="6" y="9" width="129" height="20"/>
@@ -144,7 +144,7 @@
 				<textElement>
 					<font fontName="Arial" size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[   KW]]></text>
+				<text><![CDATA[   MW]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="5cc0e902-45f5-4fd8-ac39-c6ca88a711a0" mode="Opaque" x="6" y="22" width="213" height="20" backcolor="#CCCCCC"/>
