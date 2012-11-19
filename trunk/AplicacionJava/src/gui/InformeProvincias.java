@@ -18,13 +18,13 @@ import practica2.ReporteCiudades;
    
  /**
  * Formulario para seleccionar la provincia de la que se quiere hacer un informe.
- * 
+ *
+ * <br/><br/>Sistemas de Información <br/> Practica 2<br/> Grado Ingeniería
+ * Informática T.I. <br/> Curso 2012/13
+ *
  * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
  * @version 2.0
- * 
- * Sistemas de Información -  Grado Ingeniería Informática T.I. 
- * Curso 2012/13
- * 
+ *
  */
 public class InformeProvincias extends javax.swing.JFrame {
     //Declaración de variables

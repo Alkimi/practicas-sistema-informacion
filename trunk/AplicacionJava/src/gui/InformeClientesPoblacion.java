@@ -24,7 +24,10 @@ import practica2.ReporteFactura;
 /**
  * Formulario en el que se selecciona un cliente en concreto para generar
  * su correspondiente factura.
- * 
+ *
+ * <br/><br/>Sistemas de Información <br/> Practica 2<br/> Grado Ingeniería
+ * Informática T.I. <br/> Curso 2012/13
+ *
  * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
  * @version 2.0
  *
