@@ -21,7 +21,10 @@ import practica2.ReporteConsumos;
 /**
  * Formulario en el cual se selecciona una población y un año determinado
  * para mostrar el consumo por meses de las misma con un diagrama de barras.
- * 
+ *
+ * <br/><br/>Sistemas de Información <br/> Practica 2<br/> Grado Ingeniería
+ * Informática T.I. <br/> Curso 2012/13
+ *
  * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
  * @version 2.0
  *

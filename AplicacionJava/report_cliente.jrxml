@@ -15,6 +15,7 @@
 	<field name="codPostal" class="java.lang.Integer"/>
 	<field name="poblacion" class="java.lang.String"/>
 	<field name="provincia" class="java.lang.String"/>
+	<field name="mesFactura" class="java.lang.String"/>
 	<variable name="precioConsumo" class="java.lang.Double"/>
 	<variable name="subtotal" class="java.lang.Double"/>
 	<variable name="iva" class="java.lang.Double"/>
@@ -25,21 +26,21 @@
 	<pageHeader>
 		<band height="168" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="d664b12f-fd54-45f6-8240-d254d418285e" mode="Opaque" x="519" y="107" width="21" height="20" backcolor="#CCCCCC"/>
+				<reportElement uuid="d664b12f-fd54-45f6-8240-d254d418285e" mode="Opaque" x="519" y="127" width="21" height="20" backcolor="#CCCCCC"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ €]]></text>
 			</staticText>
 			<textField pattern="###0.00;-###0.00">
-				<reportElement uuid="08d7dd7b-9e4c-4869-b805-a626b9d0190c" mode="Opaque" x="414" y="107" width="105" height="20" backcolor="#CCCCCC"/>
+				<reportElement uuid="08d7dd7b-9e4c-4869-b805-a626b9d0190c" mode="Opaque" x="414" y="127" width="105" height="20" backcolor="#CCCCCC"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[(($F{consumo}*0.15)*0.21)+($F{consumo}*0.15)]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="d664b12f-fd54-45f6-8240-d254d418285e" mode="Opaque" x="300" y="107" width="114" height="20" backcolor="#CCCCCC"/>
+				<reportElement uuid="d664b12f-fd54-45f6-8240-d254d418285e" mode="Opaque" x="299" y="127" width="114" height="20" backcolor="#CCCCCC"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
@@ -53,7 +54,7 @@
 				<text><![CDATA[FACTURA DE ELECTRICIDAD]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement uuid="08a0e8dd-5095-4a74-8cd8-5566da0ae20f" x="300" y="31" width="240" height="64"/>
+				<reportElement uuid="08a0e8dd-5095-4a74-8cd8-5566da0ae20f" x="291" y="33" width="240" height="82"/>
 				<graphicElement>
 					<pen lineWidth="1.5" lineStyle="Solid"/>
 				</graphicElement>
@@ -86,6 +87,18 @@
 				<reportElement uuid="5ba69275-4c44-42b5-82c4-0111aa71da4d" x="0" y="0" width="197" height="85"/>
 				<imageExpression><![CDATA["img/imgFactura.jpg"]]></imageExpression>
 			</image>
+			<staticText>
+				<reportElement uuid="3fc0af2d-3835-44da-a999-7d9b6641181e" x="314" y="85" width="89" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mes facturado]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="b8cb171f-0131-4fef-834f-30c3148acfaa" x="414" y="85" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{mesFactura}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>

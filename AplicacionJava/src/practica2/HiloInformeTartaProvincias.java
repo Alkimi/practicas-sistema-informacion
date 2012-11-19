@@ -14,13 +14,13 @@ import practica2.ReporteFactura;
  * de generar un informe comparativo entre varias provinvias.
  * Se genera de esta forma para generar la consulta en segun plano y
  * poder mostrar contenidos en los formularios mientras tanto.
- * 
+ *
+ * <br/><br/>Sistemas de Información <br/> Practica 2<br/> Grado Ingeniería
+ * Informática T.I. <br/> Curso 2012/13
+ *
  * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
  * @version 2.0
- * 
- * Sistemas de Información -  Grado Ingeniería Informática T.I. 
- * Curso 2012/13
- * 
+ *
  */
 public class HiloInformeTartaProvincias extends Thread {
 

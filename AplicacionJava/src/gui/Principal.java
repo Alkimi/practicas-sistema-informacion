@@ -256,8 +256,8 @@ public class Principal extends javax.swing.JFrame {
        if(logueo){
         //Establece conexión con BD
         try {
-            cbd = new ConexionBD("root", "toor", "consumoelectrico", "localhost");
-            //cbd = new ConexionBD(ul.getNombre(), ul.getPassword(), ul.getBaseDeDatos(), ul.getServidor());
+            //cbd = new ConexionBD("root", "toor", "consumoelectrico", "localhost");
+            cbd = new ConexionBD(ul.getNombre(), ul.getPassword(), ul.getBaseDeDatos(), ul.getServidor());
         } catch (ClassNotFoundException ex) {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se ha podido conectar con la Base de Datos \no los datos de login son incorrectos");
