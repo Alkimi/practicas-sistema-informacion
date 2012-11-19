@@ -298,7 +298,11 @@ public class InformeProvincias extends javax.swing.JFrame {
         
        provincia = ComboProvincia.getSelectedItem().toString();
        codProvincia = Integer.parseInt(extraerCodigoProvinciaSeleccinada());
-  
+ 
+            lbCargando.setText("Generando informes...");
+            btAceptar.setEnabled(false);
+            btCancelar.setEnabled(false);
+       
        HiloConsultasProvincias mh = new HiloConsultasProvincias();
 
         mh.start();
