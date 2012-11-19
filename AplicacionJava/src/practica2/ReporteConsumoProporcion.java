@@ -43,7 +43,7 @@ public class ReporteConsumoProporcion {
 
         try {
             for (int i = 0; i < idProvincia.length; i++) {
-                resultado = Principal.cbd.consultaSelect("select sum(suma), t2.CodigoProvincia from "
+                resultado = Principal.cbd.consultaSelect("select sum(suma)/1000, t2.CodigoProvincia from "
                         + "(select sum(kw) as suma,Cliente from mediciones Where FechaHora BETWEEN " + new aplicacionjava.Conversion().obtenerYear()
                         + " group by Cliente) as t1 inner join (Select CodigoProvincia, Codigo from clientes Where CodigoProvincia ="
                         + idProvincia[i] + ") as t2 where t1.Cliente=t2.Codigo group by CodigoProvincia");

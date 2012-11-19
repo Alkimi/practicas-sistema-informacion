@@ -135,21 +135,21 @@
 			<textField pattern="#,##0.00;-#,##0.00">
 				<reportElement uuid="aa61cb7a-dc14-4e90-a603-de7691e6551f" mode="Opaque" x="219" y="22" width="226" height="20" backcolor="#CCCCCC"/>
 				<textElement textAlignment="Right">
-					<font size="16"/>
+					<font fontName="Arial" size="16"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{Suma_consumo}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="515bcaf7-b5dd-47ea-b24f-d26549875d30" mode="Opaque" x="445" y="22" width="112" height="20" backcolor="#CCCCCC"/>
 				<textElement>
-					<font size="16" isBold="true"/>
+					<font fontName="Arial" size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[   KW]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="5cc0e902-45f5-4fd8-ac39-c6ca88a711a0" mode="Opaque" x="6" y="22" width="213" height="20" backcolor="#CCCCCC"/>
 				<textElement textAlignment="Right">
-					<font size="16" isBold="true" isUnderline="false"/>
+					<font fontName="Arial" size="16" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[Consumo Total]]></text>
 			</staticText>

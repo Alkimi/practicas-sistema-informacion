@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report_proporcion_provincia" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43e9f6c1-c380-4c7e-81da-bf811a91c51f">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="144"/>
 	<field name="provincia" class="java.lang.Integer"/>
 	<field name="consumo" class="java.lang.Double"/>
 	<field name="nombre" class="java.lang.String"/>
@@ -132,7 +132,7 @@
 				<pieDataset>
 					<keyExpression><![CDATA[$F{nombre}]]></keyExpression>
 					<valueExpression><![CDATA[$F{consumo}]]></valueExpression>
-					<labelExpression><![CDATA[$F{nombre} +"(" + $F{provincia}+")"]]></labelExpression>
+					<labelExpression><![CDATA[$F{nombre}]]></labelExpression>
 				</pieDataset>
 				<pie3DPlot isShowLabels="true" isCircular="true" legendLabelFormat="{0} ({2})">
 					<plot backgroundAlpha="1.0" foregroundAlpha="0.7"/>
