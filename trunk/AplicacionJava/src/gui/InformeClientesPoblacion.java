@@ -22,9 +22,6 @@ import net.sf.jasperreports.engine.JRException;
 import practica2.ReporteFactura;
 
 /**
- * Entorno grafico de los informes para el informe de generar todas las facturas de los
- * clientes de una poblacion
- *
  * Formulario en el que se selecciona un cliente en concreto para generar
  * su correspondiente factura.
  * 

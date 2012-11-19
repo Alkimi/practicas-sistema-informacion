@@ -23,7 +23,7 @@ import net.sf.jasperreports.engine.export.JRPdfExporter; // pdf
  * Informática T.I. <br/> Curso 2012/13
  *
  * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
- * @version 1.0
+ * @version 2.0
  *
  */
 public class ReporteConsumoProporcion {

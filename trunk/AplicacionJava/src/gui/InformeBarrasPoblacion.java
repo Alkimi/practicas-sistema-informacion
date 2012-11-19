@@ -19,9 +19,6 @@ import net.sf.jasperreports.engine.JRException;
 import practica2.ReporteConsumos;
 
 /**
- * Entorno grafico de los informes para el informe barra del consumo mensual de
- * una poblacion
- *
  * Formulario en el cual se selecciona una población y un año determinado
  * para mostrar el consumo por meses de las misma con un diagrama de barras.
  * 
