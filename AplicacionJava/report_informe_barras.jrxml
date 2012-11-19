@@ -78,7 +78,7 @@
 				<textElement textAlignment="Right">
 					<font size="15" isBold="true" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[Consumo en KW]]></text>
+				<text><![CDATA[Consumo en MW]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -152,7 +152,7 @@
 			<staticText>
 				<reportElement uuid="e15e4ac1-593a-4870-bd49-b048fc3a2147" x="4" y="277" width="100" height="20"/>
 				<textElement/>
-				<text><![CDATA[KW]]></text>
+				<text><![CDATA[MW]]></text>
 			</staticText>
 		</band>
 	</summary>

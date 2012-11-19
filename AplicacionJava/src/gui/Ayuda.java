@@ -11,7 +11,7 @@ package gui;
  * Curso 2012/13
  * 
  * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
- * @version 1.0
+ * @version 2.0
  * 
  */
 
@@ -50,7 +50,7 @@ public class Ayuda extends javax.swing.JFrame {
 
         jLabel1.setText("Aplicación Gestión de Compañía Eléctrica");
 
-        jLabel2.setText("Version 1.0");
+        jLabel2.setText("Version 2.0");
 
         jLabel3.setText("Sistemas de Información");
 

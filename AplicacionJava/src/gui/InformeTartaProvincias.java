@@ -15,14 +15,6 @@ import practica2.HiloInformeTartaProvincias;
 import practica2.ReporteConsumoProporcion;
 
 /**
- * Entorno grafico de los informes para el informe de sectores o tarta
- *
- * <br/><br/>Sistemas de Información <br/> Practica 2<br/> Grado Ingeniería
- * Informática T.I. <br/> Curso 2012/13
- *
- * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
- * @version 1.0
- *
  * Informe de Diagrama de Tarta. Realiza un informe de el consumo de determinadas
  * provincias seleccionadas previamente, con un mínimo de 4 y muestra un diagrama de
  * tarta para comparar el porcentaje de consumo entre ellas.
@@ -122,8 +114,9 @@ public class InformeTartaProvincias extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbCargando)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
                                 .addComponent(btCancelar)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btAceptar)))))
                 .addContainerGap())
         );
@@ -144,7 +137,7 @@ public class InformeTartaProvincias extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btAceptar)
                     .addComponent(btCancelar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();

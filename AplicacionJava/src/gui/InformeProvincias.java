@@ -16,9 +16,7 @@ import net.sf.jasperreports.engine.JRException;
 import practica2.ReporteCiudades;
 
    
-   /**
- * Entorno grafico de los informes para el informe del consumo pro provincia
- *
+ /**
  * Formulario para seleccionar la provincia de la que se quiere hacer un informe.
  * 
  * @author Enrique José Miguel Calvo, Saúl Carranza Gallardo
