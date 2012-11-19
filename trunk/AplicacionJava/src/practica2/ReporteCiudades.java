@@ -43,7 +43,7 @@ public class ReporteCiudades {
 
         try {
 
-            resultado = Principal.cbd.consultaSelect("select sum(t3.total), t6.Poblacion from "
+            resultado = Principal.cbd.consultaSelect("select sum(t3.total)/1000, t6.Poblacion from "
                     + "(select t1.total, t1.Cliente  from ( select sum(KW) as total, Cliente from mediciones Where "
                     + " FechaHora  between " + new aplicacionjava.Conversion().obtenerYear() + "  group by Cliente ) as t1"
                     + " inner join ( Select Codigo from clientes where CodigoProvincia=" + idProvincia + ") as t2"

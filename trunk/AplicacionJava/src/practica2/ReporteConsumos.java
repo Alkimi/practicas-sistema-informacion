@@ -43,7 +43,7 @@ public class ReporteConsumos {
         //realizamos las consultas para obtener lo datos
         try {
 
-            resultado = Principal.cbd.consultaSelect("select sum(t1.kw) as suma, t1.mes as mes from "
+            resultado = Principal.cbd.consultaSelect("select sum(t1.kw)/1000 as suma, t1.mes as mes from "
                     + "(select kw, MONTHNAME(FechaHora) as mes, Cliente, FechaHora from mediciones WHERE "
                     + "FechaHora BETWEEN " + new aplicacionjava.Conversion().obtenerYearCualquiera(year) + ")  as t1 "
                     + "inner join (SELECT Codigo FROM clientes WHERE CodigoPoblacion=" + idPoblacion + ") as t2 where "
